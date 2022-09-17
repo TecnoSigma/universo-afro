@@ -14,6 +14,15 @@ pt-BR:
     candidate: 'Candidato'
     professional: 'Profissional Liberal'
     company: 'Empresa'
+  partials:
+    inform_company_data:
+      company_alias: 'Nome Fantasia'
+      company_name: 'Razão Social'
+      cnpj: 'CNPJ'
+    inform_professional_data:
+      first_name: 'Nome'
+      last_name: 'Sobrenome'
+      cpf: 'CPF'
   registers:
     inform_user_data:
       show_password_chk: 'Mostrar Senha'
@@ -25,12 +34,15 @@ pt-BR:
         user_contract_lnk: 'Contrato do Usuário'
         private_policy_lnk: 'Política de Privacidade'
         cookie_policy_lnk: 'Política de Cookies'
-      company_alias: 'Nome Fantasia'
-      company_name: 'Razão Social'
-      cnpj: 'CNPJ'
-      first_name: 'Nome'
-      last_name: 'Sobrenome'
-      cpf: 'CPF'
       email: 'Email'
       password: 'Senha'
       accept_and_register_btn: 'Aceite e cadastre-se'
+    choose_profile:
+      choose_your_profile: 'Escolha seu perfil'
+      candidate: 'Candidato'
+      professional: 'Profissional Liberal'
+      company: 'Empresa'
+  credits:
+    index:
+      credits: 'Créditos'
+      images: 'Imagens'

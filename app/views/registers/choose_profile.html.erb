@@ -1,14 +1,36 @@
 <br><br>
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-4 offset-sm-4 col-md-4 offset-md-4">
-      <%= button_to 'Candidato', store_user_profile_path(profile: :candidate) %>
-      <br>
-      <br>
-      <%= button_to 'Profissional Liberal', store_user_profile_path(profile: :professional) %>
-      <br>
-      <br>
-      <%= button_to 'Empresa', store_user_profile_path(profile: :company) %>
+    <div class="col-sm-12 col-md-12">
+      <div class="card">
+        <h5 class="card-header">
+          <%= t('.choose_your_profile') %>
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title">&nbsp;</h5>
+          <div class="row">
+            <div class="col-sm-4 col-md-4">
+              <label><%= t('.candidate') %></label>
+              <%= button_to store_user_profile_path(profile: :candidate), class: 'btn btn-dark', alt: t('.candidate') do %>
+                <%= image_tag 'candidate.png', class: 'profile-image' %>
+              <% end %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <label><%= t('.professional') %></label>
+              <%= button_to store_user_profile_path(profile: :professional), class: 'btn btn-dark', alt: t('.professional') do %>
+                <%= image_tag 'professional', class: 'profile-image' %>
+              <% end %>
+            </div>
+            <div class="col-sm-4 col-md-4">
+              <label><%= t('.company') %></label>
+              <%= button_to store_user_profile_path(profile: :company), class: 'btn btn-dark', alt: t('.company') do %>
+                <%= image_tag 'company', class: 'profile-image' %>
+              <% end %>
+            </div>
+          </div>
+          <br><br>
+        </div>
+      </div>
     </div>
   </div>
 </div>
