@@ -1,0 +1,14 @@
+<br><br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-4 offset-sm-4 col-md-4 offset-md-4">
+      <%= button_to 'Candidato', store_user_profile_path(profile: :candidate) %>
+      <br>
+      <br>
+      <%= button_to 'Profissional Liberal', store_user_profile_path(profile: :professional) %>
+      <br>
+      <br>
+      <%= button_to 'Empresa', store_user_profile_path(profile: :company) %>
+    </div>
+  </div>
+</div>

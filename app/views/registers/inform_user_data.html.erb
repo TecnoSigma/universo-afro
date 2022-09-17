@@ -1,0 +1,75 @@
+<br><br>
+<div class="container-fluid">
+  <%= render '/partials/messages' %>
+  <div class="row">
+    <div class="col-sm-4 offset-sm-4 col-md-4 offset-md-4">
+      <div class="card">
+        <h5 class="card-header">
+          <%= t('profile') %>
+          <%= t("profiles.#{session[:profile]}", default: '') %>
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title">&nbsp;</h5>
+          <p class="card-text">
+            <%= form_with scope: 'user_data', url: '/store_user_data' do |form| %>
+              <% if UserPresenter.company?(session[:profile]) %>
+                <div class="mb-3">
+                  <label class="form-label"><%= t('.company_alias') %></label>
+                  <%= form.text_field 'company_alias', class: 'form-control', required: true %>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"><%= t('.company_name') %></label>
+                  <%= form.text_field 'company_name', class: 'form-control', required: true %>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"><%= t('.cnpj') %></label>
+                  <%= form.text_field 'cnpj', class: 'form-control', required: true %>
+                </div>
+              <% end %>
+              <% if UserPresenter.professional?(session[:profile]) %>
+                <div class="mb-3">
+                  <label class="form-label"><%= t('.first_name') %></label>
+                  <%= form.text_field 'first_name', class: 'form-control', required: true %>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"><%= t('.last_name') %></label>
+                  <%= form.text_field 'last_name', class: 'form-control', required: true %>
+                </div>
+                <div class="mb-3">
+                  <label class="form-label"><%= t('.cpf') %></label>
+                  <%= form.text_field 'cpf', class: 'form-control', required: true, data: { mask_target: 'cpf' } %>
+                </div>
+              <% end %>
+              <div class="mb-3">
+                <label class="form-label"><%= t('.email') %></label>
+                <%= form.email_field 'email', class: 'form-control', required: true %>
+              </div>
+              <div class="mb-3">
+                <label class="form-label"><%= t('.password') %></label>
+                <%= form.password_field 'password', class: 'form-control', required: true %>
+              </div>
+              <div class="mb-3 form-check">
+                <input type="checkbox" class="form-check-input" id="showPasswordChk" onclick="showPassword('user_data_password')">
+                <label class="form-check-label" for="showPasswordChk"><%= t('.show_password_chk')%></label>
+              </div>
+              <div class="form-text">
+                <%= t('.message.part_1') %>
+                <%= link_to t('.message.user_contract_lnk'), '#', target: :blank %>
+                <%= t('.message.part_2') %>
+                <%= link_to t('.message.private_policy_lnk'), '#', target: :blank %>
+                <%= t('.message.part_3') %>
+                <%= link_to t('.message.cookie_policy_lnk'), '#', target: :blank %>
+                <%= t('.message.part_4') %>
+
+                <% #TODO: Reescrever contrato e políticas %>
+              </div>
+              <br>
+              <%= form.submit t('.accept_and_register_btn'), class: 'btn btn-dark' %>
+            <% end %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+~
