@@ -1,7 +1,11 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+Credit.create(url: 'https://www.flaticon.com/free-icons/building',
+              title: 'building icons',
+              description: 'Building icons created by Freepik - Flaticon')
+
+Credit.create(url: 'https://www.flaticon.com/free-icons/long-hair',
+              title: 'long hair icons',
+              description: 'Long hair icons created by Freepik - Flaticon')
+
+Credit.create(url: 'https://www.flaticon.com/free-icons/surgeon',
+              title: 'surgeon icons',
+              description: 'Surgeon icons created by Freepik - Flaticon')

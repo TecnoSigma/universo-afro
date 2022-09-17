@@ -1,0 +1,20 @@
+<br><br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-12">
+      <div class="card">
+        <h5 class="card-header">
+          <%= t('.credits') %>
+        </h5>
+        <div class="card-body">
+          <h5 class="card-title"><%= t('.images') %></h5>
+          <ul>
+            <% @credits.each do |credit| %>
+              <li><%= link_to credit.description, credit.url, title: credit.title, target: 'blank' %></li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
