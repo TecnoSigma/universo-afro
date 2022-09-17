@@ -14,6 +14,9 @@ pt-BR:
     candidate: 'Candidato'
     professional: 'Profissional Liberal'
     company: 'Empresa'
+  layouts:
+    application:
+      title: 'Universo Afro'
   partials:
     inform_company_data:
       company_alias: 'Nome Fantasia'
