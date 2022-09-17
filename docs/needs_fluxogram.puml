@@ -1,0 +1,43 @@
+@startuml
+  !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+  !define osaPuml https://raw.githubusercontent.com/Crashedmind/PlantUML-opensecurityarchitecture2-icons/master
+
+  !include osaPuml/Common.puml
+  !include osaPuml/User/all.puml
+  !include osaPuml/Site/all.puml
+  !include osaPuml/Server/all.puml
+
+  scale 2.0
+
+  title "\n**Diagrama de necessidades dos público-alvos**\n"
+
+  Person(worker, "Trabalhadores", $sprite="osa_user_green_developer")
+  Person(customer, "Clientes", $sprite="osa_user_blue")
+  Person(professional, "Profissionais Liberais", $sprite="osa_user_blue_tie")
+  Person(company, "Empresas", $sprite="osa_site_head_office")
+
+  System(system, "Universo Afro", $sprite="osa_server_application")
+
+  Rel(worker, system, " ")
+  Rel(customer, system, " ")
+  Rel(professional, system, " ")
+  Rel(company, system, " ")
+
+  note top of worker
+          Procura por emprego sem receio de vieses racistas
+  end note
+
+  note top of customer
+          Procura por profissionais liberais negros que entendam as necessidades de clientes negros
+  end note
+
+  note top of professional
+          Engajamento para atender clientes negros
+  end note
+
+  note top of company
+          Necessidade de preencher vagas afirmativas para negros
+  end note
+@enduml
+

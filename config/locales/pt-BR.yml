@@ -1,0 +1,36 @@
+pt-BR:
+  notifications:
+    validations:
+      check_email:
+        subject: 'Verificação de email - %{username}'
+        body: "<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/></head><body><div style='width: 300px; padding: 20px; border: 1px solid #ccc; background-color: #f2f2f2; text-align: center'><h3>Agradecemos sua inscrição!</h3><p>Insira este código na página de inscrição para confirmar seu email.</p><br><h1 style='letter-spacing: 5px; color: #747474'>%{verification_code}</h1><br><br><p><b>Equipe Universo Afro<br><a href='universoafro.com.br' target='blank'>universoafro.com.br</b></p></div></body></html>"
+  messages:
+    errors:
+      required_field: 'Preenchimento de campo obrigatório!'
+      invalid_password: 'Senha inválida! Digite uma senha mais forte.'
+      invalid_profile: 'O perfil escolhido pelo usuário é inválido!'
+  profile: 'Perfil: '
+  profiles:
+    candidate: 'Candidato'
+    professional: 'Profissional Liberal'
+    company: 'Empresa'
+  registers:
+    inform_user_data:
+      show_password_chk: 'Mostrar Senha'
+      message:
+        part_1: 'Clicando em "Aceite e cadastre-se", você aceita o '
+        part_2: ', a '
+        part_3: ' e a '
+        part_4: 'do Universo Afro.'
+        user_contract_lnk: 'Contrato do Usuário'
+        private_policy_lnk: 'Política de Privacidade'
+        cookie_policy_lnk: 'Política de Cookies'
+      company_alias: 'Nome Fantasia'
+      company_name: 'Razão Social'
+      cnpj: 'CNPJ'
+      first_name: 'Nome'
+      last_name: 'Sobrenome'
+      cpf: 'CPF'
+      email: 'Email'
+      password: 'Senha'
+      accept_and_register_btn: 'Aceite e cadastre-se'
