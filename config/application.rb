@@ -21,7 +21,10 @@ module UniversoAfro
 
     config.i18n.default_locale = 'pt-BR'
 
-    config.autoload_paths += %W[#{config.root}/app/exceptions
-                                #{config.root}/app/presenters]
+    config.autoload_paths += %W[
+      #{config.root}/lib
+      #{config.root}/app/exceptions
+      #{config.root}/app/presenters
+    ]
   end
 end

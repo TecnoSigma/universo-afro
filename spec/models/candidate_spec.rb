@@ -84,7 +84,7 @@ RSpec.describe Candidate, type: :model do
   end
 
   describe 'vailidates relationships' do
-    it 'validates relationship 1:1 between candidate and Avatar' do
+    it 'validates relationship 1:1 between Candidate and Avatar' do
       candidate = Candidate.new
 
       expect(candidate).to respond_to(:avatar)
