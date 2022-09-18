@@ -16,6 +16,7 @@ gem 'devise'
 gem 'i18n'
 gem 'jquery-mask-plugin'
 gem 'jquery-rails'
+gem 'recaptcha'
 gem 'rest-client'
 gem 'strong_password', '~> 0.0.9'
 

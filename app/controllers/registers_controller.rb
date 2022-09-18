@@ -3,6 +3,7 @@
 # class responsible by control user registers
 class RegistersController < ApplicationController
   before_action :clear_session, only: [:choose_profile]
+  before_action :check_recaptcha!, except: [:choose_profile, :inform_user_data]
 
   def inform_user_data; end
   def choose_profile; end

@@ -9,7 +9,6 @@
           <%= t("profiles.#{session[:profile]}", default: '') %>
         </h5>
         <div class="card-body">
-          <h5 class="card-title">&nbsp;</h5>
           <p class="card-text">
             <%= form_with scope: 'user_data', url: '/store_user_data' do |form| %>
 
@@ -28,6 +27,9 @@
                 <input type="checkbox" class="form-check-input" id="showPasswordChk" onclick="showPassword('user_data_password')">
                 <label class="form-check-label" for="showPasswordChk"><%= t('.show_password_chk')%></label>
               </div>
+
+              <%= recaptcha_tags %>
+
               <div class="form-text">
                 <%= t('.message.part_1') %>
                 <%= link_to t('.message.user_contract_lnk'), '#', target: :blank %>
