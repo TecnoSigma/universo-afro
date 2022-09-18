@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-# class responsible by control user registers
-class RegistersController < ApplicationController
+# class responsible by control user registers validation
+class RegisterValidationsController < ApplicationController
   before_action :clear_session, only: [:choose_profile]
   before_action :check_session_user_data, only: [:confirm_email]
   before_action :check_recaptcha!, except: [:choose_profile, :inform_user_data]

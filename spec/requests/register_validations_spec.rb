@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe RegistersController, type: :request do
+RSpec.describe RegisterValidationsController, type: :request do
   describe 'GET actions' do
     describe '#inform_access_data' do
       it 'renders access data information page' do
