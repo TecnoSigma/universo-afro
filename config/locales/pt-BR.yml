@@ -2,13 +2,14 @@ pt-BR:
   notifications:
     validations:
       check_email:
-        subject: 'Verificação de email - %{username}'
+        subject: 'Verificação de email'
         body: "<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/></head><body><div style='width: 300px; padding: 20px; border: 1px solid #ccc; background-color: #f2f2f2; text-align: center'><h3>Agradecemos sua inscrição!</h3><p>Insira este código na página de inscrição para confirmar seu email.</p><br><h1 style='letter-spacing: 5px; color: #747474'>%{verification_code}</h1><br><br><p><b>Equipe Universo Afro<br><a href='universoafro.com.br' target='blank'>universoafro.com.br</b></p></div></body></html>"
   messages:
     errors:
       required_field: 'Preenchimento de campo obrigatório!'
       invalid_password: 'Senha inválida! Digite uma senha mais forte.'
       invalid_profile: 'O perfil escolhido pelo usuário é inválido!'
+      invalid_session: 'Sessão inválida. A mesma não foi encontrada!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'
@@ -45,6 +46,12 @@ pt-BR:
       candidate: 'Candidato'
       professional: 'Profissional Liberal'
       company: 'Empresa'
+    confirm_email:
+      confirm_your_email: 'Confirme seu email'
+      email_sent_to: 'Email enviado para %{email}'
+      verification_code: 'Código de verificação'
+      resend_verification_code_btn: 'Reenviar código de verificação'
+      accept_and_confirm_btn: 'Aceitar e confirmar'
   credits:
     index:
       credits: 'Créditos'

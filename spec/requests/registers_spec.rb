@@ -19,16 +19,41 @@ RSpec.describe RegistersController, type: :request do
         expect(response).to render_template(:choose_profile)
       end
     end
+
+    describe '#confirm_email' do
+      context 'when exists user data session' do
+        it 'renders email confirmation page' do
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { user_data: { any_data: 'anything' } } }
+
+          get '/confirme-seu-email'
+
+          expect(response).to render_template(:confirm_email)
+        end
+      end
+
+      context 'when no exists user data session' do
+        it 'redirect to choose profile page' do
+
+          get '/confirme-seu-email'
+
+          expect(response).to redirect_to(escolha_seu_perfil_path)
+        end
+      end
+    end
   end
 
   describe 'POST actions' do
     describe '#store_user_data' do
       context 'when password is valid' do
-        it 'redirects to profile choose page' do
+        it 'redirects to email confirmation page' do
+          allow(Notifications::Validations::CheckEmail)
+            .to receive_message_chain(:new, :deliver!) { true }
+
           post '/store_user_data',
             params: { user_data: { email: 'all@acme.com.br', password: '#*$*JJ#(23292' } }
 
-          expect(response).to redirect_to(escolha_seu_perfil_path)
+          expect(response).to redirect_to(confirme_seu_email_path)
         end
       end
 
@@ -84,6 +109,58 @@ RSpec.describe RegistersController, type: :request do
 
           expect(response).to redirect_to(escolha_seu_perfil_path)
         end
+      end
+    end
+
+    describe '#check_verification_code' do
+      context 'when check is accepted' do
+        it 'redirects to choose profile page' do
+          code = '123456'
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { verification_code: code } }
+
+          post '/check_verification_code',
+            params: { verification_code: { code: code } }
+
+          expect(response).to redirect_to(escolha_seu_perfil_path)
+        end
+      end
+
+      context 'when check isn\'t accepted' do
+        it 'redirects to email confirmation page' do
+          code = '123456'
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { verification_code: 'invalid_code' } }
+
+          post '/check_verification_code',
+            params: { verification_code: { code: code } }
+
+          expect(response).to redirect_to(confirme_seu_email_path)
+        end
+      end
+    end
+
+    describe '#resend_verification_code' do
+      it 'redirects to email confirmation page when notification is resent' do
+        allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { user_data: { any_data: 'anything' } } }
+        allow(Notifications::Validations::CheckEmail)
+          .to receive_message_chain(:new, :deliver!) { true }
+
+        post '/resend_verification_code'
+
+        expect(response).to redirect_to(confirme_seu_email_path)
+      end
+
+      it 'no redirects to email confirmation page when notification isn\'t resent' do
+        allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { user_data: { any_data: 'anything' } } }
+        allow(Notifications::Validations::CheckEmail)
+          .to receive_message_chain(:new, :deliver!) { false }
+
+        post '/resend_verification_code'
+
+        expect(response).to have_http_status(204)
       end
     end
   end

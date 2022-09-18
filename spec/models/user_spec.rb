@@ -90,4 +90,22 @@ RSpec.describe User do
       expect(result).to eq(false)
     end
   end
+
+  describe '.verification_code' do
+    it 'returns a string' do
+      result = described_class.verification_code
+
+      expect(result).to be_kind_of(String)
+    end
+
+    it 'returns always string with six caracters' do
+      code = '123'
+
+      allow(Random).to receive(:rand) { code }
+
+      result = described_class.verification_code.size
+
+      expect(result).to eq(6)
+    end
+  end
 end

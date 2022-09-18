@@ -1,0 +1,29 @@
+<br><br>
+<div class="container-fluid">
+  <%= render '/partials/messages' %>
+  <div class="row">
+    <div class="col-sm-4 offset-sm-4 col-md-4 offset-md-4">
+      <div class="card">
+        <h5 class="card-header">
+          <%= t('.confirm_your_email') %>
+        </h5>
+        <div class="card-body">
+          <p class="card-text">
+          <small class="fst-italic"><%= t('.email_sent_to', email: session[:user_data]['email']) %></small>
+            <%= form_with scope: 'verification_code', url: '/check_verification_code' do |form| %>
+
+              <div class="mb-3">
+                <label class="form-label"><%= t('.verification_code') %></label>
+                <%= form.text_field 'code', class: 'form-control' %>
+              </div>
+              <%= form.submit t('.accept_and_confirm_btn'), class: 'btn btn-dark' %>
+            <% end %>
+            <br>
+            <%= button_to t('.resend_verification_code_btn'), resend_verification_code_path, class: 'btn btn-link btn-sm' %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+~

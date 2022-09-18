@@ -6,6 +6,10 @@ class User
 
   private_constant :PROFILES
 
+  def self.verification_code
+    '%06d' % Random.rand(1000000)
+  end
+
   def self.strong_password?(password)
     checker.is_strong?(password)
   end

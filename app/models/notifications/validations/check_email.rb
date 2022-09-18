@@ -5,10 +5,9 @@ module Notifications
 
     # Class reponsible by send notifications
     class CheckEmail
-      attr_reader :username, :email, :verification_code
+      attr_reader :email, :verification_code
 
-      def initialize(username:, email:, verification_code:)
-        @username = username
+      def initialize(email:, verification_code:)
         @email = email
         @verification_code = verification_code
       end
@@ -36,7 +35,7 @@ module Notifications
       def payload
         { 'personalizations': [{ 'to': [{ 'email': email }] }],
           'from': { 'email': ENV['SENDGRID_FROM'] },
-          'subject': I18n.t('notifications.validations.check_email.subject', username: username),
+          'subject': I18n.t('notifications.validations.check_email.subject'),
           'content': [{ 'type': 'text/html', 'value': body }] }.to_json
       end
 

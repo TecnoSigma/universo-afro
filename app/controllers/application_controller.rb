@@ -14,4 +14,13 @@ class ApplicationController < ActionController::Base
 
     redirect_to root_path
   end
+
+  def check_session_user_data
+    raise SessionVerificationError unless session[:user_data]
+
+  rescue SessionVerificationError => error
+    Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+    redirect_to escolha_seu_perfil_path
+  end
 end
