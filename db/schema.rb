@@ -26,19 +26,19 @@ ActiveRecord::Schema.define(version: 2022_09_17_231801) do
     t.index ["jobber_id"], name: "index_avatars_on_jobber_id"
   end
 
-  create_table "credits", force: :cascade do |t|
-    t.string "url"
-    t.string "title"
-    t.string "description"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "jobbers", force: :cascade do |t|
+  create_table "candidates", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
     t.string "afro_id"
     t.integer "status", default: 1
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "credits", force: :cascade do |t|
+    t.string "url"
+    t.string "title"
+    t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

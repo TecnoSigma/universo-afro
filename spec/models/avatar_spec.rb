@@ -28,7 +28,7 @@ RSpec.describe Avatar, type: :model do
     it 'validates relationship 1:1 between Avatar and Jobber' do
       avatar = Avatar.new
 
-      expect(avatar).to respond_to(:jobber)
+      expect(avatar).to respond_to(:candidate)
     end
   end
 end

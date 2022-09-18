@@ -2,7 +2,8 @@
 
 # Class responsible by manage avatars
 
-class Jobber < ApplicationRecord
+# TODO: Alterar nome do model para candidate
+class Candidate < ApplicationRecord
   validates :first_name,
             :last_name,
             :afro_id,
@@ -11,5 +12,5 @@ class Jobber < ApplicationRecord
 
   has_one :avatar
 
-  enum status: Statuses::JOBBER
+  enum status: Statuses::CANDIDATE
 end

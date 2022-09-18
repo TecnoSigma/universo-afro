@@ -1,23 +1,23 @@
 FactoryBot.define do
-  factory :jobber do
+  factory :candidate do
     first_name { Faker::Name.first_name  }
     last_name { Faker::Name.last_name  }
     afro_id { SecureRandom.hex(10) }
 
     trait :pendent do
-      status { Statuses::JOBBER[:pendent] }
+      status { Statuses::CANDIDATE[:pendent] }
     end
 
     trait :activated do
-      status { Statuses::JOBBER[:activated] }
+      status { Statuses::CANDIDATE[:activated] }
     end
 
     trait :deactivated do
-      status { Statuses::JOBBER[:deactivated] }
+      status { Statuses::CANDIDATE[:deactivated] }
     end
 
     trait :cancelled do
-      status { Statuses::JOBBER[:cancelled] }
+      status { Statuses::CANDIDATE[:cancelled] }
     end
   end
 end
