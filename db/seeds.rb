@@ -17,3 +17,6 @@ Credit.create(url: 'https://www.freepik.com/free-vector/simple-background-with-g
 
 # Create States and Cities
 Tasks::PlacesGenerator.call!
+
+# Create Professions
+Tasks::ProfessionsGenerator.call!

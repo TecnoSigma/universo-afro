@@ -89,5 +89,11 @@ RSpec.describe Candidate, type: :model do
 
       expect(candidate).to respond_to(:avatar)
     end
+
+    it 'validates relationship 1:N between Candidate and Profession' do
+      candidate = Candidate.new
+
+      expect(candidate).to respond_to(:professions)
+    end
   end
 end

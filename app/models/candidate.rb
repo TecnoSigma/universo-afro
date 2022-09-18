@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
-# Class responsible by manage avatars
-
-# TODO: Alterar nome do model para candidate
+# Class responsible by manage candidates
 class Candidate < ApplicationRecord
   validates :first_name,
             :last_name,
@@ -18,6 +16,7 @@ class Candidate < ApplicationRecord
   validate :check_most_recent_position
 
   has_one :avatar
+  has_many :professions
 
   enum status: Statuses::CANDIDATE
 
