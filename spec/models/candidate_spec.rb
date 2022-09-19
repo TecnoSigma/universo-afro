@@ -44,42 +44,12 @@ RSpec.describe Candidate, type: :model do
       expect(candidate.errors.messages[:city]).to include('Preenchimento de campo obrigatório!')
     end
 
-    context 'when never worked' do
-      it 'no validates when pass most recent position' do
-        candidate = FactoryBot.build(:candidate, :never_worked, most_recent_position: 'anything')
+    it 'no validates when status is invalid' do
+      candidate = Candidate.new
 
-        expect(candidate).to be_invalid
-        expect(candidate.errors.messages[:most_recent_position]).to include('Preenchimento de campo inválido!')
-      end
-    end
-
-    context 'when worked' do
-      it 'validates when no pass most recent position' do
-        candidate = FactoryBot.build(:candidate, most_recent_position: nil)
-
-        expect(candidate).to be_valid
-      end
-    end
-
-    it 'no validates when no pass job type' do
-      candidate = FactoryBot.build(:candidate, job_type: nil)
-
-      expect(candidate).to be_invalid
-      expect(candidate.errors.messages[:job_type]).to include('Preenchimento de campo obrigatório!')
-    end
-
-    it 'no validates when no pass vacancy state' do
-      candidate = FactoryBot.build(:candidate, vacancy_state: nil)
-
-      expect(candidate).to be_invalid
-      expect(candidate.errors.messages[:vacancy_state]).to include('Preenchimento de campo obrigatório!')
-    end
-
-    it 'no validates when no pass vacancy city' do
-      candidate = FactoryBot.build(:candidate, vacancy_city: nil)
-
-      expect(candidate).to be_invalid
-      expect(candidate.errors.messages[:vacancy_city]).to include('Preenchimento de campo obrigatório!')
+      expect do
+        candidate.status = 'invalid_status'
+      end.to raise_error(ArgumentError, "'invalid_status' is not a valid status")
     end
   end
 

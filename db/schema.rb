@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_18_212823) do
+ActiveRecord::Schema.define(version: 2022_09_19_220330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,13 +31,6 @@ ActiveRecord::Schema.define(version: 2022_09_18_212823) do
     t.string "last_name"
     t.string "state"
     t.string "city"
-    t.string "most_recent_position"
-    t.string "job_type"
-    t.string "vacancy_state"
-    t.string "vacancy_city"
-    t.boolean "vacancy_alert", default: false
-    t.boolean "remote_job", default: false
-    t.boolean "never_worked", default: false
     t.string "afro_id"
     t.integer "status", default: 1
     t.datetime "created_at", precision: 6, null: false
@@ -67,6 +60,20 @@ ActiveRecord::Schema.define(version: 2022_09_18_212823) do
   create_table "states", force: :cascade do |t|
     t.string "name"
     t.integer "external_id"
+  end
+
+  create_table "vacant_jobs", force: :cascade do |t|
+    t.string "name"
+    t.string "kind"
+    t.string "state"
+    t.string "city"
+    t.boolean "alert"
+    t.boolean "remote"
+    t.integer "creator"
+    t.bigint "candidate_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["candidate_id"], name: "index_vacant_jobs_on_candidate_id"
   end
 
 end
