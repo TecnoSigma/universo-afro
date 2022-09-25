@@ -50,13 +50,22 @@ class RegisterValidationsController < ApplicationController
     if session[:verification_code] == verification_code_params[:code]
       clear_session(session[:verification_code])
 
-      redirect_to registro_de_candidato_path
+      redirect_to_register_page
     else
       redirect_to confirme_seu_email_path
     end
   end
 
   private
+
+  def redirect_to_register_page
+    case session[:profile]
+    when 'candidate'
+      redirect_to registro_de_candidato_path
+    when 'professional'
+      redirect_to registro_de_profissional_path
+    end
+  end
 
   def send_email_verification_notification!(verification_code: session[:verification_code])
    return unless session[:user_data]
@@ -73,7 +82,7 @@ class RegisterValidationsController < ApplicationController
   def create_session
     session[:user_data] = {
       company_alias: user_params[:company_alias], company_name: user_params[:company_name],
-      cnpj: user_params[:cnpj], first_name: user_params[:first_name],
+      cnpj: user_params[:cnpj], cpf: user_params[:cpf], first_name: user_params[:first_name],
       last_name: user_params[:last_name], email: user_params[:email],
       password: user_params[:password]
     }

@@ -11,4 +11,12 @@
     <label class="form-label"><%= t('.cpf') %></label>
     <%= form.text_field 'cpf', class: 'form-control', required: true, data: { mask_target: 'cpf' } %>
   </div>
+  <div class="mb-3">
+    <label class="form-label"><%= t('.profession') %></label>
+    <%= form.select 'name',
+                    options_for_select(Profession.all.pluck(:name)),
+                    {},
+                    class: 'form-select',
+                    required: true %>
+  </div>
 <% end %>

@@ -69,6 +69,16 @@ RSpec.describe Candidate, type: :model do
     expect(result).to be_present
   end
 
+  describe 'validates uniqueness' do
+    it 'no validates when email is duplicated' do
+      candidate1 = FactoryBot.create(:candidate)
+      candidate2 = FactoryBot.build(:candidate, email: candidate1.email)
+
+      expect(candidate2).to be_invalid
+      expect(candidate2.errors.messages[:email]).to include('Dado já utilizado!')
+    end
+  end
+
   describe 'validates relationships' do
     it 'validates relationship 1:1 between Candidate and Avatar' do
       candidate = described_class.new

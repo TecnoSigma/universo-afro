@@ -16,5 +16,11 @@ RSpec.describe Profession, type: :model do
 
       expect(profession).to respond_to(:vacant_jobs)
     end
+
+    it 'validates relationship 1:N between Profession and Professionals' do
+      profession = described_class.new
+
+      expect(profession).to respond_to(:professionals)
+    end
   end
 end
