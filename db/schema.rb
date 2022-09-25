@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2022_09_19_220330) do
     t.string "password"
     t.string "state"
     t.string "city"
+    t.boolean "ethnicity_self_declaration", default: false
     t.string "afro_id"
     t.integer "status", default: 1
     t.datetime "created_at", precision: 6, null: false

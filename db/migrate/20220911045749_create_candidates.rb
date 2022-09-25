@@ -7,6 +7,7 @@ class CreateCandidates < ActiveRecord::Migration[6.1]
       t.string :password
       t.string :state
       t.string :city
+      t.boolean :ethnicity_self_declaration, default: false
       t.string :afro_id
       t.integer :status, default: Statuses::CANDIDATE[:pendent]
 

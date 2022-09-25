@@ -48,6 +48,10 @@
                                 class: 'form-select',
                                 required: true %>
               </div>
+              <div class="mb-3 form-check">
+                <%= form.check_box 'ethnicity_self_declaration', class: 'form-check-input', id: 'ethnicitySelfDeclarationChk', checked: true %>
+                <label class="form-check-label" for="ethnicitySelfDeclarationChk"><%= t('.ethnicity_self_declaration_chk')%></label>
+              </div>
               <br>
               <%= form.submit t('.register_first_vacant_job_btn'), class: 'btn btn-dark' %>
             <% end %>

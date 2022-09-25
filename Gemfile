@@ -18,6 +18,7 @@ gem 'jquery-mask-plugin'
 gem 'jquery-rails'
 gem 'nokogiri'
 gem 'recaptcha'
+gem 'repost'
 gem 'rest-client'
 gem 'strong_password', '~> 0.0.9'
 

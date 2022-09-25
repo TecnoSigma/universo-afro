@@ -16,25 +16,18 @@ RSpec.describe Candidate, type: :model do
       expect(candidate.errors.messages[:last_name]).to include('Preenchimento de campo obrigatório!')
     end
 
-it 'no validates when no pass email' do
+    it 'no validates when no pass email' do
       candidate = FactoryBot.build(:candidate, email: nil)
 
       expect(candidate).to be_invalid
       expect(candidate.errors.messages[:email]).to include('Preenchimento de campo obrigatório!')
     end
 
-it 'no validates when no pass password' do
+    it 'no validates when no pass password' do
       candidate = FactoryBot.build(:candidate, password: nil)
 
       expect(candidate).to be_invalid
       expect(candidate.errors.messages[:password]).to include('Preenchimento de campo obrigatório!')
-    end
-
-    it 'no validates when no pass afro ID' do
-      candidate = FactoryBot.build(:candidate, afro_id: nil)
-
-      expect(candidate).to be_invalid
-      expect(candidate.errors.messages[:afro_id]).to include('Preenchimento de campo obrigatório!')
     end
 
     it 'no validates when no pass status' do
@@ -57,17 +50,26 @@ it 'no validates when no pass password' do
       expect(candidate).to be_invalid
       expect(candidate.errors.messages[:city]).to include('Preenchimento de campo obrigatório!')
     end
-
-    it 'no validates when status is invalid' do
-      candidate = Candidate.new
-
-      expect do
-        candidate.status = 'invalid_status'
-      end.to raise_error(ArgumentError, "'invalid_status' is not a valid status")
-    end
   end
 
-  describe 'vailidates relationships' do
+  it 'no validates when status is invalid' do
+    candidate = Candidate.new
+
+    expect do
+      candidate.status = 'invalid_status'
+    end.to raise_error(ArgumentError, "'invalid_status' is not a valid status")
+  end
+
+  it 'generates afro ID when a nem candidate is created' do
+    candidate = FactoryBot.build(:candidate, afro_id: nil)
+    candidate.save!
+
+    result = candidate.afro_id
+
+    expect(result).to be_present
+  end
+
+  describe 'validates relationships' do
     it 'validates relationship 1:1 between Candidate and Avatar' do
       candidate = Candidate.new
 

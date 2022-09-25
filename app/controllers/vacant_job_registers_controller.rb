@@ -9,11 +9,11 @@ class VacantJobRegistersController < UserRegistersController
   def second_vacant_job; end
 
   def store_first_vacant_job_data
-    session[:first_vacant_job] = { position: first_vacant_job_params[:position],
+    session[:first_vacant_job] = { name: first_vacant_job_params[:name],
                                    kind: first_vacant_job_params[:kind],
                                    state: first_vacant_job_params[:state],
                                    city: first_vacant_job_params[:city],
-                                   remote_job: first_vacant_job_params[:remote_job],
+                                   remote: first_vacant_job_params[:remote],
                                    alert: first_vacant_job_params[:alert]
     }
 
@@ -21,15 +21,15 @@ class VacantJobRegistersController < UserRegistersController
   end
 
   def store_second_vacant_job_data
-    session[:second_vacant_job] = { position: second_vacant_job_params[:position],
+    session[:second_vacant_job] = { name: second_vacant_job_params[:name],
                                     kind: second_vacant_job_params[:kind],
                                     state: second_vacant_job_params[:state],
                                     city: second_vacant_job_params[:city],
-                                    remote_job: second_vacant_job_params[:remote_job],
+                                    remote: second_vacant_job_params[:remote],
                                     alert: second_vacant_job_params[:alert]
     }
 
-    redirect_to create_candidate_path
+    redirect_post('/create_candidate')
   end
 
   private
@@ -37,13 +37,13 @@ class VacantJobRegistersController < UserRegistersController
   def first_vacant_job_params
     params
       .require(:vacant_job_1)
-      .permit(:position, :kind, :state, :city, :remote_job, :alert)
+      .permit(:name, :kind, :state, :city, :remote, :alert)
   end
 
   def second_vacant_job_params
     params
       .require(:vacant_job_2)
-      .permit(:position, :kind, :state, :city, :remote_job, :alert)
+      .permit(:name, :kind, :state, :city, :remote, :alert)
   end
 
   def check_first_vacant_job_data

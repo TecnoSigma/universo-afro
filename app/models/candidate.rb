@@ -17,4 +17,12 @@ class Candidate < ApplicationRecord
   has_many :vacant_jobs
 
   enum status: Statuses::CANDIDATE
+
+  before_validation(on: :create) { generate_afro_id! }
+
+  private
+
+  def generate_afro_id!
+   self.afro_id =  SecureRandom.hex(10)
+  end
 end

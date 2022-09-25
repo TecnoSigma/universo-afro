@@ -68,6 +68,8 @@ pt-BR:
       last_name: 'Sobrenome'
       state: 'Estado'
       city: 'Cidade'
+      ethnicity_self_declaration_chk: 'Declaro-me de cor preta ou parda, da raça etnia negra e definidas como tais, conforme classificação adotada pelo Instituto
+Brasileiro de Geografia e Estatística (IBGE).'
       register_first_vacant_job_btn: 'Próxima etapa: Registrar 1ª vaga desejada'
   vacant_job_registers:
     first_vacant_job:

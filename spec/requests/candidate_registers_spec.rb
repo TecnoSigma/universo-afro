@@ -59,7 +59,7 @@ RSpec.describe CandidateRegistersController, type: :request do
       end
     end
 
-    describe '#create' do
+    describe '#create_candidate' do
       context 'when pass valid params' do
         it 'creates new candidates with vacant jobs' do
           first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
@@ -89,7 +89,7 @@ RSpec.describe CandidateRegistersController, type: :request do
                                        first_vacant_job: session_first_vacant_job,
                                        second_vacant_job: session_second_vacant_job } }
 
-          post '/create', params: { candidate: candidate_params }
+          post '/create_candidate', params: { candidate: candidate_params }
 
           result1 = Candidate.find_by(first_name: candidate_params[:first_name])
           result2 = VacantJob.find_by(name: first_vacant_job_params[:name])
@@ -130,7 +130,7 @@ RSpec.describe CandidateRegistersController, type: :request do
                                        first_vacant_job: session_first_vacant_job,
                                        second_vacant_job: session_second_vacant_job } }
 
-          post '/create', params: { candidate: candidate_params }
+          post '/create_candidate', params: { candidate: candidate_params }
 
           expect(response).to redirect_to(candidato_login_path)
         end
@@ -165,7 +165,7 @@ RSpec.describe CandidateRegistersController, type: :request do
                                        first_vacant_job: session_first_vacant_job,
                                        second_vacant_job: session_second_vacant_job } }
 
-          post '/create', params: { candidate: candidate_params }
+          post '/create_candidate', params: { candidate: candidate_params }
 
           result1 = Candidate.find_by(first_name: candidate_params[:first_name])
           result2 = VacantJob.find_by(name: first_vacant_job_params[:name])
@@ -204,7 +204,7 @@ RSpec.describe CandidateRegistersController, type: :request do
                                        first_vacant_job: session_first_vacant_job,
                                        second_vacant_job: session_second_vacant_job } }
 
-          post '/create', params: { candidate: candidate_params }
+          post '/create_candidate', params: { candidate: candidate_params }
 
           result1 = Candidate.find_by(first_name: candidate_params[:first_name])
           result2 = VacantJob.find_by(name: first_vacant_job_params[:name])
@@ -214,7 +214,5 @@ RSpec.describe CandidateRegistersController, type: :request do
         end
       end
     end
-
-
   end
 end
