@@ -29,6 +29,8 @@ ActiveRecord::Schema.define(version: 2022_09_19_220330) do
   create_table "candidates", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
+    t.string "email"
+    t.string "password"
     t.string "state"
     t.string "city"
     t.string "afro_id"

@@ -4,6 +4,8 @@
 class Candidate < ApplicationRecord
   validates :first_name,
             :last_name,
+            :email,
+            :password,
             :state,
             :city,
             :afro_id,

@@ -1,0 +1,220 @@
+# frozen_string_literal: true
+
+require 'rails_helper'
+
+RSpec.describe CandidateRegistersController, type: :request do
+  before(:each) do
+    candidate_params = FactoryBot.attributes_for(:candidate)
+    candidate_data = { first_name: candidate_params[:first_name],
+                       last_name: candidate_params[:last_name],
+                       email: candidate_params[:email],
+                       password: candidate_params[:password],
+                       state: candidate_params[:state],
+                       city: candidate_params[:city] }
+
+    allow_any_instance_of(ActionDispatch::Request)
+      .to receive(:session) { { user_data: candidate_data } }
+  end
+
+  describe 'GET actions' do
+    describe '#index' do
+      it 'renders index page' do
+        candidate_params = FactoryBot.attributes_for(:candidate)
+        candidate_data = { first_name: candidate_params[:first_name],
+                           last_name: candidate_params[:last_name],
+                           email: candidate_params[:email],
+                           password: candidate_params[:password],
+                           state: candidate_params[:state],
+                           city: candidate_params[:city] }
+
+        allow_any_instance_of(ActionDispatch::Request)
+          .to receive(:session) { { user_data: candidate_data } }
+
+        get '/registro-de-candidato'
+
+        expect(response).to render_template(:index)
+      end
+    end
+  end
+
+  describe 'POST actions' do
+    describe '#store_candidate_data' do
+      it 'redirects to first vacant job register page' do
+        candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
+
+        candidate_data = { first_name: candidate_params[:first_name],
+                           last_name: candidate_params[:last_name],
+                           email: candidate_params[:email],
+                           password: candidate_params[:password],
+                           state: candidate_params[:state],
+                           city: candidate_params[:city] }
+
+        allow_any_instance_of(ActionDispatch::Request)
+          .to receive(:session) { { user_data: candidate_data } }
+
+        post '/store_candidate_data',
+          params: { candidate: candidate_params }
+
+        expect(response).to redirect_to(registro_de_vaga_1_path)
+      end
+    end
+
+    describe '#create' do
+      context 'when pass valid params' do
+        it 'creates new candidates with vacant jobs' do
+          first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
+          second_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
+          candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
+
+          candidate_data = { first_name: candidate_params[:first_name],
+                             last_name: candidate_params[:last_name],
+                             email: candidate_params[:email],
+                             password: candidate_params[:password],
+                             state: candidate_params[:state],
+                             city: candidate_params[:city] }
+
+          session_first_vacant_job = { name: first_vacant_job_params[:name],
+                                       kind: first_vacant_job_params[:kind],
+                                       state: first_vacant_job_params[:state],
+                                       city: first_vacant_job_params[:city] }
+
+          session_second_vacant_job = { name: second_vacant_job_params[:name],
+                                        kind: second_vacant_job_params[:kind],
+                                        state: second_vacant_job_params[:state],
+                                        city: second_vacant_job_params[:city] }
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) {  { candidate_data: candidate_data,
+                                       user_data: candidate_data,
+                                       first_vacant_job: session_first_vacant_job,
+                                       second_vacant_job: session_second_vacant_job } }
+
+          post '/create', params: { candidate: candidate_params }
+
+          result1 = Candidate.find_by(first_name: candidate_params[:first_name])
+          result2 = VacantJob.find_by(name: first_vacant_job_params[:name])
+          result3 = VacantJob.find_by(name: second_vacant_job_params[:name])
+
+          expect(result1).to be_present
+          expect(result2).to be_present
+          expect(result3).to be_present
+          expect(result1.vacant_jobs).to include(result2)
+          expect(result1.vacant_jobs).to include(result3)
+        end
+
+        it 'redirects to candidate login page' do
+          first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
+          second_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
+          candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
+
+          candidate_data = { first_name: candidate_params[:first_name],
+                             last_name: candidate_params[:last_name],
+                             email: candidate_params[:email],
+                             password: candidate_params[:password],
+                             state: candidate_params[:state],
+                             city: candidate_params[:city] }
+
+          session_first_vacant_job = { name: first_vacant_job_params[:name],
+                                       kind: first_vacant_job_params[:kind],
+                                       state: first_vacant_job_params[:state],
+                                       city: first_vacant_job_params[:city] }
+
+          session_second_vacant_job = { name: second_vacant_job_params[:name],
+                                        kind: second_vacant_job_params[:kind],
+                                        state: second_vacant_job_params[:state],
+                                        city: second_vacant_job_params[:city] }
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) {  { candidate_data: candidate_data,
+                                       user_data: candidate_data,
+                                       first_vacant_job: session_first_vacant_job,
+                                       second_vacant_job: session_second_vacant_job } }
+
+          post '/create', params: { candidate: candidate_params }
+
+          expect(response).to redirect_to(candidato_login_path)
+        end
+      end
+
+      context 'when pass invalid params' do
+        it 'no creates new candidates with vacant jobs' do
+          first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
+          second_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
+          candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
+
+          candidate_data = { first_name: '',
+                             last_name: candidate_params[:last_name],
+                             email: candidate_params[:email],
+                             password: candidate_params[:password],
+                             state: candidate_params[:state],
+                             city: candidate_params[:city] }
+
+          session_first_vacant_job = { name: first_vacant_job_params[:name],
+                                       kind: first_vacant_job_params[:kind],
+                                       state: first_vacant_job_params[:state],
+                                       city: first_vacant_job_params[:city] }
+
+          session_second_vacant_job = { name: second_vacant_job_params[:name],
+                                        kind: second_vacant_job_params[:kind],
+                                        state: second_vacant_job_params[:state],
+                                        city: second_vacant_job_params[:city] }
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) {  { candidate_data: candidate_data,
+                                       user_data: candidate_data,
+                                       first_vacant_job: session_first_vacant_job,
+                                       second_vacant_job: session_second_vacant_job } }
+
+          post '/create', params: { candidate: candidate_params }
+
+          result1 = Candidate.find_by(first_name: candidate_params[:first_name])
+          result2 = VacantJob.find_by(name: first_vacant_job_params[:name])
+          result3 = VacantJob.find_by(name: second_vacant_job_params[:name])
+
+          expect(result1).to be_nil
+          expect(result2).to be_nil
+          expect(result3).to be_nil
+        end
+
+        it 'redirects to candidate registers page' do
+          first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
+          second_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
+          candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
+
+          candidate_data = { first_name: '',
+                             last_name: candidate_params[:last_name],
+                             email: candidate_params[:email],
+                             password: candidate_params[:password],
+                             state: candidate_params[:state],
+                             city: candidate_params[:city] }
+
+          session_first_vacant_job = { name: first_vacant_job_params[:name],
+                                       kind: first_vacant_job_params[:kind],
+                                       state: first_vacant_job_params[:state],
+                                       city: first_vacant_job_params[:city] }
+
+          session_second_vacant_job = { name: second_vacant_job_params[:name],
+                                        kind: second_vacant_job_params[:kind],
+                                        state: second_vacant_job_params[:state],
+                                        city: second_vacant_job_params[:city] }
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) {  { candidate_data: candidate_data,
+                                       user_data: candidate_data,
+                                       first_vacant_job: session_first_vacant_job,
+                                       second_vacant_job: session_second_vacant_job } }
+
+          post '/create', params: { candidate: candidate_params }
+
+          result1 = Candidate.find_by(first_name: candidate_params[:first_name])
+          result2 = VacantJob.find_by(name: first_vacant_job_params[:name])
+          result3 = VacantJob.find_by(name: second_vacant_job_params[:name])
+
+          expect(response).to redirect_to(registro_de_candidato_path)
+        end
+      end
+    end
+
+
+  end
+end

@@ -122,7 +122,7 @@ RSpec.describe RegisterValidationsController, type: :request do
           post '/check_verification_code',
             params: { verification_code: { code: code } }
 
-          expect(response).to redirect_to(escolha_seu_perfil_path)
+          expect(response).to redirect_to(registro_de_candidato_path)
         end
       end
 

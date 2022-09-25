@@ -2,6 +2,8 @@ FactoryBot.define do
   factory :candidate do
     first_name { Faker::Name.first_name  }
     last_name { Faker::Name.last_name  }
+    email { Faker::Internet.email }
+    password { Faker::Internet.password }
     state { Faker::Address.state }
     city { Faker::Address.city }
     afro_id { SecureRandom.hex(10) }

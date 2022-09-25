@@ -57,3 +57,42 @@ pt-BR:
     index:
       credits: 'Créditos'
       images: 'Imagens'
+  candidate_registers:
+    index:
+      title: 'Registro de Candidato'
+      personal_data: 'Dados pessoais'
+      email: 'Email: '
+      password: 'Senha: '
+      password_content: '**********'
+      first_name: 'Nome'
+      last_name: 'Sobrenome'
+      state: 'Estado'
+      city: 'Cidade'
+      register_first_vacant_job_btn: 'Próxima etapa: Registrar 1ª vaga desejada'
+  vacant_job_registers:
+    first_vacant_job:
+      title: 'Registro da 1ª vaga'
+      vacancy_data: 'Dados para a vaga'
+      email: 'Email: '
+      password: 'Senha: '
+      password_content: '**********'
+      position: 'Cargo'
+      kind: 'Tipo'
+      state: 'Estado'
+      city: 'Cidade'
+      remote_job_chk: 'Trabalho remoto?'
+      wish_receive_vacancy_alert_chk: 'Deseja receber alertas da vaga por email?'
+      register_second_vacant_job_btn: 'Próxima etapa: Registrar 2ª vaga desejada'
+    second_vacant_job:
+      title: 'Registro da 2ª vaga'
+      vacancy_data: 'Dados para a vaga'
+      password: 'Senha: '
+      password_content: '**********'
+      position: 'Cargo'
+      kind: 'Tipo'
+      state: 'Estado'
+      city: 'Cidade'
+      remote_job_chk: 'Trabalho remoto?'
+      wish_receive_vacancy_alert_chk: 'Deseja receber alertas da vaga por email?'
+      finish_candidate_register_btn: 'Finalizar registro do candidato'
+

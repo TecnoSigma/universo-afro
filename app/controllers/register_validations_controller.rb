@@ -50,7 +50,7 @@ class RegisterValidationsController < ApplicationController
     if session[:verification_code] == verification_code_params[:code]
       clear_session(session[:verification_code])
 
-      redirect_to escolha_seu_perfil_path
+      redirect_to registro_de_candidato_path
     else
       redirect_to confirme_seu_email_path
     end

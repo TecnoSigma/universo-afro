@@ -17,6 +17,13 @@ Credit.create(url: 'https://www.freepik.com/free-vector/simple-background-with-g
 
 # Create States and Cities
 Tasks::PlacesGenerator.call!
+#State.create(name: 'São Paulo', external_id: 1)
+#State.create(name: 'Minas Gerais', external_id: 2)
+
+#City.create(name: 'Mauá', state: State.first)
+#City.create(name: 'Belo Horizonte', state: State.last)
 
 # Create Professions
 Tasks::ProfessionsGenerator.call!
+#Profession.create(name: 'Arquivista')
+#Profession.create(name: 'Office-Boy')

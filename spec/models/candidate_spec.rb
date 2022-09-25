@@ -16,6 +16,20 @@ RSpec.describe Candidate, type: :model do
       expect(candidate.errors.messages[:last_name]).to include('Preenchimento de campo obrigatório!')
     end
 
+it 'no validates when no pass email' do
+      candidate = FactoryBot.build(:candidate, email: nil)
+
+      expect(candidate).to be_invalid
+      expect(candidate.errors.messages[:email]).to include('Preenchimento de campo obrigatório!')
+    end
+
+it 'no validates when no pass password' do
+      candidate = FactoryBot.build(:candidate, password: nil)
+
+      expect(candidate).to be_invalid
+      expect(candidate.errors.messages[:password]).to include('Preenchimento de campo obrigatório!')
+    end
+
     it 'no validates when no pass afro ID' do
       candidate = FactoryBot.build(:candidate, afro_id: nil)
 
