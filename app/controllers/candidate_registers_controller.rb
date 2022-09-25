@@ -37,7 +37,7 @@ class CandidateRegistersController < UserRegistersController
   private
 
   def create_vacant_job!(candidate, vacant_job)
-    vacant_job = VacantJob.new(vacant_job)
+    vacant_job = CandidateVacantJob.new(vacant_job)
     vacant_job.candidate = candidate
 
     vacant_job.validate!

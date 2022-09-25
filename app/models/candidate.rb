@@ -14,7 +14,7 @@ class Candidate < ApplicationRecord
 
   has_one :avatar
   has_many :professions
-  has_many :vacant_jobs
+  has_many :candidate_vacant_jobs
 
   enum status: Statuses::CANDIDATE
 

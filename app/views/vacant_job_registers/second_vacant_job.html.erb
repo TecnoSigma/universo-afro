@@ -33,9 +33,9 @@
                 <% #TODO: Incluir quantidade de pessoas interessadas %>
               </div>
               <div class="mb-3">
-                <label class="form-label"><%= t('.kind') %></label>
-                <%= form.select 'kind',
-                                options_for_select(VacantJob::TYPES),
+                <label class="form-label"><%= t('.category') %></label>
+                <%= form.select 'category',
+                                options_for_select(VacantJob::CATEGORIES),
                                 {},
                                 class: 'form-select',
                                 required: true %>

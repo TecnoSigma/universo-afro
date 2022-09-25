@@ -66,13 +66,13 @@ ActiveRecord::Schema.define(version: 2022_09_19_220330) do
   end
 
   create_table "vacant_jobs", force: :cascade do |t|
+    t.string "type"
     t.string "name"
-    t.string "kind"
+    t.string "category"
     t.string "state"
     t.string "city"
     t.boolean "alert"
     t.boolean "remote"
-    t.integer "creator"
     t.bigint "candidate_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false

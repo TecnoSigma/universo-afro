@@ -3,16 +3,12 @@
 # class responsible by manage vacancies
 class VacantJob < ApplicationRecord
   validates :name,
-            :kind,
+            :category,
             :state,
             :city,
             presence: { message: I18n.t('messages.errors.required_field') }
 
-  enum creator: { candidate: 1, company: 2 }
-
-  belongs_to :candidate
-
-  TYPES = ['Aprendiz',
+  CATEGORIES= ['Aprendiz',
     'Autônomo',
     'Estágio',
     'Freelance',
