@@ -114,15 +114,30 @@ RSpec.describe RegisterValidationsController, type: :request do
 
     describe '#check_verification_code' do
       context 'when check is accepted' do
-        it 'redirects to choose profile page' do
-          code = '123456'
-          allow_any_instance_of(ActionDispatch::Request)
-            .to receive(:session) { { verification_code: code } }
+        context 'and profile is of a candidate' do
+          it 'redirects to candidate register page' do
+            code = '123456'
+            allow_any_instance_of(ActionDispatch::Request)
+              .to receive(:session) { { verification_code: code, profile: 'candidate' } }
 
-          post '/check_verification_code',
-            params: { verification_code: { code: code } }
+            post '/check_verification_code',
+              params: { verification_code: { code: code } }
 
-          expect(response).to redirect_to(registro_de_candidato_path)
+            expect(response).to redirect_to(registro_de_candidato_path)
+          end
+        end
+
+        context 'and profile is of a prifessional' do
+          it 'redirects to professional register page' do
+            code = '123456'
+            allow_any_instance_of(ActionDispatch::Request)
+              .to receive(:session) { { verification_code: code, profile: 'professional' } }
+
+            post '/check_verification_code',
+              params: { verification_code: { code: code } }
+
+            expect(response).to redirect_to(registro_de_profissional_path)
+          end
         end
       end
 

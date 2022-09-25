@@ -11,6 +11,7 @@ pt-BR:
       invalid_profile: 'O perfil escolhido pelo usuário é inválido!'
       invalid_session: 'Sessão inválida. A mesma não foi encontrada!'
       invalid_field: 'Preenchimento de campo inválido!'
+      already_used: 'Dado já utilizado!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'
@@ -28,6 +29,7 @@ pt-BR:
       first_name: 'Nome'
       last_name: 'Sobrenome'
       cpf: 'CPF'
+      profession: 'Profissão'
   register_validations:
     inform_user_data:
       show_password_chk: 'Mostrar Senha'

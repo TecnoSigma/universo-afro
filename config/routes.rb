@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   post 'store_candidate_data', to: 'candidate_registers#store_candidate_data'
   post 'create_candidate',     to: 'candidate_registers#create'
 
+  get 'registro-de-profissional', to: 'professional_registers#index'
+
   get 'registro-de-vaga-1', to: 'vacant_job_registers#first_vacant_job'
   get 'registro-de-vaga-2', to: 'vacant_job_registers#second_vacant_job'
   post 'store_first_vacant_job_data', to: 'vacant_job_registers#store_first_vacant_job_data'

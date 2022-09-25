@@ -2,11 +2,12 @@
 
 # class responsible by manage vacancies
 class VacantJob < ApplicationRecord
-  validates :name,
-            :category,
+  validates :category,
             :state,
             :city,
             presence: { message: I18n.t('messages.errors.required_field') }
+
+  belongs_to :profession
 
   CATEGORIES= ['Aprendiz',
     'Autônomo',

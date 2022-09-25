@@ -62,6 +62,8 @@ RSpec.describe CandidateRegistersController, type: :request do
     describe '#create_candidate' do
       context 'when pass valid params' do
         it 'creates new candidates with vacant jobs' do
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
           first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
           second_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
           candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
@@ -73,12 +75,12 @@ RSpec.describe CandidateRegistersController, type: :request do
                              state: candidate_params[:state],
                              city: candidate_params[:city] }
 
-          session_first_vacant_job = { name: first_vacant_job_params[:name],
+          session_first_vacant_job = { profession_id: profession1.id,
                                        category: first_vacant_job_params[:category],
                                        state: first_vacant_job_params[:state],
                                        city: first_vacant_job_params[:city] }
 
-          session_second_vacant_job = { name: second_vacant_job_params[:name],
+          session_second_vacant_job = { profession_id: profession2.id,
                                         category: second_vacant_job_params[:category],
                                         state: second_vacant_job_params[:state],
                                         city: second_vacant_job_params[:city] }
@@ -92,8 +94,8 @@ RSpec.describe CandidateRegistersController, type: :request do
           post '/create_candidate', params: { candidate: candidate_params }
 
           result1 = Candidate.find_by(first_name: candidate_params[:first_name])
-          result2 = CandidateVacantJob.find_by(name: first_vacant_job_params[:name])
-          result3 = CandidateVacantJob.find_by(name: second_vacant_job_params[:name])
+          result2 = CandidateVacantJob.find_by(profession_id: profession1.id)
+          result3 = CandidateVacantJob.find_by(profession_id: profession2.id)
 
           expect(result1).to be_present
           expect(result2).to be_present
@@ -103,6 +105,8 @@ RSpec.describe CandidateRegistersController, type: :request do
         end
 
         it 'redirects to candidate login page' do
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
           first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
           second_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
           candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
@@ -114,12 +118,12 @@ RSpec.describe CandidateRegistersController, type: :request do
                              state: candidate_params[:state],
                              city: candidate_params[:city] }
 
-          session_first_vacant_job = { name: first_vacant_job_params[:name],
+          session_first_vacant_job = { profession_id: profession1.id,
                                        category: first_vacant_job_params[:category],
                                        state: first_vacant_job_params[:state],
                                        city: first_vacant_job_params[:city] }
 
-          session_second_vacant_job = { name: second_vacant_job_params[:name],
+          session_second_vacant_job = { profession_id: profession2.id,
                                         category: second_vacant_job_params[:category],
                                         state: second_vacant_job_params[:state],
                                         city: second_vacant_job_params[:city] }
@@ -138,6 +142,8 @@ RSpec.describe CandidateRegistersController, type: :request do
 
       context 'when pass invalid params' do
         it 'no creates new candidates with vacant jobs' do
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
           first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
           second_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
           candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
@@ -149,12 +155,12 @@ RSpec.describe CandidateRegistersController, type: :request do
                              state: candidate_params[:state],
                              city: candidate_params[:city] }
 
-          session_first_vacant_job = { name: first_vacant_job_params[:name],
+          session_first_vacant_job = { profession_id: profession1.id,
                                        category: first_vacant_job_params[:category],
                                        state: first_vacant_job_params[:state],
                                        city: first_vacant_job_params[:city] }
 
-          session_second_vacant_job = { name: second_vacant_job_params[:name],
+          session_second_vacant_job = { profession_id: profession2.id,
                                         category: second_vacant_job_params[:category],
                                         state: second_vacant_job_params[:state],
                                         city: second_vacant_job_params[:city] }
@@ -177,6 +183,8 @@ RSpec.describe CandidateRegistersController, type: :request do
         end
 
         it 'redirects to candidate registers page' do
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
           first_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
           second_vacant_job_params = FactoryBot.attributes_for(:vacant_job)
           candidate_params = FactoryBot.attributes_for(:candidate).except(:afro_id)
@@ -188,12 +196,12 @@ RSpec.describe CandidateRegistersController, type: :request do
                              state: candidate_params[:state],
                              city: candidate_params[:city] }
 
-          session_first_vacant_job = { name: first_vacant_job_params[:name],
+          session_first_vacant_job = { profession_id: profession1.id,
                                        category: first_vacant_job_params[:category],
                                        state: first_vacant_job_params[:state],
                                        city: first_vacant_job_params[:city] }
 
-          session_second_vacant_job = { name: second_vacant_job_params[:name],
+          session_second_vacant_job = { profession_id: profession1.id,
                                         category: second_vacant_job_params[:category],
                                         state: second_vacant_job_params[:state],
                                         city: second_vacant_job_params[:city] }

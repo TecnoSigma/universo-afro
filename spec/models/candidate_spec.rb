@@ -76,12 +76,6 @@ RSpec.describe Candidate, type: :model do
       expect(candidate).to respond_to(:avatar)
     end
 
-    it 'validates relationship 1:N between Candidate and Profession' do
-      candidate = described_class.new
-
-      expect(candidate).to respond_to(:professions)
-    end
-
     it 'validates relationship 1:N between Candidate and CandidateVacantJob' do
       candidate = described_class.new
 
