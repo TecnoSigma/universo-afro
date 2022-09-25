@@ -174,8 +174,8 @@ RSpec.describe CandidateRegistersController, type: :request do
           post '/create_candidate', params: { candidate: candidate_params }
 
           result1 = Candidate.find_by(first_name: candidate_params[:first_name])
-          result2 = CandidateVacantJob.find_by(name: first_vacant_job_params[:name])
-          result3 = CandidateVacantJob.find_by(name: second_vacant_job_params[:name])
+          result2 = CandidateVacantJob.find_by(profession_id: profession1.id)
+          result3 = CandidateVacantJob.find_by(profession_id: profession2.id)
 
           expect(result1).to be_nil
           expect(result2).to be_nil

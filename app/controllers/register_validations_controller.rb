@@ -84,7 +84,7 @@ class RegisterValidationsController < ApplicationController
       company_alias: user_params[:company_alias], company_name: user_params[:company_name],
       cnpj: user_params[:cnpj], cpf: user_params[:cpf], first_name: user_params[:first_name],
       last_name: user_params[:last_name], email: user_params[:email],
-      password: user_params[:password]
+      password: user_params[:password], profession_id: user_params[:profession_id]
     }
 
     session[:verification_code] = User.verification_code
@@ -101,7 +101,7 @@ class RegisterValidationsController < ApplicationController
   def user_params
     params
       .require(:user_data)
-      .permit(:company_alias, :company_name, :cnpj, :cpf,
+      .permit(:company_alias, :company_name, :cnpj, :cpf, :profession_id,
               :first_name, :last_name, :email, :password)
   end
 end

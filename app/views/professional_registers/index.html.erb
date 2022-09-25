@@ -9,8 +9,8 @@
         </h5>
         <div class="card-body">
           <p class="card-text">
-          <%= form_with scope: 'candidate', url: '/store_candidate_data' do |form| %>
-              <h6 class="fw-bold"><%= t('.personal_data') %></h6>
+          <%= form_with scope: 'candidate', url: '/store_professional_data' do |form| %>
+              <h6 class="fw-bold"><%= t('.address_data') %></h6>
               <hr>
               <div class="mb-3">
                 <label class="form-label fst-italic">
@@ -19,41 +19,40 @@
                 </label>
                 <br>
                 <label class="form-label fst-italic">
-                  <%= t('.password') %>
-                  <%= t('.password_content') %>
+                  <%= t('.cpf') %>
+                  <%= session[:user_data]['cpf'] %>
                 </label>
               </div>
               <div class="mb-3">
-                <label class="form-label"><%= t('.first_name') %></label>
-                <%= form.text_field 'first_name', class: 'form-control', required: true %>
+                <label class="form-label"><%= t('.postal_code') %></label>
+                <%= form.text_field 'postal_code', class: 'form-control', required: true %>
               </div>
               <div class="mb-3">
-                <label class="form-label"><%= t('.last_name') %></label>
-                <%= form.text_field 'last_name', class: 'form-control', required: true %>
+                <label class="form-label"><%= t('.address') %></label>
+                <%= form.text_field 'address', class: 'form-control', required: true %>
               </div>
               <div class="mb-3">
-                <label class="form-label"><%= t('.state') %></label>
-                <%= form.select 'state',
-                                options_for_select(State.all.pluck(:name)),
-                                {},
-                                class: 'form-select',
-                                required: true,
-                                onchange: "listCities($(this).val(), document.getElementById('candidate_city'))" %>
+                <label class="form-label"><%= t('.number') %></label>
+                <%= form.text_field 'number', class: 'form-control', required: true %>
+              </div>
+              <div class="mb-3">
+                <label class="form-label"><%= t('.complement') %></label>
+                <%= form.text_field 'complement', class: 'form-control' %>
+              </div>
+              <div class="mb-3">
+                <label class="form-label"><%= t('.district') %></label>
+                <%= form.text_field 'district', class: 'form-control', required: true %>
               </div>
               <div class="mb-3">
                 <label class="form-label"><%= t('.city') %></label>
-                <%= form.select 'city',
-                                options_for_select([]),
-                                {},
-                                class: 'form-select',
-                                required: true %>
+                <%= form.text_field 'city', class: 'form-control', required: true %>
               </div>
-              <div class="mb-3 form-check">
-                <%= form.check_box 'ethnicity_self_declaration', class: 'form-check-input', id: 'ethnicitySelfDeclarationChk', checked: true %>
-                <label class="form-check-label" for="ethnicitySelfDeclarationChk"><%= t('.ethnicity_self_declaration_chk')%></label>
+              <div class="mb-3">
+                <label class="form-label"><%= t('.state') %></label>
+                <%= form.text_field 'state', class: 'form-control', required: true %>
               </div>
               <br>
-              <%= form.submit t('.register_first_vacant_job_btn'), class: 'btn btn-dark' %>
+              <%= form.submit t('.register_billing_data_btn'), class: 'btn btn-dark' %>
             <% end %>
           </p>
         </div>

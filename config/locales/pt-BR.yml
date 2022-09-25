@@ -73,6 +73,20 @@ pt-BR:
       ethnicity_self_declaration_chk: 'Declaro-me de cor preta ou parda, da raça etnia negra e definidas como tais, conforme classificação adotada pelo Instituto
 Brasileiro de Geografia e Estatística (IBGE).'
       register_first_vacant_job_btn: 'Próxima etapa: Registrar 1ª vaga desejada'
+  professional_registers:
+    index:
+      title: 'Registro de Profissional'
+      address_data: 'Dados de Endereço'
+      postal_code: 'CEP'
+      email: 'Email: '
+      cpf: 'CPF: '
+      address: 'Logradouro'
+      number: 'Número'
+      complement: 'Complemento'
+      district: 'Distrito'
+      city: 'Cidade'
+      state: 'Estado'
+      register_billing_data_btn: 'Próxima etapa: Registrar dados de pagamento'
   vacant_job_registers:
     first_vacant_job:
       title: 'Registro da 1ª vaga'
