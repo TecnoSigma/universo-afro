@@ -12,6 +12,7 @@ gem 'jbuilder', '~> 2.7'
 gem 'bootsnap', '>= 1.4.4', require: false
 
 gem 'bootstrap', '~> 5.2.0'
+gem 'correios-cep'
 gem 'devise'
 gem 'i18n'
 gem 'jquery-mask-plugin'

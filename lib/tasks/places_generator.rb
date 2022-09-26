@@ -60,11 +60,11 @@ module Tasks
       def generate_states!
         states_list = JSON
                       .parse(states.body)
-                      .map { |state| [state['nome'], state['id']] }
+                      .map { |state| [state['nome'], state['id'], state['sigla']] }
                       .sort { |a, b| a <=> b }
 
         states_list.each do |state|
-          State.create!(name: state.first, external_id: state.last)
+          State.create!(name: state[0], external_id: state[1], uf: state[2])
 
           puts "--- State of #{state.first} created!"
         end

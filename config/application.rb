@@ -25,6 +25,7 @@ module UniversoAfro
       #{config.root}/lib
       #{config.root}/app/exceptions
       #{config.root}/app/presenters
+      #{config.root}/app/services
     ]
   end
 end

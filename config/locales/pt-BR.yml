@@ -61,7 +61,7 @@ pt-BR:
       images: 'Imagens'
   candidate_registers:
     index:
-      title: 'Registro de Candidato'
+      title: 'Registro do Candidato'
       personal_data: 'Dados pessoais'
       email: 'Email: '
       password: 'Senha: '
@@ -75,8 +75,8 @@ Brasileiro de Geografia e Estatística (IBGE).'
       register_first_vacant_job_btn: 'Próxima etapa: Registrar 1ª vaga desejada'
   professional_registers:
     index:
-      title: 'Registro de Profissional'
-      address_data: 'Dados de Endereço'
+      title: 'Registro do Profissional'
+      address_data: 'Endereço'
       postal_code: 'CEP'
       email: 'Email: '
       cpf: 'CPF: '
@@ -86,6 +86,8 @@ Brasileiro de Geografia e Estatística (IBGE).'
       district: 'Distrito'
       city: 'Cidade'
       state: 'Estado'
+      search_address_btn: 'Pesquisar endereço'
+      insert_manually_btn: 'Inserir manualmente'
       register_billing_data_btn: 'Próxima etapa: Registrar dados de pagamento'
   vacant_job_registers:
     first_vacant_job:

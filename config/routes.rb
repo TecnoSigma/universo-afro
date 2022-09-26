@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   post 'check_verification_code',    to: 'register_validations#check_verification_code'
 
   get 'users/cities', to: 'user_registers#cities'
+  get 'users/address', to: 'user_registers#address'
 
   get 'registro-de-candidato', to: 'candidate_registers#index'
   post 'store_candidate_data', to: 'candidate_registers#store_candidate_data'

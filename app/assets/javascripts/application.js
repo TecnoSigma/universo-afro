@@ -27,3 +27,61 @@ function showPassword(field) {
             passwordField.type = "password";
       }
 }
+
+function searchAddress(field) {
+        let postalCode = $('#professional_postal_code').val();
+
+        Rails.ajax({
+                type: 'GET',
+                url: '/users/address',
+                data: new URLSearchParams({'postal_code': postalCode}).toString(),
+                success: function (response) {
+                        console.log(response.address);
+
+                        $('#professional_address').val(response.address.address);
+                        $('#professional_district').val(response.address.neighborhood);
+                        $('#professional_state').val(response.address.state);
+
+                        listCities(response.address.state, professional_city);
+
+                        disableProfessionalFields(true);
+                },
+                error: function(xhr,status,error){
+                        console.log(xhr);
+                }
+        });
+}
+
+function disableProfessionalFields(value) {
+        $('#professional_address').prop('disabled', value);
+        $('#professional_district').prop('disabled', value);
+        $('#professional_state').prop('disabled', value);
+}
+
+function listCities(state_name, receptorField) {
+        let citiesList = [];
+        let citiesTotal = 0;
+
+        Rails.ajax({
+                type: 'GET',
+                url: '/users/cities',
+                data: new URLSearchParams({'state_name': state_name}).toString(),
+                success: function (response) {
+                        let citiesList = [];
+                        let citiesLength = 0;
+                        let citiesOptions = "";
+
+                        citiesList = response.cities;
+                        citiesLength = citiesList.length
+
+                        for(let i = 0; i < citiesLength ; i++) {
+                                citiesOptions += "<option>" + citiesList[i] + "</option>"
+                        }
+
+                        receptorField.innerHTML = citiesOptions;
+                },
+                error: function(xhr,status,error){
+                        console.log(xhr);
+                }
+        });
+}

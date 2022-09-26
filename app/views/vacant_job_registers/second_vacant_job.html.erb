@@ -74,32 +74,3 @@
     </div>
   </div>
 </div>
-<script>
-  function listCities(state_name, receptorField) {
-    let citiesList = [];
-    let citiesTotal = 0;
-
-    Rails.ajax({
-      type: 'GET',
-      url: '/users/cities',
-      data: new URLSearchParams({'state_name': state_name}).toString(),
-      success: function (response) {
-        let citiesList = [];
-        let citiesLength = 0;
-        let citiesOptions = "";
-
-        citiesList = response.cities;
-        citiesLength = citiesList.length
-
-        for(let i = 0; i < citiesLength ; i++) {
-          citiesOptions += "<option>" + citiesList[i] + "</option>"
-        }
-
-        receptorField.innerHTML = citiesOptions;
-      },
-      error: function(xhr,status,error){
-        console.log(xhr);
-      }
-    });
-  }
-</script>~

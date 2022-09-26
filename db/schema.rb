@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2022_09_25_200802) do
 
   create_table "states", force: :cascade do |t|
     t.string "name"
+    t.string "uf"
     t.integer "external_id"
   end
 

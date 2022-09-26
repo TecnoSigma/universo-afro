@@ -9,7 +9,7 @@
         </h5>
         <div class="card-body">
           <p class="card-text">
-          <%= form_with scope: 'candidate', url: '/store_professional_data' do |form| %>
+          <%= form_with scope: 'professional', url: '/store_professional_data' do |form| %>
               <h6 class="fw-bold"><%= t('.address_data') %></h6>
               <hr>
               <div class="mb-3">
@@ -26,6 +26,12 @@
               <div class="mb-3">
                 <label class="form-label"><%= t('.postal_code') %></label>
                 <%= form.text_field 'postal_code', class: 'form-control', required: true %>
+                <button type="button" class="btn btn-link btn-sm" onclick="searchAddress('professional_postal_code')">
+                  <%= t('.search_address_btn') %>
+                </button>
+                <button type="button" class="btn btn-link btn-sm" onclick="disableProfessionalFields(false)">
+                  <%= t('.insert_manually_btn') %>
+                </button>
               </div>
               <div class="mb-3">
                 <label class="form-label"><%= t('.address') %></label>
@@ -44,12 +50,21 @@
                 <%= form.text_field 'district', class: 'form-control', required: true %>
               </div>
               <div class="mb-3">
-                <label class="form-label"><%= t('.city') %></label>
-                <%= form.text_field 'city', class: 'form-control', required: true %>
+                <label class="form-label"><%= t('.state') %></label>
+                <%= form.select 'state',
+                                options_for_select(State.all.pluck(:name)),
+                                {},
+                                class: 'form-select',
+                                required: true,
+                                onchange: "listCities($(this).val(), document.getElementById('professional_city'))" %>
               </div>
               <div class="mb-3">
-                <label class="form-label"><%= t('.state') %></label>
-                <%= form.text_field 'state', class: 'form-control', required: true %>
+                <label class="form-label"><%= t('.city') %></label>
+                <%= form.select 'city',
+                                options_for_select([]),
+                                {},
+                                class: 'form-select',
+                                required: true %>
               </div>
               <br>
               <%= form.submit t('.register_billing_data_btn'), class: 'btn btn-dark' %>
@@ -60,32 +75,3 @@
     </div>
   </div>
 </div>
-<script>
-  function listCities(state_name, receptorField) {
-    let citiesList = [];
-    let citiesTotal = 0;
-
-    Rails.ajax({
-      type: 'GET',
-      url: '/users/cities',
-      data: new URLSearchParams({'state_name': state_name}).toString(),
-      success: function (response) {
-        let citiesList = [];
-        let citiesLength = 0;
-        let citiesOptions = "";
-
-        citiesList = response.cities;
-        citiesLength = citiesList.length
-
-        for(let i = 0; i < citiesLength ; i++) {
-          citiesOptions += "<option>" + citiesList[i] + "</option>"
-        }
-
-        receptorField.innerHTML = citiesOptions;
-      },
-      error: function(xhr,status,error){
-        console.log(xhr);
-      }
-    });
-  }
-</script>~
