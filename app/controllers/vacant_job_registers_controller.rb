@@ -14,8 +14,7 @@ class VacantJobRegistersController < UserRegistersController
                                    state: first_vacant_job_params[:state],
                                    city: first_vacant_job_params[:city],
                                    remote: first_vacant_job_params[:remote],
-                                   alert: first_vacant_job_params[:alert]
-    }
+                                   alert: first_vacant_job_params[:alert] }
 
     redirect_to registro_da_vaga_2_path
   end
@@ -26,8 +25,7 @@ class VacantJobRegistersController < UserRegistersController
                                     state: second_vacant_job_params[:state],
                                     city: second_vacant_job_params[:city],
                                     remote: second_vacant_job_params[:remote],
-                                    alert: second_vacant_job_params[:alert]
-    }
+                                    alert: second_vacant_job_params[:alert] }
 
     redirect_post('/create_candidate')
   end
@@ -36,21 +34,20 @@ class VacantJobRegistersController < UserRegistersController
 
   def first_vacant_job_params
     params
-      .require(:vacant_job_1)
+      .require(:vacant_job1)
       .permit(:profession_id, :category, :state, :city, :remote, :alert)
   end
 
   def second_vacant_job_params
     params
-      .require(:vacant_job_2)
+      .require(:vacant_job2)
       .permit(:profession_id, :category, :state, :city, :remote, :alert)
   end
 
   def check_first_vacant_job_data
     raise SessionVerificationError unless session[:first_vacant_job]
-
-  rescue SessionVerificationError => error
-    Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+  rescue SessionVerificationError => e
+    Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
 
     redirect_to registro_do_candidato_path
   end

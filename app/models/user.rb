@@ -2,12 +2,12 @@
 
 # class responsible by manage user rules
 class User
-  PROFILES = %w(candidate company professional)
+  PROFILES = %w[candidate company professional].freeze
 
   private_constant :PROFILES
 
   def self.verification_code
-    '%06d' % Random.rand(1000000)
+    format('%06d', Random.rand(1_000_000))
   end
 
   def self.strong_password?(password)

@@ -4,7 +4,7 @@
 class RegisterValidationsController < ApplicationController
   before_action :clear_session, only: [:choose_profile]
   before_action :check_session_user_data, only: [:confirm_email]
-  before_action :check_recaptcha!, except: [:choose_profile, :inform_user_data]
+  before_action :check_recaptcha!, except: %i[choose_profile inform_user_data]
 
   def inform_user_data; end
   def choose_profile; end
@@ -39,11 +39,11 @@ class RegisterValidationsController < ApplicationController
   def resend_verification_code
     verification_code = User.verification_code
 
-    if send_email_verification_notification!(verification_code: verification_code)
-      session[:verification_code] = verification_code
+    return unless send_email_verification_notification!(verification_code: verification_code)
 
-      redirect_to confirme_seu_email_path
-    end
+    session[:verification_code] = verification_code
+
+    redirect_to confirme_seu_email_path
   end
 
   def check_verification_code
@@ -68,7 +68,7 @@ class RegisterValidationsController < ApplicationController
   end
 
   def send_email_verification_notification!(verification_code: session[:verification_code])
-   return unless session[:user_data]
+    return unless session[:user_data]
 
     Notifications::Validations::CheckEmail
       .new(email: recipient_email, verification_code: verification_code)
@@ -80,14 +80,16 @@ class RegisterValidationsController < ApplicationController
   end
 
   def create_session
-    session[:user_data] = {
-      company_alias: user_params[:company_alias], company_name: user_params[:company_name],
-      cnpj: user_params[:cnpj], cpf: user_params[:cpf], first_name: user_params[:first_name],
-      last_name: user_params[:last_name], email: user_params[:email],
-      password: user_params[:password], profession_id: user_params[:profession_id]
-    }
-
+    session[:user_data] = user_data
     session[:verification_code] = User.verification_code
+  end
+
+  def user_data
+    user = user_params
+
+    { company_alias: user[:company_alias], company_name: user[:company_name], cnpj: user[:cnpj], cpf: user[:cpf],
+      first_name: user[:first_name], last_name: user[:last_name], email: user[:email], password: user[:password],
+      profession_id: user[:profession_id] }
   end
 
   def profile_params

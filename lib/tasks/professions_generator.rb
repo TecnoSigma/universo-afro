@@ -4,9 +4,10 @@ require 'nokogiri'
 require 'open-uri'
 
 module Tasks
+  # Tasks responsible by create professions
   class ProfessionsGenerator
     class << self
-      ALPHABET = %w(a b c d e f g h i j k l m n o p q r s t u v w x y z)
+      ALPHABET = %w[a b c d e f g h i j k l m n o p q r s t u v w x y z].freeze
 
       private_constant :ALPHABET
 
@@ -18,9 +19,9 @@ module Tasks
       def clear_tables!
         Profession.destroy_all
 
-        ActiveRecord::Base.connection.execute("TRUNCATE TABLE professions RESTART IDENTITY;")
+        ActiveRecord::Base.connection.execute('TRUNCATE TABLE professions RESTART IDENTITY;')
 
-        puts "--- Profession table deleted!"
+        puts '--- Profession table deleted!'
 
         true
       end
@@ -29,20 +30,24 @@ module Tasks
         professions = []
 
         ALPHABET.each do |letter|
-          professions  << get_professions(letter)
+          professions << get_professions(letter)
 
           puts "--- Professions with #{letter} collected!"
         end
 
-         professions.flatten.uniq.sort.each do |profession|
-          Profession.create!(name: profession)
-
-          puts "--- Profession of #{profession} created!"
-        end
+        create_professions(professions)
 
         puts "-- #{Profession.count} professions created!"
 
         true
+      end
+
+      def create_professions(professions_list)
+        professions_list.flatten.uniq.sort.each do |profession|
+          Profession.create!(name: profession)
+
+          puts "--- Profession of #{profession} created!"
+        end
       end
 
       def get_professions(letter)

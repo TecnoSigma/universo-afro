@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 # Class responsible by get address when pass a postal code
-
 class AddressService
   attr_reader :postal_code
 

@@ -9,13 +9,12 @@ class VacantJob < ApplicationRecord
 
   belongs_to :profession
 
-  CATEGORIES= ['Aprendiz',
-    'Autônomo',
-    'Estágio',
-    'Freelance',
-    'Meio período',
-    'Tempo integral',
-    'Temporário',
-    'Trainee'
-  ].freeze
+  CATEGORIES = ['Aprendiz',
+                'Autônomo',
+                'Estágio',
+                'Freelance',
+                'Meio período',
+                'Tempo integral',
+                'Temporário',
+                'Trainee'].freeze
 end

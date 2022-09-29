@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Professional < ApplicationRecord
   validates :first_name,
             :last_name,

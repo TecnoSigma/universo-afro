@@ -1,31 +1,15 @@
 # frozen_string_literal: true
 
 module Tasks
+  # class responsible by generate places
   class PlacesGenerator
     class << self
       PLACES_API = 'https://servicodados.ibge.gov.br/api'
       TABLES_LIST = %w[states cities].freeze
-      DF_ADMIN_REGIONS = [
-        'Águas Claras',
-        'Arniqueira',
-        'Brazlândia',
-        'Candangolândia',
-        'Ceilândia',
-        'Cruzeiro',
-        'Fercal',
-        'Gama',
-        'Guará',
-        'Itapoã',
-        'Jardim Botânico',
-        'Lago Norte',
-        'Lago Sul',
-        'Núcleo Bandeirante',
-        'Paranoá',
-        'Park Way',
-        'Planaltina',
-        'Plano Piloto',
-        'Recanto das Emas'].freeze
-
+      DF_ADMIN_REGIONS = ['Águas Claras', 'Arniqueira', 'Brazlândia', 'Candangolândia', 'Ceilândia', 'Cruzeiro',
+                          'Fercal', 'Gama', 'Guará', 'Itapoã', 'Jardim Botânico', 'Lago Norte', 'Lago Sul',
+                          'Núcleo Bandeirante', 'Paranoá', 'Park Way', 'Planaltina', 'Plano Piloto',
+                          'Recanto das Emas'].freeze
 
       private_constant :DF_ADMIN_REGIONS, :PLACES_API, :TABLES_LIST
 
@@ -63,11 +47,7 @@ module Tasks
                       .map { |state| [state['nome'], state['id'], state['sigla']] }
                       .sort { |a, b| a <=> b }
 
-        states_list.each do |state|
-          State.create!(name: state[0], external_id: state[1], uf: state[2])
-
-          puts "--- State of #{state.first} created!"
-        end
+        create_states(states_list)
 
         puts "-- #{State.count} states created!"
 
@@ -80,16 +60,7 @@ module Tasks
 
           next unless response.respond_to?(:body) || response.body != '[]'
 
-          cities = JSON
-                   .parse(response.body)
-            .map { |city| remove_accents(city['nome']).gsub('-',' ') }
-                   .sort
-
-          cities.each do |city|
-            City.create(name: city, state: state)
-
-            puts "--- City of #{city} created!"
-          end
+          create_cities(response, state)
         end
 
         puts "-- #{City.count} cities created!"
@@ -101,7 +72,7 @@ module Tasks
         federal_district = State.find_by_name('Distrito Federal')
 
         DF_ADMIN_REGIONS.each do |region|
-          formatted_region = remove_accents(region).gsub('-',' ')
+          formatted_region = remove_accents(region).gsub('-', ' ')
 
           City.create(name: formatted_region, state: federal_district)
 
@@ -109,6 +80,28 @@ module Tasks
         end
 
         puts "-- #{DF_ADMIN_REGIONS.count} admin regions created!"
+      end
+
+      def create_states(states_list)
+        states_list.each do |state|
+          State.create!(name: state[0], external_id: state[1], uf: state[2])
+
+          puts "--- State of #{state.first} created!"
+        end
+      end
+
+      def create_cities(result, state)
+        cities = JSON
+                 .parse(result.body).map do |city|
+          remove_accents(city['nome']).gsub('-', ' ')
+        end
+                 .sort
+
+        cities.each do |city|
+          City.create(name: city, state: state)
+
+          puts "--- City of #{city} created!"
+        end
       end
 
       def states
@@ -120,36 +113,21 @@ module Tasks
       end
 
       def remove_accents(string)
-        accents = {
-          ['á','à','â','ä','ã'] => 'a',
-          ['Ã','Ä','Â','À','Á'] => 'A',
-          ['é','è','ê','ë'] => 'e',
-          ['Ë','É','È','Ê'] => 'E',
-          ['í','ì','î','ï'] => 'i',
-          ['Î','Ì'] => 'I',
-          ['ó','ò','ô','ö','õ'] => 'o',
-          ['Õ','Ö','Ô','Ò','Ó'] => 'O',
-          ['ú','ù','û','ü'] => 'u',
-          ['Ú','Û','Ù','Ü'] => 'U',
-          ['ç'] => 'c', ['Ç'] => 'C',
-          ['ñ'] => 'n', ['Ñ'] => 'N'
-        }
+        accents = { %w[á à â ä ã] => 'a', %w[Ã Ä Â À Á] => 'A', %w[é è ê ë] => 'e', %w[Ë É È Ê] => 'E',
+                    %w[í ì î ï] => 'i', %w[Î Ì] => 'I', %w[ó ò ô ö õ] => 'o', %w[Õ Ö Ô Ò Ó] => 'O',
+                    %w[ú ù û ü] => 'u', %w[Ú Û Ù Ü] => 'U', ['ç'] => 'c', ['Ç'] => 'C', ['ñ'] => 'n', ['Ñ'] => 'N' }
 
-        accents.each do |accent,rep|
-          accent.each do |letter|
-            string = string.gsub(letter, rep)
-          end
-        end
+        accents.each { |accent, rep| accent.each { |letter| string = string.gsub(letter, rep) } }
 
-        string = string.gsub(/[^a-zA-Z0-9\. ]/,"")
-        string = string.gsub(/[ ]+/," ")
-        string = string.gsub(/ /,"-")
+        string = string.gsub(/[^a-zA-Z0-9. ]/, '')
+        string = string.gsub(/ +/, ' ')
+        string = string.gsub(/ /, '-')
       end
 
       def get(source)
         RestClient.get("#{PLACES_API}/#{source}")
-      rescue SocketError, Errno::ECONNREFUSED => error
-        Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+      rescue SocketError, Errno::ECONNREFUSED => e
+        Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
 
         '[]'
       end

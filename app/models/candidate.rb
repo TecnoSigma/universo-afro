@@ -25,6 +25,6 @@ class Candidate < ApplicationRecord
   private
 
   def generate_afro_id!
-   self.afro_id =  SecureRandom.hex(10)
+    self.afro_id = SecureRandom.hex(10)
   end
 end

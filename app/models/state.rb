@@ -1,4 +1,4 @@
-#frozen_string_literal: true
+# frozen_string_literal: true
 
 # class responsible by manage states
 class State < ApplicationRecord
