@@ -88,7 +88,7 @@ Brasileiro de Geografia e Estatística (IBGE).'
       state: 'Estado'
       search_address_btn: 'Pesquisar endereço'
       insert_manually_btn: 'Inserir manualmente'
-      register_billing_data_btn: 'Próxima etapa: Registrar dados de pagamento'
+      finish_register_btn: 'Finalizar Registro'
   vacant_job_registers:
     first_vacant_job:
       title: 'Registro da 1ª vaga'

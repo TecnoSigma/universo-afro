@@ -12,7 +12,6 @@ FactoryBot.define do
     city { Faker::Address.city }
     state { Faker::Address.state }
     postal_code { Faker::Base.regexify('\d{5}-\d{3}') }
-    remote { false }
 
     trait :pendent do
       status { Statuses::PROFESSIONAL[:pendent] }

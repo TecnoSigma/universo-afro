@@ -17,7 +17,7 @@ class VacantJobRegistersController < UserRegistersController
                                    alert: first_vacant_job_params[:alert]
     }
 
-    redirect_to registro_de_vaga_2_path
+    redirect_to registro_da_vaga_2_path
   end
 
   def store_second_vacant_job_data
@@ -52,6 +52,6 @@ class VacantJobRegistersController < UserRegistersController
   rescue SessionVerificationError => error
     Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
-    redirect_to registro_de_candidato_path
+    redirect_to registro_do_candidato_path
   end
 end

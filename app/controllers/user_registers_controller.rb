@@ -30,6 +30,6 @@ class UserRegistersController < ApplicationController
   rescue SessionCandidateError => error
     Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
-    redirect_to registro_de_candidato_path
+    redirect_to registro_do_candidato_path
   end
 end

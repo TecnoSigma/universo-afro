@@ -110,7 +110,7 @@ RSpec.describe UserRegistersController, type: :request do
         post '/store_candidate_data',
           params: { candidate: candidate_params }
 
-        expect(response).to redirect_to(registro_de_vaga_1_path)
+        expect(response).to redirect_to(registro_da_vaga_1_path)
       end
     end
 
@@ -269,7 +269,7 @@ RSpec.describe UserRegistersController, type: :request do
 
           post '/create_candidate', params: { candidate: candidate_params }
 
-          expect(response).to redirect_to(registro_de_candidato_path)
+          expect(response).to redirect_to(registro_do_candidato_path)
         end
       end
     end

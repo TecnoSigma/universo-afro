@@ -17,7 +17,7 @@ class CandidateRegistersController < UserRegistersController
       ethnicity_self_declaration: candidate_params[:ethnicity_self_declaration]
     }
 
-    redirect_to registro_de_vaga_1_path
+    redirect_to registro_da_vaga_1_path
   end
 
   def create
@@ -31,7 +31,7 @@ class CandidateRegistersController < UserRegistersController
   rescue StandardError => error
     Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
-    redirect_to registro_de_candidato_path
+    redirect_to registro_do_candidato_path
   end
 
   private

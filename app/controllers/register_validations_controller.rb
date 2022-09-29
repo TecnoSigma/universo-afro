@@ -61,9 +61,9 @@ class RegisterValidationsController < ApplicationController
   def redirect_to_register_page
     case session[:profile]
     when 'candidate'
-      redirect_to registro_de_candidato_path
+      redirect_to registro_do_candidato_path
     when 'professional'
-      redirect_to registro_de_profissional_path
+      redirect_to registro_do_profissional_path
     end
   end
 

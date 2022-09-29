@@ -9,19 +9,21 @@ Rails.application.routes.draw do
   post 'resend_verification_code',   to: 'register_validations#resend_verification_code'
   post 'check_verification_code',    to: 'register_validations#check_verification_code'
 
-  get 'users/cities', to: 'user_registers#cities'
+  get 'users/cities',  to: 'user_registers#cities'
   get 'users/address', to: 'user_registers#address'
 
-  get 'registro-de-candidato', to: 'candidate_registers#index'
+  get 'registro-do-candidato', to: 'candidate_registers#index'
   post 'store_candidate_data', to: 'candidate_registers#store_candidate_data'
   post 'create_candidate',     to: 'candidate_registers#create'
 
-  get 'registro-de-profissional', to: 'professional_registers#index'
+  get 'registro-do-profissional', to: 'professional_registers#index'
+  post 'create_professional',     to: 'professional_registers#create'
 
-  get 'registro-de-vaga-1', to: 'vacant_job_registers#first_vacant_job'
-  get 'registro-de-vaga-2', to: 'vacant_job_registers#second_vacant_job'
+  get 'registro-da-vaga-1', to: 'vacant_job_registers#first_vacant_job'
+  get 'registro-da-vaga-2', to: 'vacant_job_registers#second_vacant_job'
   post 'store_first_vacant_job_data', to: 'vacant_job_registers#store_first_vacant_job_data'
   post 'store_second_vacant_job_data', to: 'vacant_job_registers#store_second_vacant_job_data'
 
   get 'candidato/login', to: 'logins#index'
+  get 'profissional/login', to: 'logins#index'
 end

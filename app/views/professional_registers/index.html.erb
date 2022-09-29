@@ -9,7 +9,7 @@
         </h5>
         <div class="card-body">
           <p class="card-text">
-          <%= form_with scope: 'professional', url: '/store_professional_data' do |form| %>
+          <%= form_with scope: 'professional', url: '/create_professional' do |form| %>
               <h6 class="fw-bold"><%= t('.address_data') %></h6>
               <hr>
               <div class="mb-3">
@@ -67,7 +67,7 @@
                                 required: true %>
               </div>
               <br>
-              <%= form.submit t('.register_billing_data_btn'), class: 'btn btn-dark' %>
+              <%= form.submit t('.finish_register_btn'), class: 'btn btn-dark' %>
             <% end %>
           </p>
         </div>

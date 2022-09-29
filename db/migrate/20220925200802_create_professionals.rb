@@ -14,7 +14,6 @@ class CreateProfessionals < ActiveRecord::Migration[6.1]
       t.string :state
       t.string :postal_code
       t.integer :status, default: Statuses::PROFESSIONAL[:pendent]
-      t.boolean :remote
 
       t.references :profession, index: true
 

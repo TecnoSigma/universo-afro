@@ -68,7 +68,6 @@ ActiveRecord::Schema.define(version: 2022_09_25_200802) do
     t.string "state"
     t.string "postal_code"
     t.integer "status", default: 1
-    t.boolean "remote"
     t.bigint "profession_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
