@@ -8,11 +8,7 @@
         </h5>
         <div class="card-body">
           <h5 class="card-title"><%= t('.images') %></h5>
-          <ul>
-            <% @credits.each do |credit| %>
-              <li><%= link_to credit.description, credit.url, title: credit.title, target: 'blank' %></li>
-            <% end %>
-          </ul>
+          <%= credit_links %>
         </div>
       </div>
     </div>

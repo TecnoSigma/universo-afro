@@ -2,7 +2,5 @@
 
 # class responsible by control credits
 class CreditsController < ApplicationController
-  def index
-    @credits = Credit.all
-  end
+  def index; end
 end
