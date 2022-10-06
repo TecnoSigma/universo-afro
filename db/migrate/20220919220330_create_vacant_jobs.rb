@@ -12,6 +12,7 @@ class CreateVacantJobs < ActiveRecord::Migration[6.1]
 
       t.references :profession, index: true
       t.references :candidate, index: true
+      t.references :company, index: true
 
       t.timestamps
     end

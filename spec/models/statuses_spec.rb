@@ -20,4 +20,14 @@ RSpec.describe Statuses do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe 'validates company statuses' do
+    it 'returns hash containing statuses' do
+      result = described_class::COMPANY
+
+      expected_result = { pendent: 1, activated: 2, deactivated: 3, cancelled: 4 }
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end

@@ -7,6 +7,6 @@ module CreditsHelper
       list << "<li><a href='#{item.url}' title='#{item.title}' target='_blank'>#{item.description}</a></li>"
     end
 
-    (result.join + '</ul>').html_safe
+    "#{result.join}</ul>".html_safe
   end
 end

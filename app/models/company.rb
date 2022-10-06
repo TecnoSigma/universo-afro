@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-# class responsivle by manage professionals
-class Professional < ApplicationRecord
-  validates :first_name,
-            :last_name,
-            :cpf,
+# class responsible by manage companies
+class Company < ApplicationRecord
+  validates :name,
+            :nickname,
+            :cnpj,
             :email,
             :password,
             :address,
@@ -15,10 +15,10 @@ class Professional < ApplicationRecord
             :postal_code,
             presence: { message: I18n.t('messages.errors.required_field') }
 
-  validates :cpf,
+  validates :cnpj,
             uniqueness: { message: I18n.t('messages.errors.already_used') }
 
-  belongs_to :profession
+  has_many :company_vacant_jobs
 
-  enum status: Statuses::PROFESSIONAL
+  enum status: Statuses::COMPANY
 end

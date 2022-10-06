@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_09_25_200802) do
+ActiveRecord::Schema.define(version: 2022_10_04_000252) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,24 @@ ActiveRecord::Schema.define(version: 2022_09_25_200802) do
     t.string "name"
     t.bigint "state_id"
     t.index ["state_id"], name: "index_cities_on_state_id"
+  end
+
+  create_table "companies", force: :cascade do |t|
+    t.string "address"
+    t.string "city"
+    t.string "complement"
+    t.string "cnpj"
+    t.string "district"
+    t.string "email"
+    t.string "nickname"
+    t.string "name"
+    t.string "number"
+    t.string "password"
+    t.string "postal_code"
+    t.string "state"
+    t.integer "status"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "credits", force: :cascade do |t|
@@ -93,9 +111,11 @@ ActiveRecord::Schema.define(version: 2022_09_25_200802) do
     t.boolean "remote"
     t.bigint "profession_id"
     t.bigint "candidate_id"
+    t.bigint "company_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["candidate_id"], name: "index_vacant_jobs_on_candidate_id"
+    t.index ["company_id"], name: "index_vacant_jobs_on_company_id"
     t.index ["profession_id"], name: "index_vacant_jobs_on_profession_id"
   end
 
