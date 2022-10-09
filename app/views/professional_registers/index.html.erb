@@ -26,12 +26,6 @@
               <div class="mb-3">
                 <label class="form-label"><%= t('.postal_code') %></label>
                 <%= form.text_field 'postal_code', class: 'form-control', required: true %>
-                <button type="button" class="btn btn-link btn-sm" onclick="searchAddress('professional')">
-                  <%= t('.search_address_btn') %>
-                </button>
-                <button type="button" class="btn btn-link btn-sm" onclick="disableAddressFields('professional', false)">
-                  <%= t('.insert_manually_btn') %>
-                </button>
               </div>
               <div class="mb-3">
                 <label class="form-label"><%= t('.address') %></label>
