@@ -28,23 +28,21 @@ function showPassword(field) {
       }
 }
 
-function searchAddress(field) {
-        let postalCode = $('#professional_postal_code').val();
-
+function searchAddress(profile) {
         Rails.ajax({
                 type: 'GET',
                 url: '/users/address',
-                data: new URLSearchParams({'postal_code': postalCode}).toString(),
+                data: new URLSearchParams({'postal_code': $('#' + profile + '_postal_code').val()}).toString(),
                 success: function (response) {
                         console.log(response.address);
 
-                        $('#professional_address').val(response.address.address);
-                        $('#professional_district').val(response.address.neighborhood);
-                        $('#professional_state').val(response.address.state);
+                        $('#' + profile + '_address').val(response.address.address);
+                        $('#' + profile + '_district').val(response.address.neighborhood);
+                        $('#' + profile + '_state').val(response.address.state);
 
-                        listCities(response.address.state, professional_city);
+                        listCities(response.address.state, $('#' + profile + '_city'));
 
-                        disableProfessionalFields(true);
+                        disableAddressFields(profile, true);
                 },
                 error: function(xhr,status,error){
                         console.log(xhr);
@@ -52,10 +50,10 @@ function searchAddress(field) {
         });
 }
 
-function disableProfessionalFields(value) {
-        $('#professional_address').prop('disabled', value);
-        $('#professional_district').prop('disabled', value);
-        $('#professional_state').prop('disabled', value);
+function disableAddressFields(profile, value) {
+        $('#' + profile + '_address').prop('disabled', value);
+        $('#' + profile + '_district').prop('disabled', value);
+        $('#' + profile + '_state').prop('disabled', value);
 }
 
 function listCities(state_name, receptorField) {

@@ -9,7 +9,7 @@
         </h5>
         <div class="card-body">
           <p class="card-text">
-          <%= form_with scope: 'professional', url: '/create_professional' do |form| %>
+          <%= form_with scope: 'company', url: '/create_company' do |form| %>
               <h6 class="fw-bold"><%= t('.address_data') %></h6>
               <hr>
               <div class="mb-3">
@@ -19,17 +19,17 @@
                 </label>
                 <br>
                 <label class="form-label fst-italic">
-                  <%= t('.cpf') %>
-                  <%= session[:user_data]['cpf'] %>
+                  <%= t('.cnpj') %>
+                  <%= session[:user_data]['cnpj'] %>
                 </label>
               </div>
               <div class="mb-3">
                 <label class="form-label"><%= t('.postal_code') %></label>
                 <%= form.text_field 'postal_code', class: 'form-control', required: true %>
-                <button type="button" class="btn btn-link btn-sm" onclick="searchAddress('professional')">
+                <button type="button" class="btn btn-link btn-sm" onclick="searchAddress('company')">
                   <%= t('.search_address_btn') %>
                 </button>
-                <button type="button" class="btn btn-link btn-sm" onclick="disableAddressFields('professional', false)">
+                <button type="button" class="btn btn-link btn-sm" onclick="disableAddressFields('company', false)">
                   <%= t('.insert_manually_btn') %>
                 </button>
               </div>
@@ -56,7 +56,7 @@
                                 {},
                                 class: 'form-select',
                                 required: true,
-                                onchange: "listCities($(this).val(), document.getElementById('professional_city'))" %>
+                                onchange: "listCities($(this).val(), document.getElementById('company_city'))" %>
               </div>
               <div class="mb-3">
                 <label class="form-label"><%= t('.city') %></label>

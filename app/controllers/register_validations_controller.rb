@@ -64,6 +64,8 @@ class RegisterValidationsController < ApplicationController
       redirect_to registro_do_candidato_path
     when 'professional'
       redirect_to registro_do_profissional_path
+    when 'company'
+      redirect_to registro_da_empresa_path
     end
   end
 
@@ -87,7 +89,7 @@ class RegisterValidationsController < ApplicationController
   def user_data
     user = user_params
 
-    { company_alias: user[:company_alias], company_name: user[:company_name], cnpj: user[:cnpj], cpf: user[:cpf],
+    { name: user[:name], nickname: user[:nickname], cnpj: user[:cnpj], cpf: user[:cpf],
       first_name: user[:first_name], last_name: user[:last_name], email: user[:email], password: user[:password],
       profession_id: user[:profession_id] }
   end
@@ -103,7 +105,7 @@ class RegisterValidationsController < ApplicationController
   def user_params
     params
       .require(:user_data)
-      .permit(:company_alias, :company_name, :cnpj, :cpf, :profession_id,
+      .permit(:name, :nickname, :cnpj, :cpf, :profession_id,
               :first_name, :last_name, :email, :password)
   end
 end

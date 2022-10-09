@@ -22,8 +22,8 @@ pt-BR:
       title: 'Universo Afro'
   partials:
     inform_company_data:
-      company_alias: 'Nome Fantasia'
-      company_name: 'Razão Social'
+      nickname: 'Nome Fantasia'
+      name: 'Razão Social'
       cnpj: 'CNPJ'
     inform_professional_data:
       first_name: 'Nome'
@@ -80,6 +80,22 @@ Brasileiro de Geografia e Estatística (IBGE).'
       postal_code: 'CEP'
       email: 'Email: '
       cpf: 'CPF: '
+      address: 'Logradouro'
+      number: 'Número'
+      complement: 'Complemento'
+      district: 'Distrito'
+      city: 'Cidade'
+      state: 'Estado'
+      search_address_btn: 'Pesquisar endereço'
+      insert_manually_btn: 'Inserir manualmente'
+      finish_register_btn: 'Finalizar Registro'
+  company_registers:
+    index:
+      title: 'Registro da Empresa'
+      address_data: 'Endereço'
+      postal_code: 'CEP'
+      email: 'Email: '
+      cnpj: 'CNPJ: '
       address: 'Logradouro'
       number: 'Número'
       complement: 'Complemento'

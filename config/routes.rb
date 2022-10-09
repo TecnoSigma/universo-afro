@@ -21,11 +21,15 @@ Rails.application.routes.draw do
   get 'registro-do-profissional', to: 'professional_registers#index'
   post 'create_professional',     to: 'professional_registers#create'
 
+  get 'registro-da-empresa', to: 'company_registers#index'
+  post 'create_company',     to: 'company_registers#create'
+
   get 'registro-da-vaga-1', to: 'vacant_job_registers#first_vacant_job'
   get 'registro-da-vaga-2', to: 'vacant_job_registers#second_vacant_job'
   post 'store_first_vacant_job_data', to: 'vacant_job_registers#store_first_vacant_job_data'
   post 'store_second_vacant_job_data', to: 'vacant_job_registers#store_second_vacant_job_data'
 
-  get 'candidato/login', to: 'logins#index'
+  get 'candidato/login',    to: 'logins#index'
   get 'profissional/login', to: 'logins#index'
+  get 'empresa/login',      to: 'logins#index'
 end
