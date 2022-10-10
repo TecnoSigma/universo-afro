@@ -15,6 +15,10 @@ pt-BR:
       invalid_session: 'Sessão inválida. A mesma não foi encontrada!'
       invalid_field: 'Preenchimento de campo inválido!'
       already_used: 'Dado já utilizado!'
+      notified_user: 'Falha ao enviar notificação'
+      activated_user_not_found: 'Usuário ativado não encontrado!'
+    successes:
+      sent_password: 'Senha enviada com sucesso!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'
@@ -118,6 +122,7 @@ Brasileiro de Geografia e Estatística (IBGE).'
       access_btn: 'Acessar'
     send_password:
       title: 'Enviar senha'
+      choose_profile: 'Escolha seu Perfil'
       registered_email: 'Email cadastrado'
       send_password_btn: 'Enviar senha'
       back_lnk: 'Voltar'

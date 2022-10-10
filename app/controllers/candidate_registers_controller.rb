@@ -27,7 +27,7 @@ class CandidateRegistersController < UserRegistersController
 
     generate_vacant_jobs(candidate)
 
-    redirect_to candidato_login_path
+    redirect_to login_path
   rescue StandardError => e
     Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
 

@@ -191,7 +191,7 @@ RSpec.describe UserRegistersController, type: :request do
 
           post '/create_candidate', params: { candidate: candidate_params }
 
-          expect(response).to redirect_to(candidato_login_path)
+          expect(response).to redirect_to(login_path)
         end
       end
 

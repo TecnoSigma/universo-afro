@@ -79,7 +79,7 @@ RSpec.describe ProfessionalRegistersController, type: :request do
                             city: professional_params[:city] }
           }
 
-          expect(response).to redirect_to(profissional_login_path)
+          expect(response).to redirect_to(login_path)
         end
       end
 

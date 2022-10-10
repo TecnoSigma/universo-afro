@@ -11,7 +11,7 @@ class CompanyRegistersController < UserRegistersController
     company.validate!
     company.save!
 
-    redirect_to empresa_login_path
+    redirect_to login_path
   rescue StandardError => e
     Rails.logger.error("Message: #{e.message} - Backtrace:#{e.backtrace}")
 

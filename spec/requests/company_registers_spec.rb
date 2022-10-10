@@ -73,7 +73,7 @@ RSpec.describe CompanyRegistersController, type: :request do
                        city: company_params[:city] }
           }
 
-          expect(response).to redirect_to(empresa_login_path)
+          expect(response).to redirect_to(login_path)
         end
       end
 

@@ -11,7 +11,7 @@ class ProfessionalRegistersController < UserRegistersController
     professional.validate!
     professional.save!
 
-    redirect_to profissional_login_path
+    redirect_to login_path
   rescue StandardError => e
     Rails.logger.error("Message: #{e.message} - Backtrace:#{e.backtrace}")
 
