@@ -29,5 +29,8 @@ Rails.application.routes.draw do
   post 'store_first_vacant_job_data', to: 'vacant_job_registers#store_first_vacant_job_data'
   post 'store_second_vacant_job_data', to: 'vacant_job_registers#store_second_vacant_job_data'
 
-  get 'login', to: 'logins#index'
+  get 'login',        to: 'logins#index'
+  get 'enviar_senha', to: 'logins#send_password'
+
+  #post 'send_password', to: 'logins#send_password'
 end

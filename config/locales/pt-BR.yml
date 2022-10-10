@@ -113,6 +113,11 @@ Brasileiro de Geografia e Estatística (IBGE).'
       choose_profile: 'Escolha seu Perfil'
       forgot_your_password_lnk: 'Esqueceu sua senha?'
       access_btn: 'Acessar'
+    send_password:
+      title: 'Enviar senha'
+      registered_email: 'Email cadastrado'
+      send_password_btn: 'Enviar senha'
+      back_lnk: 'Voltar'
   vacant_job_registers:
     first_vacant_job:
       title: 'Registro da 1ª vaga'
