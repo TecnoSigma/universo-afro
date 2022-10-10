@@ -105,6 +105,14 @@ Brasileiro de Geografia e Estatística (IBGE).'
       search_address_btn: 'Pesquisar endereço'
       insert_manually_btn: 'Inserir manualmente'
       finish_register_btn: 'Finalizar Registro'
+  logins:
+    index:
+      title: 'Login'
+      email: 'Email'
+      password: 'Senha'
+      choose_profile: 'Escolha seu Perfil'
+      forgot_your_password_lnk: 'Esqueceu sua senha?'
+      access_btn: 'Acessar'
   vacant_job_registers:
     first_vacant_job:
       title: 'Registro da 1ª vaga'
