@@ -22,6 +22,48 @@ RSpec.describe LoginsController, type: :request do
   end
 
   describe 'POST actions' do
+    Profile::PROFILES.each do |profile|
+      describe '#validate_access' do
+        context "when the #{profile} is activated" do
+          context 'and pass valid params' do
+            it "redirects to #{profile} dashboard" do
+              if profile == 'professional'
+                profession = FactoryBot.create(:profession)
+
+                profile_data = FactoryBot.create(profile.to_sym, :activated, profession: profession)
+              else
+                profile_data = FactoryBot.create(profile.to_sym, :activated)
+              end
+
+              allow_any_instance_of(ActionDispatch::Request).to receive(:session) { { profile: profile } }
+
+              post '/validate_access',
+                   params: { user: { profile: profile, email: profile_data.email, password: profile_data.password } }
+
+              expect(response).to redirect_to(dashboard_route(profile))
+            end
+          end
+
+          context 'when the #{profile} isn\'t activated' do
+            it "redirects to #{profile} dashboard" do
+              if profile == 'professional'
+                profession = FactoryBot.create(:profession)
+
+                profile_data = FactoryBot.create(profile.to_sym, :deactivated, profession: profession)
+              else
+                profile_data = FactoryBot.create(profile.to_sym, :deactivated)
+              end
+
+              post '/validate_access',
+                   params: { user: { profile: profile, email: 'invalid_email', password: profile_data.password } }
+
+              expect(response).to redirect_to(login_path)
+            end
+          end
+        end
+      end
+    end
+
     describe '#send_password' do
       context 'when pass invalid profile' do
         it 'no sends user password notification' do
@@ -172,6 +214,14 @@ RSpec.describe LoginsController, type: :request do
           end
         end
       end
+    end
+  end
+
+  def dashboard_route(profile)
+    case profile
+    when 'candidate'; then candidato_dashboard_path
+    when 'company'; then empresa_dashboard_path
+    when 'professional'; then profissional_dashboard_path
     end
   end
 end

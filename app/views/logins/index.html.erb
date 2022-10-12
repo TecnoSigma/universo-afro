@@ -9,7 +9,7 @@
         </h5>
         <div class="card-body">
           <p class="card-text">
-            <%= form_with scope: 'user', url: '/access_dashboard' do |form| %>
+            <%= form_with scope: 'user', url: '/validate_access' do |form| %>
               <div class="mb-3">
                 <label class="form-label"><%= t('.choose_profile') %></label>
                 <%= form.select 'profile',

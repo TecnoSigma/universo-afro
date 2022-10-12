@@ -10,11 +10,33 @@ class LoginsController < ApplicationController
     raise NotifiedUserError unless sent_password?(user.password)
 
     redirect_to login_path, notice: I18n.t('messages.successes.sent_password')
-  rescue FindActivatedUserError, NotifiedUserError => error
-    redirect_to login_path, alert: error.message
+  rescue FindActivatedUserError, NotifiedUserError => e
+    redirect_to login_path, alert: e.message
+  end
+
+  def validate_access
+    raise FindUserError unless user_data
+    raise AuthorizedUserError unless user_data.activated?
+
+    create_session!
+
+    redirect_to "/#{translated_profile}/dashboard"
+  rescue FindUserError, AuthorizedUserError => error
+    Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+
+    redirect_to login_path
   end
 
   private
+
+  def create_session!
+    session[:profile] = params['profile']
+  end
+
+  def translated_profile
+    I18n.t("routes.#{session[:profile]}")
+  end
+
 
   def sent_password?(password)
     Notifications::SendPassword
@@ -24,11 +46,22 @@ class LoginsController < ApplicationController
 
   def user
     @user ||= case notifications_params[:profile]
-      when 'candidate';    then Candidate.find_by(email: notifications_params[:email], status: 'activated')
-      when 'company';      then Company.find_by(email: notifications_params[:email], status: 'activated')
-      when 'professional'; then Professional.find_by(email: notifications_params[:email], status: 'activated')
-      else                 nil
-      end
+              when 'candidate';    then Candidate.find_by(email: notifications_params[:email], status: 'activated')
+              when 'company';      then Company.find_by(email: notifications_params[:email], status: 'activated')
+              when 'professional'; then Professional.find_by(email: notifications_params[:email], status: 'activated')
+              end
+  end
+
+  def user_data
+    case notifications_params[:profile]
+    when 'candidate';    then Candidate.find_by(email: user_params[:email], password: user_params[:password])
+    when 'company';      then Company.find_by(email: user_params[:email], password: user_params[:password])
+    when 'professional'; then Professional.find_by(email: user_params[:email], password: user_params[:password])
+    end
+  end
+
+  def user_params
+    params.require(:user).permit(:profile, :email, :password)
   end
 
   def notifications_params

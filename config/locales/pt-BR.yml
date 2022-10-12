@@ -24,6 +24,10 @@ pt-BR:
     candidate: 'Candidato'
     professional: 'Profissional Liberal'
     company: 'Empresa'
+  routes:
+    candidate: 'candidato'
+    professional: 'profissional'
+    company: 'empresa'
   layouts:
     application:
       title: 'Universo Afro'
