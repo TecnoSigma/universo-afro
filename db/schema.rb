@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 2022_10_04_000252) do
     t.binary "data"
     t.string "filename"
     t.string "mime_type"
-    t.bigint "jobber_id"
+    t.bigint "candidate_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.index ["jobber_id"], name: "index_avatars_on_jobber_id"
+    t.index ["candidate_id"], name: "index_avatars_on_candidate_id"
   end
 
   create_table "candidates", force: :cascade do |t|

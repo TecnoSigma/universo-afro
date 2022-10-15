@@ -5,6 +5,8 @@ module Dashboards
   class CandidatesController < DashboardsController
     before_action :check_profile_session
 
-    def index; end
+    def index
+      @user = Candidate.find_by_email(session[:user_email])
+    end
   end
 end

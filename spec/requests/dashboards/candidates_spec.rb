@@ -4,7 +4,10 @@ require 'rails_helper'
 
 RSpec.describe Dashboards::CandidatesController, type: :request do
   before(:each) do
-    allow_any_instance_of(ActionDispatch::Request).to receive(:session) { { profile: 'any_profile' } }
+    user = FactoryBot.create(:candidate)
+
+    allow_any_instance_of(ActionDispatch::Request)
+      .to receive(:session) { { profile: 'any_profile', user_email: user.email } }
   end
 
   describe 'GET actions' do

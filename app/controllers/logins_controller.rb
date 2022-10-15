@@ -30,7 +30,8 @@ class LoginsController < ApplicationController
   private
 
   def create_session!
-    session[:profile] = params['profile']
+    session[:profile] = user_params[:profile]
+    session[:user_email] = user_data[:email]
   end
 
   def translated_profile
@@ -53,11 +54,11 @@ class LoginsController < ApplicationController
   end
 
   def user_data
-    case notifications_params[:profile]
-    when 'candidate';    then Candidate.find_by(email: user_params[:email], password: user_params[:password])
-    when 'company';      then Company.find_by(email: user_params[:email], password: user_params[:password])
-    when 'professional'; then Professional.find_by(email: user_params[:email], password: user_params[:password])
-    end
+    @user_data ||= case user_params[:profile]
+                   when 'candidate';    then Candidate.find_by(email: user_params[:email], password: user_params[:password])
+                   when 'company';      then Company.find_by(email: user_params[:email], password: user_params[:password])
+                   when 'professional'; then Professional.find_by(email: user_params[:email], password: user_params[:password])
+                   end
   end
 
   def user_params

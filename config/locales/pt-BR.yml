@@ -156,4 +156,8 @@ Brasileiro de Geografia e Estatística (IBGE).'
       remote_job_chk: 'Trabalho remoto?'
       wish_receive_vacancy_alert_chk: 'Deseja receber alertas da vaga por email?'
       finish_candidate_register_btn: 'Finalizar registro do candidato'
-
+  dashboards:
+    candidates:
+      index:
+        edit_profile_lnk: 'Editar perfil'
+        most_recent_vacant_jobs: 'Vagas mais recentes'

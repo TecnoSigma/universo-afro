@@ -1,0 +1,47 @@
+<br><br>
+<div class="container-fluid">
+  <%= render '/partials/messages' %>
+  <div class="row">
+    <div class="col-sm-10 offeset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <div class="card">
+        <div class="card-body">
+          <hr>
+          <div class="text-center">
+            <% unless @user.avatar %>
+              <%= image_tag 'add-photo', class: 'avatar profile' %>
+            <% end %>
+            <br><br>
+            <b><%= @user.fullname %></b>
+            <br><br>
+            <%= link_to t('.edit_profile_lnk'), login_path %>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <h3 class="card-header">
+          <%= t('.most_recent_vacant_jobs') %>
+        </h3>
+        <div class="card-body">
+          <hr>
+          <div class="row">
+            <div class="col-sm-4 offset-sm-1 col-md-4 col-lg-2">
+              <%= image_tag 'add-image', class: 'avatar logotype' %>
+            </div>
+            <div class="col-sm-7 col-md-7 col-lg-7">
+              <h5> ACME S.A.</h5>
+              <span>Advogado - 4 vagas</span>
+              <br>
+              <span>10 candidatos inscritos</span>
+              <br><br>
+              <small>Saiba mais</small>
+              <br>
+            </div>
+          </div>
+          <hr>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

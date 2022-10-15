@@ -8,7 +8,7 @@ class CreateAvatars < ActiveRecord::Migration[6.1]
       t.string :filename
       t.string :mime_type
 
-      t.references :jobber, index: true
+      t.references :candidate, index: true
 
       t.timestamps
     end

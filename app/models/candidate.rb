@@ -22,6 +22,10 @@ class Candidate < ApplicationRecord
 
   before_validation(on: :create) { generate_afro_id! }
 
+  def fullname
+    "#{first_name} #{last_name}"
+  end
+
   private
 
   def generate_afro_id!

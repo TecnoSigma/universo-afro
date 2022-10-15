@@ -92,4 +92,19 @@ RSpec.describe Candidate, type: :model do
       expect(candidate).to respond_to(:candidate_vacant_jobs)
     end
   end
+
+  describe '#fullname' do
+    it 'returns candidate fullname' do
+      first_name = 'João'
+      last_name = 'Silva'
+
+      user = FactoryBot.create(:candidate, first_name: first_name, last_name: last_name)
+
+      expected_result = "#{first_name} #{last_name}"
+
+      result = user.fullname
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end
