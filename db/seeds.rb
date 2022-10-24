@@ -33,13 +33,17 @@ Tasks::PlacesGenerator.call!
 # City.create(name: 'Mauá', state: State.first)
 # City.create(name: 'Belo Horizonte', state: State.last)
 
-# Create Professions
-Tasks::ProfessionsGenerator.call!
-# Profession.create(name: 'Arquivista')
-# Profession.create(name: 'Office-Boy')
+if Rails.env.production?
+  # Create Professions
+  Tasks::ProfessionsGenerator.call!
+  # Profession.create(name: 'Arquivista')
+  # Profession.create(name: 'Office-Boy')
+end
 
 unless Rails.env.production?
-  Candidate.create(
+  # Create candidates
+  FactoryBot.create_list(:candidate, 5, :activated)
+  candidate = Candidate.create(
     first_name: 'Alexandre',
     last_name: 'Martins',
     email: 'tecnooxossi@gmail.com',
@@ -50,4 +54,21 @@ unless Rails.env.production?
     afro_id: 'c97e9c6ff50afdd48a69',
     status: 'activated'
   )
+
+  # Create professions
+  profession1 = FactoryBot.create(:profession, name: 'Advogado')
+  profession2 = FactoryBot.create(:profession, name: 'Engenheiro')
+
+  # Create companies
+  company1 = FactoryBot.create(:company, status: 'activated')
+  company2 = FactoryBot.create(:company, status: 'activated')
+
+  # Create candidate vacant jobs
+  FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession1)
+  FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession2)
+  FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: Candidate.first.id, profession: profession2)
+
+  # Create company vacant jobs
+  FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company1.id, profession: profession1)
+  FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company2.id, profession: profession2)
 end

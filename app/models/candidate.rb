@@ -26,7 +26,19 @@ class Candidate < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  def available_vacant_jobs
+    professions
+      .map { |profession| CompanyVacantJob.by_profession(profession) }
+      .flatten
+  end
+
   private
+
+  def professions
+    candidate_vacant_jobs
+      .map { |vacant_job| vacant_job.profession }
+      .pluck(:name)
+  end
 
   def generate_afro_id!
     self.afro_id = SecureRandom.hex(10)

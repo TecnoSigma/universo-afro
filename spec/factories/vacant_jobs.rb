@@ -11,5 +11,13 @@ FactoryBot.define do
     trait :remote do
       remote_job { true }
     end
+
+    trait :candidate_vacant_job do
+      type { 'CandidateVacantJob' }
+    end
+
+    trait :company_vacant_job do
+      type { 'CompanyVacantJob' }
+    end
   end
 end

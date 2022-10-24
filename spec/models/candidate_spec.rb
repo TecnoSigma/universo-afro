@@ -107,4 +107,47 @@ RSpec.describe Candidate, type: :model do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe '#available_vacant_jobs' do
+    it 'returns list containing only available vacant jobs that the candidate choosen' do
+      profession1 = FactoryBot.create(:profession, name: 'Medico')
+      profession2 = FactoryBot.create(:profession, name: 'Advogado')
+
+      company1 = FactoryBot.create(:company, status: 'activated')
+      company2 = FactoryBot.create(:company, status: 'activated')
+
+      candidate = FactoryBot.create(:candidate, status: 'activated')
+
+      candidate_vacant_job1 = FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession1)
+      candidate_vacant_job2 = FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession2)
+
+      company_vacant_job1 = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company1.id, profession: profession1)
+      company_vacant_job2 = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company2.id, profession: profession2)
+
+      result = candidate.available_vacant_jobs
+
+      expected_result = [VacantJob.find_by_id(company_vacant_job1.id), VacantJob.find_by_id(company_vacant_job2.id)]
+
+      expect(result).to eq(expected_result)
+    end
+
+    it 'returns empty list when candaite not choosen the vacant job available by company' do
+      profession1 = FactoryBot.create(:profession, name: 'Medico')
+      profession2 = FactoryBot.create(:profession, name: 'Advogado')
+      profession3 = FactoryBot.create(:profession, name: 'Agrônomo')
+
+      company = FactoryBot.create(:company, status: 'activated')
+
+      candidate = FactoryBot.create(:candidate, status: 'activated')
+
+      candidate_vacant_job1 = FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession1)
+      candidate_vacant_job2 = FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession2)
+
+      FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id, profession: profession3)
+
+      result = candidate.available_vacant_jobs
+
+      expect(result).to be_empty
+    end
+  end
 end
