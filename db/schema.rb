@@ -109,6 +109,7 @@ ActiveRecord::Schema.define(version: 2022_10_04_000252) do
     t.string "city"
     t.boolean "alert"
     t.boolean "remote"
+    t.integer "quantity", default: 0
     t.bigint "profession_id"
     t.bigint "candidate_id"
     t.bigint "company_id"

@@ -10,6 +10,9 @@ class CreateVacantJobs < ActiveRecord::Migration[6.1]
       t.boolean :alert
       t.boolean :remote
 
+      # Company Vacant Job
+      t.integer :quantity, default: 0
+
       t.references :profession, index: true
       t.references :candidate, index: true
       t.references :company, index: true

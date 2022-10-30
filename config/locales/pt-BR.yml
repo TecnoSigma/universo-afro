@@ -9,6 +9,7 @@ pt-BR:
       body: "<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/></head><body><div style='width: 300px; padding: 20px; border: 1px solid #ccc; background-color: #f2f2f2; text-align: justified'><p>Olá,</p><p>Abaixo segue sua senha de acesso:</p><br><div style='text-align: center'><h1 color: #747474'>%{password}</h1><br><br><p><b>Equipe Universo Afro<br><a href='universoafro.com.br' target='blank'>universoafro.com.br</b></p></div></div></body></html>"
   messages:
     errors:
+      invalid_format: 'Formato inválido!'
       required_field: 'Preenchimento de campo obrigatório!'
       invalid_password: 'Senha inválida! Digite uma senha mais forte.'
       invalid_profile: 'O perfil escolhido pelo usuário é inválido!'

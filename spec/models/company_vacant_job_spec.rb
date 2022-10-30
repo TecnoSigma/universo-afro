@@ -1,6 +1,40 @@
 require 'rails_helper'
 
 RSpec.describe CompanyVacantJob, type: :model do
+  describe 'validades presences' do
+    it 'no validates when no pass quantity' do
+      vacant_job = FactoryBot.attributes_for(:vacant_job)
+
+      company_vacant_job = CompanyVacantJob.new(vacant_job)
+      company_vacant_job.quantity = nil
+
+      expect(company_vacant_job).to be_invalid
+      expect(company_vacant_job.errors.messages[:quantity]).to include('Preenchimento de campo obrigatório!')
+    end
+  end
+
+  describe 'validates vacant jobs quantity' do
+    it 'no validates when pass negative number' do
+      vacant_job = FactoryBot.attributes_for(:vacant_job)
+
+      company_vacant_job = CompanyVacantJob.new(vacant_job)
+      company_vacant_job.quantity = -14
+
+      expect(company_vacant_job).to be_invalid
+      expect(company_vacant_job.errors.messages[:quantity]).to include('Formato inválido!')
+    end
+
+    it 'no validates when pass zeroed value' do
+      vacant_job = FactoryBot.attributes_for(:vacant_job)
+
+      company_vacant_job = CompanyVacantJob.new(vacant_job)
+      company_vacant_job.quantity = 0
+
+      expect(company_vacant_job).to be_invalid
+      expect(company_vacant_job.errors.messages[:quantity]).to include('Formato inválido!')
+    end
+  end
+
   it 'validates inheritance of CompanyVacationJob and VacationJob' do
     expect(described_class).to be < VacantJob
   end
