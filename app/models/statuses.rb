@@ -6,4 +6,5 @@ class Statuses
   CANDIDATE = { pendent: 1, activated: 2, deactivated: 3, cancelled: 4 }.freeze
   PROFESSIONAL = { pendent: 1, activated: 2, deactivated: 3, cancelled: 4 }.freeze
   COMPANY = { pendent: 1, activated: 2, deactivated: 3, cancelled: 4 }.freeze
+  VACANT_JOB = { opened: 1, closed: 2, cancelled: 3 }.freeze
 end

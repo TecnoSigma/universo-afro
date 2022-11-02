@@ -9,6 +9,7 @@ class CreateVacantJobs < ActiveRecord::Migration[6.1]
       t.string :city
       t.boolean :alert
       t.boolean :remote
+      t.integer :status, default: Statuses::VACANT_JOB[:opened]
 
       # Company Vacant Job
       t.integer :quantity, default: 0

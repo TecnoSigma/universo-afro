@@ -30,4 +30,14 @@ RSpec.describe Statuses do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe 'validates vacant job statuses' do
+    it 'returns hash containing statuses' do
+      result = described_class::VACANT_JOB
+
+      expected_result = { opened: 1, closed: 2, cancelled: 3 }
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end
