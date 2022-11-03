@@ -5,9 +5,12 @@ class VacantJob < ApplicationRecord
   validates :category,
             :state,
             :city,
+            :status,
             presence: { message: I18n.t('messages.errors.required_field') }
 
   belongs_to :profession
+
+  enum status: Statuses::VACANT_JOB
 
   CATEGORIES = ['Aprendiz',
                 'Autônomo',

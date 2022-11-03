@@ -164,3 +164,7 @@ Brasileiro de Geografia e Estatística (IBGE).'
         most_recent_vacant_jobs: 'Vagas mais recentes'
         vacant_jobs: 'vagas'
         know_more: 'Saiba mais'
+        registered_candidates:
+          zero: ' candidato inscrito'
+          one: ' candidato inscrito'
+          other: ' candidatos inscritos'

@@ -2,36 +2,46 @@ require 'rails_helper'
 
 RSpec.describe CompanyVacantJob, type: :model do
   describe 'validades presences' do
-    it 'no validates when no pass quantity' do
+    it 'no validates when no pass availabled quantity' do
       vacant_job = FactoryBot.attributes_for(:vacant_job)
 
       company_vacant_job = CompanyVacantJob.new(vacant_job)
-      company_vacant_job.quantity = nil
+      company_vacant_job.availabled_quantity = nil
 
       expect(company_vacant_job).to be_invalid
-      expect(company_vacant_job.errors.messages[:quantity]).to include('Preenchimento de campo obrigatório!')
+      expect(company_vacant_job.errors.messages[:availabled_quantity]).to include('Preenchimento de campo obrigatório!')
+    end
+
+    it 'no validates when no pass filled quantity' do
+      vacant_job = FactoryBot.attributes_for(:vacant_job)
+
+      company_vacant_job = CompanyVacantJob.new(vacant_job)
+      company_vacant_job.filled_quantity = nil
+
+      expect(company_vacant_job).to be_invalid
+      expect(company_vacant_job.errors.messages[:filled_quantity]).to include('Preenchimento de campo obrigatório!')
     end
   end
 
-  describe 'validates vacant jobs quantity' do
-    it 'no validates when pass negative number' do
+  describe 'validates numericality' do
+    it 'no validates when pass availabled quantity as negative number' do
       vacant_job = FactoryBot.attributes_for(:vacant_job)
 
       company_vacant_job = CompanyVacantJob.new(vacant_job)
-      company_vacant_job.quantity = -14
+      company_vacant_job.filled_quantity = -14
 
       expect(company_vacant_job).to be_invalid
-      expect(company_vacant_job.errors.messages[:quantity]).to include('Formato inválido!')
+      expect(company_vacant_job.errors.messages[:filled_quantity]).to include('Formato inválido!')
     end
 
-    it 'no validates when pass zeroed value' do
+    it 'no validates when pass filled quantity as negative number' do
       vacant_job = FactoryBot.attributes_for(:vacant_job)
 
       company_vacant_job = CompanyVacantJob.new(vacant_job)
-      company_vacant_job.quantity = 0
+      company_vacant_job.filled_quantity = -14
 
       expect(company_vacant_job).to be_invalid
-      expect(company_vacant_job.errors.messages[:quantity]).to include('Formato inválido!')
+      expect(company_vacant_job.errors.messages[:filled_quantity]).to include('Formato inválido!')
     end
   end
 

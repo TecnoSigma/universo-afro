@@ -12,7 +12,8 @@ class CreateVacantJobs < ActiveRecord::Migration[6.1]
       t.integer :status, default: Statuses::VACANT_JOB[:opened]
 
       # Company Vacant Job
-      t.integer :quantity, default: 0
+      t.integer :availabled_quantity, default: 0
+      t.integer :filled_quantity, default: 0
 
       t.references :profession, index: true
       t.references :candidate, index: true

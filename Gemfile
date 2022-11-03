@@ -13,6 +13,7 @@ gem 'rails', '~> 6.1.7'
 gem 'sass-rails', '>= 6'
 gem 'turbolinks', '~> 5'
 
+gem 'aasm'
 gem 'bootstrap', '~> 5.2.0'
 gem 'correios-cep'
 gem 'devise'
