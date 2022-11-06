@@ -96,5 +96,11 @@ RSpec.describe Company, type: :model do
 
       expect(company). to respond_to(:company_vacant_jobs)
     end
+
+    it 'validates relationship between Company and Logotype' do
+      company = described_class.new
+
+      expect(company). to respond_to(:logotype)
+    end
   end
 end

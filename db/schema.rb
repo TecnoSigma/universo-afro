@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_10_04_000252) do
+ActiveRecord::Schema.define(version: 2022_11_06_215618) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -70,6 +70,17 @@ ActiveRecord::Schema.define(version: 2022_10_04_000252) do
     t.string "description"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "logotypes", force: :cascade do |t|
+    t.string "name"
+    t.binary "data"
+    t.string "filename"
+    t.string "mime_type"
+    t.bigint "company_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["company_id"], name: "index_logotypes_on_company_id"
   end
 
   create_table "professionals", force: :cascade do |t|
