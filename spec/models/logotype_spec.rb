@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Logotype, type: :model do
   describe 'validates presence' do
-    it 'no validates when no pass name' do
-      logotype = FactoryBot.build(:logotype, name: nil)
-
-      expect(logotype).to be_invalid
-      expect(logotype.errors.messages[:name]).to include('Preenchimento de campo obrigatório!')
-    end
-
     it 'no validates when no pass data' do
       logotype = FactoryBot.build(:logotype, data: nil)
 

@@ -3,7 +3,6 @@
 class CreateLogotypes < ActiveRecord::Migration[6.1]
   def change
     create_table :logotypes do |t|
-      t.string :name
       t.binary :data
       t.string :filename
       t.string :mime_type

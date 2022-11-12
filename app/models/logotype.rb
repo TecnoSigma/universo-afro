@@ -1,8 +1,7 @@
 # frozen_string_literal: true
 
 class Logotype < ApplicationRecord
-  validates :name,
-            :data,
+  validates :data,
             :filename,
             :mime_type,
             presence: { message: I18n.t('messages.errors.required_field') }

@@ -73,7 +73,6 @@ ActiveRecord::Schema.define(version: 2022_11_06_215618) do
   end
 
   create_table "logotypes", force: :cascade do |t|
-    t.string "name"
     t.binary "data"
     t.string "filename"
     t.string "mime_type"
