@@ -3,7 +3,7 @@
 # module responsible by validate images
 module AvatarValidator
   LOGOTYPE_SIZE = 150.kilobyte
-  LOGOTYPE_CONTENT_TYPE = %w(image/jpeg image/png)
+  LOGOTYPE_CONTENT_TYPE = %w[image/jpeg image/png].freeze
 
   def self.included(klass)
     klass.validate :presence
@@ -16,33 +16,26 @@ module AvatarValidator
   end
 
   def size
-    return unless self.avatar.attached?
+    return unless avatar.attached?
 
-    unless self.avatar.byte_size <= LOGOTYPE_SIZE
-      errors.add(:avatar, I18n.t('messages.errors.image_size'))
-    end
+    errors.add(:avatar, I18n.t('messages.errors.image_size')) unless avatar.byte_size <= LOGOTYPE_SIZE
   end
 
   def content_type
-    return unless self.avatar.attached?
+    return unless avatar.attached?
 
-    if LOGOTYPE_CONTENT_TYPE.exclude?(self.avatar.content_type)
-      errors.add(:avatar, I18n.t('messages.errors.image_type'))
-    end
+    errors.add(:avatar, I18n.t('messages.errors.image_type')) if LOGOTYPE_CONTENT_TYPE.exclude?(avatar.content_type)
   end
 
   def presence
-    unless self.avatar.attached?
-      errors.add(:avatar, I18n.t('messages.errors.required_field'))
-    end
+    errors.add(:avatar, I18n.t('messages.errors.required_field')) unless avatar.attached?
   end
 
   def update_filename
-    filename = self.cnpj.gsub('.', '').gsub('/', '').gsub('-', '')
+    filename = cnpj.gsub('.', '').gsub('/', '').gsub('-', '')
 
-    self
-      .avatar
+    avatar
       .blob
-      .update(filename: "#{filename}.#{self.avatar.filename.extension}")
+      .update(filename: "#{filename}.#{avatar.filename.extension}")
   end
 end

@@ -36,7 +36,7 @@ class Candidate < ApplicationRecord
 
   def professions
     candidate_vacant_jobs
-      .map { |vacant_job| vacant_job.profession }
+      .map(&:profession)
       .pluck(:name)
   end
 

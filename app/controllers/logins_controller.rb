@@ -21,8 +21,8 @@ class LoginsController < ApplicationController
     create_session!
 
     redirect_to "/#{translated_profile}/dashboard"
-  rescue FindUserError, AuthorizedUserError => error
-    Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
+  rescue FindUserError, AuthorizedUserError => e
+    Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
 
     redirect_to login_path
   end
@@ -37,7 +37,6 @@ class LoginsController < ApplicationController
   def translated_profile
     I18n.t("routes.#{session[:profile]}")
   end
-
 
   def sent_password?(password)
     Notifications::SendPassword
@@ -55,9 +54,9 @@ class LoginsController < ApplicationController
 
   def user_data
     @user_data ||= case user_params[:profile]
-                   when 'candidate';    then Candidate.find_by(email: user_params[:email], password: user_params[:password])
-                   when 'company';      then Company.find_by(email: user_params[:email], password: user_params[:password])
-                   when 'professional'; then Professional.find_by(email: user_params[:email], password: user_params[:password])
+                   when 'candidate'    then find_candidate
+                   when 'company'      then find_company
+                   when 'professional' then find_professional
                    end
   end
 
@@ -67,5 +66,17 @@ class LoginsController < ApplicationController
 
   def notifications_params
     params.require(:user).permit(:profile, :email)
+  end
+
+  def find_company
+    Company.find_by(email: user_params[:email], password: user_params[:password])
+  end
+
+  def find_professional
+    Professional.find_by(email: user_params[:email], password: user_params[:password])
+  end
+
+  def find_candidate
+    Candidate.find_by(email: user_params[:email], password: user_params[:password])
   end
 end
