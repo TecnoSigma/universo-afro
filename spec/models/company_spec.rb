@@ -78,6 +78,44 @@ RSpec.describe Company, type: :model do
       expect(company).to be_invalid
       expect(company.errors.messages[:postal_code]).to include('Preenchimento de campo obrigatório!')
     end
+
+    it 'no validates when no pass avatar' do
+      company = FactoryBot.build(:company)
+      company.avatar = nil
+
+      expect(company).to be_invalid
+      expect(company.errors.messages[:avatar]).to include('Preenchimento de campo obrigatório!')
+    end
+  end
+
+  it 'renames avatar name to same name that company document' do
+    company = FactoryBot.build(:company)
+    company.avatar.attach(io: File.open('spec/fixtures/avatar.png'), filename: 'avatar.png')
+    company.save
+
+    result = Company.find_by(cnpj: company.cnpj).avatar.blob.filename.to_s
+
+    expected_result = "#{company.cnpj.gsub('.', '').gsub('/', '').gsub('-', '')}.png"
+
+    expect(result).to eq(expected_result)
+  end
+
+  describe 'validates avatar' do
+    it 'no validates when avatar have invalid size' do
+      company = FactoryBot.build(:company)
+      company.avatar.attach(io: File.open('spec/fixtures/big_avatar.jpg'), filename: 'big_avatar.jpg')
+
+      expect(company).to be_invalid
+      expect(company.errors.messages[:avatar]).to include('Imagem muito grande!')
+    end
+
+    it 'no validates when avatar have invalid type' do
+      company = FactoryBot.build(:company)
+      company.avatar.attach(io: File.open('spec/fixtures/avatar.txt'), filename: 'avatar.txt')
+
+      expect(company).to be_invalid
+      expect(company.errors.messages[:avatar]).to include('Tipo de imagem inválido!')
+    end
   end
 
   describe 'validates uniqueness' do
@@ -95,12 +133,6 @@ RSpec.describe Company, type: :model do
       company = described_class.new
 
       expect(company). to respond_to(:company_vacant_jobs)
-    end
-
-    it 'validates relationship between Company and Logotype' do
-      company = described_class.new
-
-      expect(company). to respond_to(:logotype)
     end
   end
 end

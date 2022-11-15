@@ -28,7 +28,7 @@
           <% @user.available_vacant_jobs.each do |vacant_job| %>
             <div class="row">
               <div class="col-sm-4 offset-sm-1 col-md-4 col-lg-2">
-                <%= image_tag 'add-image', class: 'avatar logotype' %>
+                <%= image_tag vacant_job.company.avatar, class: 'avatar logotype' %>
               </div>
               <div class="col-sm-7 col-md-7 col-lg-7">
                 <h5><%= vacant_job.company.name %></h5>

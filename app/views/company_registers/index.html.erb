@@ -60,6 +60,12 @@
                                 class: 'form-select',
                                 required: true %>
               </div>
+              <div class="mb-3">
+                <label class="form-label"><%= t('.logotype') %></label>
+                <br>
+                <%= form.file_field 'avatar',
+                    accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+              </div>
               <br>
               <%= form.submit t('.finish_register_btn'), class: 'btn btn-dark' %>
             <% end %>

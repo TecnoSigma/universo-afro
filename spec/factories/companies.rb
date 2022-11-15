@@ -13,6 +13,10 @@ FactoryBot.define do
     state { Faker::Address.state }
     postal_code { Faker::Base.regexify('\d{5}-\d{3}') }
 
+    after(:build) do |company|
+      company.avatar.attach(io: File.open('spec/fixtures/avatar.png'), filename: 'avatar.png')
+    end
+
     trait :pendent do
       status { Statuses::COMPANY[:pendent] }
     end

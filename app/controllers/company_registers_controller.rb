@@ -33,7 +33,7 @@ class CompanyRegistersController < UserRegistersController
   def company_params
     params
       .require(:company)
-      .permit(:postal_code, :address, :number, :complement, :district, :state, :city)
+      .permit(:postal_code, :address, :number, :complement, :district, :state, :city, :avatar)
       .merge(personal_data_params)
   end
 end

@@ -37,6 +37,8 @@ RSpec.describe CompanyRegistersController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { user_data: company_data } }
 
+          file = fixture_file_upload('spec/fixtures/avatar.png', 'image/png')
+
           post '/create_company', params: {
             company: { postal_code: company_params[:postal_code],
                        address: company_params[:address],
@@ -44,7 +46,8 @@ RSpec.describe CompanyRegistersController, type: :request do
                        complement: company_params[:complement],
                        district: company_params[:district],
                        state: company_params[:state],
-                       city: company_params[:city] }
+                       city: company_params[:city],
+                       avatar: file }
           }
 
           result = Company.find_by(name: company_params[:name])
@@ -63,6 +66,8 @@ RSpec.describe CompanyRegistersController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { user_data: company_data } }
 
+          file = fixture_file_upload('spec/fixtures/avatar.png', 'image/png')
+
           post '/create_company', params: {
             company: { postal_code: company_params[:postal_code],
                        address: company_params[:address],
@@ -70,7 +75,8 @@ RSpec.describe CompanyRegistersController, type: :request do
                        complement: company_params[:complement],
                        district: company_params[:district],
                        state: company_params[:state],
-                       city: company_params[:city] }
+                       city: company_params[:city],
+                       avatar: file }
           }
 
           expect(response).to redirect_to(login_path)
@@ -89,6 +95,8 @@ RSpec.describe CompanyRegistersController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { user_data: company_data } }
 
+          file = fixture_file_upload('spec/fixtures/avatar.png', 'image/png')
+
           post '/create_company', params: {
             company: { postal_code: company_params[:postal_code],
                        address: company_params[:address],
@@ -96,7 +104,8 @@ RSpec.describe CompanyRegistersController, type: :request do
                        complement: company_params[:complement],
                        district: company_params[:district],
                        state: nil,
-                       city: company_params[:city] }
+                       city: company_params[:city],
+                       avatar: file }
           }
 
           result = Company.find_by(name: company_params[:name])
@@ -115,6 +124,8 @@ RSpec.describe CompanyRegistersController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { user_data: company_data } }
 
+          file = fixture_file_upload('spec/fixtures/avatar.png', 'image/png')
+
           post '/create_company', params: {
             company: { postal_code: company_params[:postal_code],
                        address: company_params[:address],
@@ -122,7 +133,124 @@ RSpec.describe CompanyRegistersController, type: :request do
                        complement: company_params[:complement],
                        district: company_params[:district],
                        state: nil,
-                       city: company_params[:city] }
+                       city: company_params[:city],
+                       avatar: file }
+          }
+
+          expect(response).to redirect_to(registro_da_empresa_path)
+        end
+      end
+
+      context 'when pass invalid file as avatar' do
+        it 'no creates new company' do
+          company_params = FactoryBot.attributes_for(:company)
+          company_data = { 'name' => company_params[:name],
+                           'nickname' => company_params[:nickname],
+                           'cnpj' => company_params[:cnpj],
+                           'email' => company_params[:email],
+                           'password' => company_params[:password] }
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { user_data: company_data } }
+
+          file = fixture_file_upload('spec/fixtures/avatar.txt', 'text/plain')
+
+          post '/create_company', params: {
+            company: { postal_code: company_params[:postal_code],
+                       address: company_params[:address],
+                       number: company_params[:number],
+                       complement: company_params[:complement],
+                       district: company_params[:district],
+                       state: company_params[:state],
+                       city: company_params[:city],
+                       avatar: file }
+          }
+
+          result = Company.find_by(name: company_params[:name])
+
+          expect(result).to be_nil
+        end
+
+        it 'redirects to company register page' do
+          company_params = FactoryBot.attributes_for(:company)
+          company_data = { 'name' => company_params[:name],
+                           'nickname' => company_params[:nickname],
+                           'cnpj' => company_params[:cnpj],
+                           'email' => company_params[:email],
+                           'password' => company_params[:password] }
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { user_data: company_data } }
+
+          file = fixture_file_upload('spec/fixtures/avatar.txt', 'text/plain')
+
+          post '/create_company', params: {
+            company: { postal_code: company_params[:postal_code],
+                       address: company_params[:address],
+                       number: company_params[:number],
+                       complement: company_params[:complement],
+                       district: company_params[:district],
+                       state: company_params[:state],
+                       city: company_params[:city],
+                       avatar: file }
+          }
+
+          expect(response).to redirect_to(registro_da_empresa_path)
+        end
+      end
+
+      context 'when avatar size is greater than 150Kb' do
+        it 'no creates new company' do
+          company_params = FactoryBot.attributes_for(:company)
+          company_data = { 'name' => company_params[:name],
+                           'nickname' => company_params[:nickname],
+                           'cnpj' => company_params[:cnpj],
+                           'email' => company_params[:email],
+                           'password' => company_params[:password] }
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { user_data: company_data } }
+
+          file = fixture_file_upload('spec/fixtures/big_avatar.jpg', 'image/jpg')
+
+          post '/create_company', params: {
+            company: { postal_code: company_params[:postal_code],
+                       address: company_params[:address],
+                       number: company_params[:number],
+                       complement: company_params[:complement],
+                       district: company_params[:district],
+                       state: company_params[:state],
+                       city: company_params[:city],
+                       avatar: file }
+          }
+
+          result = Company.find_by(name: company_params[:name])
+
+          expect(result).to be_nil
+        end
+
+        it 'redirects to company register page' do
+          company_params = FactoryBot.attributes_for(:company)
+          company_data = { 'name' => company_params[:name],
+                           'nickname' => company_params[:nickname],
+                           'cnpj' => company_params[:cnpj],
+                           'email' => company_params[:email],
+                           'password' => company_params[:password] }
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { user_data: company_data } }
+
+          file = fixture_file_upload('spec/fixtures/big_avatar.jpg', 'image/jpg')
+
+          post '/create_company', params: {
+            company: { postal_code: company_params[:postal_code],
+                       address: company_params[:address],
+                       number: company_params[:number],
+                       complement: company_params[:complement],
+                       district: company_params[:district],
+                       state: company_params[:state],
+                       city: company_params[:city],
+                       avatar: file }
           }
 
           expect(response).to redirect_to(registro_da_empresa_path)
