@@ -8,6 +8,10 @@ FactoryBot.define do
     city { Faker::Address.city }
     afro_id { SecureRandom.hex(10) }
 
+    after(:build) do |candidate|
+      candidate.avatar.attach(io: File.open('spec/fixtures/avatar.png'), filename: 'avatar.png')
+    end
+
     trait :pendent do
       status { Statuses::CANDIDATE[:pendent] }
     end

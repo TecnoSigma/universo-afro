@@ -43,17 +43,6 @@ ActiveRecord::Schema.define(version: 2022_11_14_112330) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
-  create_table "avatars", force: :cascade do |t|
-    t.string "name"
-    t.binary "data"
-    t.string "filename"
-    t.string "mime_type"
-    t.bigint "candidate_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["candidate_id"], name: "index_avatars_on_candidate_id"
-  end
-
   create_table "candidates", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -88,6 +77,7 @@ ActiveRecord::Schema.define(version: 2022_11_14_112330) do
     t.string "postal_code"
     t.string "state"
     t.integer "status"
+    t.string "afro_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

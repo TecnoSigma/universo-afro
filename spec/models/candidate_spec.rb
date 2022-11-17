@@ -50,6 +50,32 @@ RSpec.describe Candidate, type: :model do
       expect(candidate).to be_invalid
       expect(candidate.errors.messages[:city]).to include('Preenchimento de campo obrigatório!')
     end
+
+    it 'no validates when no pass avatar' do
+      candidate = FactoryBot.build(:candidate)
+      candidate.avatar = nil
+
+      expect(candidate).to be_invalid
+      expect(candidate.errors.messages[:avatar]).to include('Preenchimento de campo obrigatório!')
+    end
+  end
+
+  describe 'validates avatar' do
+    it 'no validates when avatar have invalid size' do
+      candidate = FactoryBot.build(:candidate)
+      candidate.avatar.attach(io: File.open('spec/fixtures/big_avatar.jpg'), filename: 'big_avatar.jpg')
+
+      expect(candidate).to be_invalid
+      expect(candidate.errors.messages[:avatar]).to include('Imagem muito grande!')
+    end
+
+    it 'no validates when avatar have invalid type' do
+      candidate = FactoryBot.build(:candidate)
+      candidate.avatar.attach(io: File.open('spec/fixtures/avatar.txt'), filename: 'avatar.txt')
+
+      expect(candidate).to be_invalid
+      expect(candidate.errors.messages[:avatar]).to include('Tipo de imagem inválido!')
+    end
   end
 
   it 'no validates when status is invalid' do

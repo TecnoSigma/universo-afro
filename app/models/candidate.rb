@@ -2,6 +2,8 @@
 
 # Class responsible by manage candidates
 class Candidate < ApplicationRecord
+  include AvatarValidator
+
   validates :first_name,
             :last_name,
             :email,
@@ -15,7 +17,6 @@ class Candidate < ApplicationRecord
   validates :email,
             uniqueness: { message: I18n.t('messages.errors.already_used') }
 
-  has_one :avatar
   has_many :candidate_vacant_jobs
 
   enum status: Statuses::CANDIDATE

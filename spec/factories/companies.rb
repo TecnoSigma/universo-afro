@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :company do
     name { Faker::Company.name }
     nickname { name.split.first }
+    afro_id { SecureRandom.hex(10) }
     cnpj { Faker::Company.brazilian_company_number(formatted: true) }
     email { Faker::Internet.email }
     password { Faker::Internet.password }

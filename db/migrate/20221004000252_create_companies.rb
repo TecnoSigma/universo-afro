@@ -14,6 +14,7 @@ class CreateCompanies < ActiveRecord::Migration[6.1]
       t.string :postal_code
       t.string :state
       t.integer :status
+      t.string :afro_id
 
       t.timestamps
     end
