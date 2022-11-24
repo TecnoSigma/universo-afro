@@ -13,6 +13,8 @@ module AvatarValidator
     klass.has_one_attached :avatar
 
     klass.after_create :update_filename
+
+    klass.before_validation(on: :create) { add_default_avatar }
   end
 
   def size
@@ -31,11 +33,30 @@ module AvatarValidator
     errors.add(:avatar, I18n.t('messages.errors.required_field')) unless avatar.attached?
   end
 
-  def update_filename
-    filename = cnpj.gsub('.', '').gsub('/', '').gsub('-', '')
+  def add_default_avatar
+    return if self.avatar.attached?
+    return if self.is_a?(Company)
 
-    avatar
-      .blob
-      .update(filename: "#{filename}.#{avatar.filename.extension}")
+    self
+      .avatar
+      .attach(io: avatar_default_file, filename: avatar_default_name, content_type: 'image/png')
+  end
+
+  def update_filename
+    avatar_data = avatar.blob
+
+    return if avatar_data.filename.to_s == avatar_default_name
+
+    avatar_data.update(filename: "#{afro_id}.#{avatar.filename.extension}")
+  end
+
+  private
+
+  def avatar_default_file
+    File.open(Rails.root.join('app','assets', 'images', avatar_default_name))
+  end
+
+  def avatar_default_name
+    'default_avatar.png'
   end
 end

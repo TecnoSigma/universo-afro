@@ -50,17 +50,21 @@ RSpec.describe Candidate, type: :model do
       expect(candidate).to be_invalid
       expect(candidate.errors.messages[:city]).to include('Preenchimento de campo obrigatório!')
     end
-
-    it 'no validates when no pass avatar' do
-      candidate = FactoryBot.build(:candidate)
-      candidate.avatar = nil
-
-      expect(candidate).to be_invalid
-      expect(candidate.errors.messages[:avatar]).to include('Preenchimento de campo obrigatório!')
-    end
   end
 
   describe 'validates avatar' do
+    it 'attaches default avatar when no pass avatar' do
+      candidate = FactoryBot.build(:candidate)
+      candidate.avatar = nil
+      candidate.save!
+
+      result = Candidate.find_by(id: candidate.id).avatar.blob.filename.to_s
+
+      expected_result = 'default_avatar.png'
+
+      expect(result).to eq(expected_result)
+    end
+
     it 'no validates when avatar have invalid size' do
       candidate = FactoryBot.build(:candidate)
       candidate.avatar.attach(io: File.open('spec/fixtures/big_avatar.jpg'), filename: 'big_avatar.jpg')

@@ -1,0 +1,44 @@
+<div class="card">
+  <h5 class="card-header">
+    <%= t('.personal_data') %>
+  </h5>
+  <div class="card-body">
+    <p class="card-text">
+    <%= form_with scope: 'candidate', url: '/store_candidate_data' do |form| %>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.first_name') %></label>
+        <%= form.text_field 'first_name', class: 'form-control', required: true %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.last_name') %></label>
+        <%= form.text_field 'last_name', class: 'form-control', required: true %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.state') %></label>
+        <%= form.select 'state',
+                        options_for_select(State.all.pluck(:name)),
+                        {},
+                        class: 'form-select',
+                        required: true,
+                        onchange: "listCities($(this).val(), document.getElementById('candidate_city'))" %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.city') %></label>
+        <%= form.select 'city',
+                        options_for_select([]),
+                        {},
+                        class: 'form-select',
+                        required: true %>
+      </div>
+      <div class="mb-3 form-check">
+        <%= form.check_box 'ethnicity_self_declaration', class: 'form-check-input', id: 'ethnicitySelfDeclarationChk', checked: true %>
+        <label class="form-check-label" for="ethnicitySelfDeclarationChk"><%= t('.ethnicity_self_declaration_chk')%></label>
+      </div>
+      <br>
+      <button class="btn btn-dark">
+        <%= t('.edit_btn') %>
+      </button>
+      <%= form.submit t('.update_btn'), class: 'btn btn-dark' %>
+    <% end %>
+  </div>
+</div>

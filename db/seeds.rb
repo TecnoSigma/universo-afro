@@ -25,6 +25,10 @@ Credit.create(url: 'https://www.flaticon.com/free-icons/add-image',
               title: 'add-image icons',
               description: 'Add-image icons created by nawicon - Flaticon')
 
+Credit.create(url: 'https://www.flaticon.com/free-icons/user',
+              title: 'user icons',
+              description: 'User icons created by Freepik - Flaticon')
+
 # Create States and Cities
 Tasks::PlacesGenerator.call!
 # State.create(name: 'São Paulo', external_id: 1)

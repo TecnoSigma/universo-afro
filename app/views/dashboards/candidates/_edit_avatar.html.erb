@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-body">
+    <hr>
+    <div class="text-center">
+      <%= image_tag 'add-photo', class: 'avatar profile' %>
+      <br><br>
+      <%= form_with scope: 'candidate', method: :put, url: '/candidato/dashboard/update_avatar' do |form| %>
+        <div class="mb-3">
+          <br>
+          <%= form.file_field 'avatar',
+                              class: 'form-control',
+                              accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+        </div>
+        <br>
+        <%= form.submit t('.update_btn'), class: 'btn btn-dark' %>
+      <% end %>
+    </div>
+    <hr>
+  </div>
+</div>

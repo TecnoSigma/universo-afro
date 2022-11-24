@@ -88,14 +88,14 @@ RSpec.describe Company, type: :model do
     end
   end
 
-  it 'renames avatar name to same name that company document' do
+  it 'renames avatar name to same name that the afro ID' do
     company = FactoryBot.build(:company)
     company.avatar.attach(io: File.open('spec/fixtures/avatar.png'), filename: 'avatar.png')
     company.save
 
     result = Company.find_by(cnpj: company.cnpj).avatar.blob.filename.to_s
 
-    expected_result = "#{company.cnpj.gsub('.', '').gsub('/', '').gsub('-', '')}.png"
+    expected_result = "#{company.afro_id}.png"
 
     expect(result).to eq(expected_result)
   end

@@ -24,6 +24,7 @@ class CandidateRegistersController < UserRegistersController
   def create
     candidate = Candidate.new(session[:candidate_data])
     candidate.validate!
+    candidate.save!
 
     generate_vacant_jobs(candidate)
 

@@ -1,0 +1,116 @@
+<div class="card">
+  <h5 class="card-header">
+    <%= t('.vacant_jobs_data') %>
+  </h5>
+  <div class="card-body">
+    <p class="card-text">
+      <h6>
+        <strong><%= t('.first_vacant_job_data') %></strong>
+      </h6>
+      <hr>
+      <%= form_with scope: 'vacant_job1', url: '/store_first_vacant_job_data' do |form| %>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.position') %></label>
+          <%= form.select 'profession_id',
+                          options_for_select(Profession.pluck(:name, :id)),
+                          {},
+                          class: 'form-select',
+                          required: true %>
+          <% #TODO: Incluir quantidade de pessoas interessadas %>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.category') %></label>
+          <%= form.select 'category',
+                          options_for_select(VacantJob::CATEGORIES),
+                          {},
+                          class: 'form-select',
+                          required: true %>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.state') %></label>
+          <%= form.select 'state',
+                          options_for_select(State.all.pluck(:name)),
+                          {},
+                          class: 'form-select',
+                          required: true,
+                          onchange: "listCities($(this).val(), document.getElementById('vacant_job_1_city'))" %>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.city') %></label>
+          <%= form.select 'city',
+                          options_for_select([]),
+                          {},
+                          class: 'form-select',
+                          required: true %>
+        </div>
+        <div class="mb-3 form-check">
+          <%= form.check_box 'remote', class: 'form-check-input', id: 'remoteJobChk' %>
+          <label class="form-check-label" for="remoteJobChk"><%= t('.remote_job_chk')%></label>
+        </div>
+        <div class="mb-3 form-check">
+         <%= form.check_box 'alert', class: 'form-check-input', id: 'vacancyAlertChk' %>
+          <label class="form-check-label" for="vacancyAlertChk"><%= t('.wish_receive_vacancy_alert_chk')%></label>
+        </div>
+        <br>
+        <button class="btn btn-dark">
+          <%= t('.edit_btn') %>
+        </button>
+        <%= form.submit t('.update_first_vacant_job_data_btn'), class: 'btn btn-dark' %>
+      <% end %>
+      <br><br>
+      <h6>
+        <strong><%= t('.second_vacant_job_data') %></strong>
+      </h6>
+      <hr>
+      <%= form_with scope: 'vacant_job1', url: '/store_first_vacant_job_data' do |form| %>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.position') %></label>
+          <%= form.select 'profession_id',
+                          options_for_select(Profession.pluck(:name, :id)),
+                          {},
+                          class: 'form-select',
+                          required: true %>
+          <% #TODO: Incluir quantidade de pessoas interessadas %>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.category') %></label>
+          <%= form.select 'category',
+                          options_for_select(VacantJob::CATEGORIES),
+                          {},
+                          class: 'form-select',
+                          required: true %>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.state') %></label>
+          <%= form.select 'state',
+                          options_for_select(State.all.pluck(:name)),
+                          {},
+                          class: 'form-select',
+                          required: true,
+                          onchange: "listCities($(this).val(), document.getElementById('vacant_job_1_city'))" %>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.city') %></label>
+          <%= form.select 'city',
+                          options_for_select([]),
+                          {},
+                          class: 'form-select',
+                          required: true %>
+        </div>
+        <div class="mb-3 form-check">
+          <%= form.check_box 'remote', class: 'form-check-input', id: 'remoteJobChk' %>
+          <label class="form-check-label" for="remoteJobChk"><%= t('.remote_job_chk')%></label>
+        </div>
+        <div class="mb-3 form-check">
+          <%= form.check_box 'alert', class: 'form-check-input', id: 'vacancyAlertChk' %>
+          <label class="form-check-label" for="vacancyAlertChk"><%= t('.wish_receive_vacancy_alert_chk')%></label>
+        </div>
+        <br>
+        <button class="btn btn-dark">
+          <%= t('.edit_btn') %>
+        </button>
+        <%= form.submit t('.update_second_vacant_job_data_btn'), class: 'btn btn-dark' %>
+      <% end %>
+    </p>
+  </div>
+</div>
