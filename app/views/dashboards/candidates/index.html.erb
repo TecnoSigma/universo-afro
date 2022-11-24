@@ -7,9 +7,7 @@
         <div class="card-body">
           <hr>
           <div class="text-center">
-            <% unless @user.avatar %>
-              <%= image_tag 'add-photo', class: 'avatar profile' %>
-            <% end %>
+              <%= image_tag @user.avatar, class: 'avatar profile' %>
             <br><br>
             <b><%= @user.fullname %></b>
             <br><br>
