@@ -54,9 +54,9 @@ class LoginsController < ApplicationController
 
   def user_data
     @user_data ||= case user_params[:profile]
-                   when 'candidate'    then find_candidate
-                   when 'company'      then find_company
-                   when 'professional' then find_professional
+                   when 'candidate'    then find_profile(Candidate)
+                   when 'company'      then find_profile(Company)
+                   when 'professional' then find_profile(Professional)
                    end
   end
 
@@ -68,15 +68,11 @@ class LoginsController < ApplicationController
     params.require(:user).permit(:profile, :email)
   end
 
-  def find_company
-    Company.find_by(email: user_params[:email], password: user_params[:password])
-  end
+  def find_profile(klass)
+    profile = klass.find_by(email: user_params[:email], password: user_params[:password])
 
-  def find_professional
-    Professional.find_by(email: user_params[:email], password: user_params[:password])
-  end
+    session[:afro_id] = profile.try(:afro_id)
 
-  def find_candidate
-    Candidate.find_by(email: user_params[:email], password: user_params[:password])
+    profile
   end
 end

@@ -64,7 +64,7 @@
                 <label class="form-label"><%= t('.logotype') %></label>
                 <br>
                 <%= form.file_field 'avatar',
-                    accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+                    accept: Avatar::CONTENT_TYPES %>
               </div>
               <br>
               <%= form.submit t('.finish_register_btn'), class: 'btn btn-dark' %>

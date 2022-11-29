@@ -13,6 +13,7 @@ module AvatarValidator
     klass.has_one_attached :avatar
 
     klass.after_create :update_filename
+    klass.after_update :update_filename
 
     klass.before_validation(on: :create) { add_default_avatar }
   end
@@ -39,13 +40,13 @@ module AvatarValidator
 
     self
       .avatar
-      .attach(io: avatar_default_file, filename: avatar_default_name, content_type: 'image/png')
+      .attach(io: avatar_default_file, filename: Avatar::AVATAR_DEFAULT_NAME, content_type: 'image/png')
   end
 
   def update_filename
     avatar_data = avatar.blob
 
-    return if avatar_data.filename.to_s == avatar_default_name
+    return if avatar_data.filename.to_s == Avatar::AVATAR_DEFAULT_NAME
 
     avatar_data.update(filename: "#{afro_id}.#{avatar.filename.extension}")
   end
@@ -53,10 +54,6 @@ module AvatarValidator
   private
 
   def avatar_default_file
-    File.open(Rails.root.join('app','assets', 'images', avatar_default_name))
-  end
-
-  def avatar_default_name
-    'default_avatar.png'
+    File.open(Rails.root.join('app','assets', 'images', Avatar::AVATAR_DEFAULT_NAME))
   end
 end

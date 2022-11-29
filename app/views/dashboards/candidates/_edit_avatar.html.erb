@@ -2,14 +2,14 @@
   <div class="card-body">
     <hr>
     <div class="text-center">
-      <%= image_tag 'default_avatar', class: 'avatar profile' %>
+      <%= image_tag @user.avatar, class: 'avatar profile' %>
       <br><br>
-      <%= form_with scope: 'candidate', method: :put, url: '/candidato/dashboard/update_avatar' do |form| %>
+      <%= form_with scope: 'candidate', method: :patch, url: '/candidato/dashboard/update-avatar' do |form| %>
         <div class="mb-3">
           <br>
           <%= form.file_field 'avatar',
                               class: 'form-control',
-                              accept: 'image/png,image/gif,image/jpeg,image/jpg' %>
+                              accept: Avatar::CONTENT_TYPES %>
         </div>
         <br>
         <%= form.submit t('.update_btn'), class: 'btn btn-dark' %>

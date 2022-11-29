@@ -20,8 +20,10 @@ pt-BR:
       activated_user_not_found: 'Usuário ativado não encontrado!'
       image_size: 'Imagem muito grande!'
       image_type: 'Tipo de imagem inválido!'
+      update_data: 'Erro na atualização dos dados!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
+      update_data: 'Dados atualizados com sucesso!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'
