@@ -10,6 +10,22 @@ module Dashboards
 
     def edit_profile; end
 
+    def update_personal_data
+      @user.tap do |user|
+        user.first_name = params['candidate']['first_name']
+        user.last_name = params['candidate']['last_name']
+        user.state = params['candidate']['state']
+        user.city = params['candidate']['city']
+        user.ethnicity_self_declaration = params['candidate']['ethnicity_self_declaration']
+
+        user.save!
+      end
+
+      redirect_to candidato_dashboard_path, notice: I18n.t('messages.successes.update_data')
+    rescue StandardError => error
+      redirect_to candidato_dashboard_path, alert: I18n.t('messages.errors.update_data')
+    end
+
     def update_avatar
       @user
         .avatar

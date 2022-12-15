@@ -29,6 +29,124 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
   end
 
   describe 'PATCH actions' do
+    describe '#update_personal_data' do
+      context 'when pass valid params' do
+        it 'updates personal data' do
+          candidate = FactoryBot.create(:candidate)
+
+          last_name = 'Souza'
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-personal-data',
+            params: { candidate: { first_name: candidate.first_name,
+                                   last_name: last_name,
+                                   state: candidate.state,
+                                   city: candidate.city,
+                                   ethnicity_self_declaration: candidate.ethnicity_self_declaration } }
+
+          result = Candidate.find_by_afro_id(candidate.afro_id).last_name
+
+          expect(result).to eq(last_name)
+        end
+
+        it 'shows success message' do
+          candidate = FactoryBot.create(:candidate)
+
+          last_name = 'Souza'
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-personal-data',
+            params: { candidate: { first_name: candidate.first_name,
+                                   last_name: last_name,
+                                   state: candidate.state,
+                                   city: candidate.city,
+                                   ethnicity_self_declaration: candidate.ethnicity_self_declaration } }
+
+          expect(flash[:notice]).to eq('Dados atualizados com sucesso!')
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+
+          last_name = 'Souza'
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-personal-data',
+            params: { candidate: { first_name: candidate.first_name,
+                                   last_name: last_name,
+                                   state: candidate.state,
+                                   city: candidate.city,
+                                   ethnicity_self_declaration: candidate.ethnicity_self_declaration } }
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+      end
+
+      context 'when pass invalid params' do
+        it 'no updates personal data' do
+          candidate = FactoryBot.create(:candidate)
+
+          last_name = nil
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-personal-data',
+            params: { candidate: { first_name: candidate.first_name,
+                                   last_name: last_name,
+                                   state: candidate.state,
+                                   city: candidate.city,
+                                   ethnicity_self_declaration: candidate.ethnicity_self_declaration } }
+
+          result = Candidate.find_by_afro_id(candidate.afro_id).last_name
+
+          expect(result).not_to eq(last_name)
+        end
+
+        it 'shows errors message' do
+          candidate = FactoryBot.create(:candidate)
+
+          last_name = nil
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-personal-data',
+            params: { candidate: { first_name: candidate.first_name,
+                                   last_name: last_name,
+                                   state: candidate.state,
+                                   city: candidate.city,
+                                   ethnicity_self_declaration: candidate.ethnicity_self_declaration } }
+
+          expect(flash[:alert]).to eq('Erro na atualização dos dados!')
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+
+          last_name = nil
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-personal-data',
+            params: { candidate: { first_name: candidate.first_name,
+                                   last_name: last_name,
+                                   state: candidate.state,
+                                   city: candidate.city,
+                                   ethnicity_self_declaration: candidate.ethnicity_self_declaration } }
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+      end
+    end
+
     describe '#update_avatar' do
       context 'when pass valid file' do
         it 'updates candidate avatar image' do
