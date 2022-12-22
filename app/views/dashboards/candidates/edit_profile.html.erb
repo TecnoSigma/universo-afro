@@ -5,11 +5,11 @@
     <div class="col-sm-10 offeset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
       <%= render 'edit_avatar' %>
       <br>
-      <%= render 'edit_personal_data' %>
+      <%= render 'edit_personal_data', locals: { candidate: @user } %>
       <br>
-      <%= render 'edit_access_data' %>
+      <%= render 'edit_access_data', locals: { candidate: @user } %>
       <br>
-      <%= render 'edit_vacant_jobs_data' %>
+      <%= render 'edit_vacant_jobs_data', locals: { candidate: @user } %>
     </div>
   </div>
 </div>

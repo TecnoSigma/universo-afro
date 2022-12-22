@@ -7,16 +7,16 @@
     <%= form_with scope: 'candidate', method: :patch, url: '/candidato/dashboard/update-personal-data' do |form| %>
       <div class="mb-3">
         <label class="form-label"><%= t('.first_name') %></label>
-        <%= form.text_field 'first_name', class: 'form-control', required: true %>
+        <%= form.text_field 'first_name', class: 'form-control', required: true, value: @user.first_name %>
       </div>
       <div class="mb-3">
         <label class="form-label"><%= t('.last_name') %></label>
-        <%= form.text_field 'last_name', class: 'form-control', required: true %>
+        <%= form.text_field 'last_name', class: 'form-control', required: true, value: @user.last_name %>
       </div>
       <div class="mb-3">
         <label class="form-label"><%= t('.state') %></label>
         <%= form.select 'state',
-                        options_for_select(State.all.pluck(:name)),
+                        options_for_select(State.all.pluck(:name), @user.state),
                         {},
                         class: 'form-select',
                         required: true,
@@ -25,19 +25,15 @@
       <div class="mb-3">
         <label class="form-label"><%= t('.city') %></label>
         <%= form.select 'city',
-                        options_for_select([]),
-                        {},
-                        class: 'form-select',
-                        required: true %>
+                        options_for_select([@user.city]),
+                        { include_blank: false },
+                        class: 'form-select' %>
       </div>
       <div class="mb-3 form-check">
-        <%= form.check_box 'ethnicity_self_declaration', class: 'form-check-input', id: 'ethnicitySelfDeclarationChk', checked: true %>
+        <%= form.check_box 'ethnicity_self_declaration', class: 'form-check-input', id: 'ethnicitySelfDeclarationChk', checked: @user.ethnicity_self_declaration %>
         <label class="form-check-label" for="ethnicitySelfDeclarationChk"><%= t('.ethnicity_self_declaration_chk')%></label>
       </div>
       <br>
-      <button class="btn btn-dark">
-        <%= t('.edit_btn') %>
-      </button>
       <%= form.submit t('.update_btn'), class: 'btn btn-dark' %>
     <% end %>
   </div>

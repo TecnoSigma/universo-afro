@@ -7,16 +7,13 @@
       <%= form_with scope: 'candidate', url: '/store_candidate_data' do |form| %>
         <div class="mb-3">
           <label class="form-label"><%= t('.password') %></label>
-          <%= form.text_field 'password', class: 'form-control', required: true %>
+          <%= form.password_field 'password', class: 'form-control', required: true, value: @user.password %>
         </div>
         <div class="mb-3">
           <label class="form-label"><%= t('.confirm_password') %></label>
-          <%= form.text_field 'confirm_password', class: 'form-control', required: true %>
+          <%= form.password_field 'confirm_password', class: 'form-control', required: true %>
         </div>
         <br>
-        <button class="btn btn-dark">
-          <%= t('.edit_btn') %>
-        </button>
         <%= form.submit t('.update_btn'), class: 'btn btn-dark' %>
       <% end %>
     </p>
