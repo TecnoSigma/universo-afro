@@ -8,7 +8,7 @@
         <strong><%= t('.first_vacant_job_data') %></strong>
       </h6>
       <hr>
-      <%= form_with scope: 'vacant_job1', url: '/store_first_vacant_job_data' do |form| %>
+      <%= form_with scope: 'first_vacant_job', url: '/store_first_vacant_job_data' do |form| %>
         <div class="mb-3">
           <label class="form-label"><%= t('.position') %></label>
           <%= form.select 'profession_id',
@@ -57,7 +57,7 @@
         <strong><%= t('.second_vacant_job_data') %></strong>
       </h6>
       <hr>
-      <%= form_with scope: 'vacant_job1', url: '/store_first_vacant_job_data' do |form| %>
+      <%= form_with scope: 'second_vacant_job', url: '/store_first_vacant_job_data' do |form| %>
         <div class="mb-3">
           <label class="form-label"><%= t('.position') %></label>
           <%= form.select 'profession_id',

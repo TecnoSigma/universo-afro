@@ -27,4 +27,8 @@ class ApplicationController < ActionController::Base
 
     redirect_to escolha_seu_perfil_path
   end
+
+  def convert_to_bool(param)
+    ActiveModel::Type::Boolean.new.cast(param)
+  end
 end

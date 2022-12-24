@@ -29,6 +29,525 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
   end
 
   describe 'PATCH actions' do
+    describe '#update_access_data' do
+      context 'when pass valid params' do
+        it 'updates candidate password' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password = SecureRandom.hex
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password, confirm_password: new_password } }
+
+          result = Candidate.find_by_afro_id(candidate.afro_id).password
+
+          expect(result).to eq(new_password)
+        end
+
+        it 'shows success message' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password = SecureRandom.hex
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password, confirm_password: new_password } }
+
+          expect(flash[:notice]).to eq('Dados atualizados com sucesso!')
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password = SecureRandom.hex
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password, confirm_password: new_password } }
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+      end
+
+      context 'when pass invalid params' do
+        it 'no updates candidate password' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password = 'test1234'
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password, confirm_password: new_password } }
+
+          result = Candidate.find_by_afro_id(candidate.afro_id).password
+
+          expect(result).not_to eq(new_password)
+        end
+
+        it 'shows error message' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password = 'test1234'
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password, confirm_password: new_password } }
+
+          expect(flash[:alert]).to eq('Erro na atualização dos dados!')
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password = 'test1234'
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password, confirm_password: new_password } }
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+      end
+
+      context 'when pass invalid password confirmation' do
+        it 'no updates candidate password' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password1 = SecureRandom.hex
+          new_password2 = SecureRandom.hex
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password1, confirm_password: new_password2 } }
+
+          result = Candidate.find_by_afro_id(candidate.afro_id).password
+
+          expect(result).not_to eq(new_password1)
+        end
+
+        it 'shows error message' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password1 = SecureRandom.hex
+          new_password2 = SecureRandom.hex
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password1, confirm_password: new_password2 } }
+
+          expect(flash[:alert]).to eq('Erro na atualização dos dados!')
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+
+          new_password1 = SecureRandom.hex
+          new_password2 = SecureRandom.hex
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-access-data',
+            params: { candidate: { password: new_password1, confirm_password: new_password2 } }
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+      end
+    end
+
+        describe '#update_first_vacant_job' do
+      context 'when pass valid data' do
+        it 'updates first vacant job data' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = 'Central City'
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-first-vacant-job-data',
+            params: { first_vacant_job: { profession_id: profession2.id,
+                                          category: candidate_vacant_job.category,
+                                          state: candidate_vacant_job.state,
+                                          city: new_city,
+                                          remote: true,
+                                          alert: candidate_vacant_job.alert } }
+
+          result1 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.first.city
+          result2 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.first.remote
+          result3 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.first.profession.id
+
+          expect(result1).to eq(new_city)
+          expect(result2).to eq(true)
+          expect(result3).to eq(profession2.id)
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = 'Central City'
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-first-vacant-job-data',
+            params: { first_vacant_job: { profession_id: profession2.id,
+                                          category: candidate_vacant_job.category,
+                                          state: candidate_vacant_job.state,
+                                          city: new_city,
+                                          remote: true,
+                                          alert: candidate_vacant_job.alert } }
+
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+
+        it 'shows show message' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = 'Central City'
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-first-vacant-job-data',
+            params: { first_vacant_job: { profession_id: profession2.id,
+                                          category: candidate_vacant_job.category,
+                                          state: candidate_vacant_job.state,
+                                          city: new_city,
+                                          remote: true,
+                                          alert: candidate_vacant_job.alert } }
+
+          expect(flash[:notice]).to eq('Dados atualizados com sucesso!')
+        end
+      end
+
+      context 'when pass invalid data' do
+        it 'no updates first vacant job data' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = ''
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-first-vacant-job-data',
+            params: { first_vacant_job: { profession_id: profession2.id,
+                                          category: candidate_vacant_job.category,
+                                          state: candidate_vacant_job.state,
+                                          city: new_city,
+                                          remote: true,
+                                          alert: candidate_vacant_job.alert } }
+
+          result1 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.first.city
+          result2 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.first.remote
+          result3 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.first.profession.id
+
+          expect(result1).not_to eq(new_city)
+          expect(result2).not_to eq(true)
+          expect(result3).not_to eq(profession2.id)
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = ''
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-first-vacant-job-data',
+            params: { first_vacant_job: { profession_id: profession2.id,
+                                          category: candidate_vacant_job.category,
+                                          state: candidate_vacant_job.state,
+                                          city: new_city,
+                                          remote: true,
+                                          alert: candidate_vacant_job.alert } }
+
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+
+        it 'shows error message' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = ''
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-first-vacant-job-data',
+            params: { first_vacant_job: { profession_id: profession2.id,
+                                          category: candidate_vacant_job.category,
+                                          state: candidate_vacant_job.state,
+                                          city: new_city,
+                                          remote: true,
+                                          alert: candidate_vacant_job.alert } }
+
+          expect(flash[:alert]).to eq('Erro na atualização dos dados!')
+        end
+      end
+    end
+
+    describe '#update_second_vacant_job' do
+      context 'when pass valid data' do
+        it 'updates second vacant job data' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = 'Central City'
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-second-vacant-job-data',
+            params: { second_vacant_job: { profession_id: profession2.id,
+                                           category: candidate_vacant_job.category,
+                                           state: candidate_vacant_job.state,
+                                           city: new_city,
+                                           remote: true,
+                                           alert: candidate_vacant_job.alert } }
+
+          result1 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.last.city
+          result2 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.last.remote
+          result3 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.last.profession.id
+
+          expect(result1).to eq(new_city)
+          expect(result2).to eq(true)
+          expect(result3).to eq(profession2.id)
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = 'Central City'
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-second-vacant-job-data',
+            params: { second_vacant_job: { profession_id: profession2.id,
+                                           category: candidate_vacant_job.category,
+                                           state: candidate_vacant_job.state,
+                                           city: new_city,
+                                           remote: true,
+                                           alert: candidate_vacant_job.alert } }
+
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+
+        it 'shows show message' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = 'Central City'
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-second-vacant-job-data',
+            params: { second_vacant_job: { profession_id: profession2.id,
+                                           category: candidate_vacant_job.category,
+                                           state: candidate_vacant_job.state,
+                                           city: new_city,
+                                           remote: true,
+                                           alert: candidate_vacant_job.alert } }
+
+          expect(flash[:notice]).to eq('Dados atualizados com sucesso!')
+        end
+      end
+
+      context 'when pass invalid data' do
+        it 'no updates first vacant job data' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = ''
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-second-vacant-job-data',
+            params: { second_vacant_job: { profession_id: profession2.id,
+                                           category: candidate_vacant_job.category,
+                                           state: candidate_vacant_job.state,
+                                           city: new_city,
+                                           remote: true,
+                                           alert: candidate_vacant_job.alert } }
+
+          result1 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.last.city
+          result2 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.last.remote
+          result3 = Candidate.find_by(id: candidate.id).candidate_vacant_jobs.last.profession.id
+
+          expect(result1).not_to eq(new_city)
+          expect(result2).not_to eq(true)
+          expect(result3).not_to eq(profession2.id)
+        end
+
+        it 'redirects to candidate dashboard' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = ''
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-second-vacant-job-data',
+            params: { second_vacant_job: { profession_id: profession2.id,
+                                           category: candidate_vacant_job.category,
+                                           state: candidate_vacant_job.state,
+                                           city: new_city,
+                                           remote: true,
+                                           alert: candidate_vacant_job.alert } }
+
+
+          expect(response).to redirect_to(candidato_dashboard_path)
+        end
+
+        it 'shows error message' do
+          candidate = FactoryBot.create(:candidate)
+          profession1 = FactoryBot.create(:profession)
+          profession2 = FactoryBot.create(:profession)
+          vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+          new_city = ''
+
+          candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+          candidate_vacant_job.profession = profession1
+          candidate_vacant_job.candidate = candidate
+          candidate_vacant_job.remote = false
+          candidate_vacant_job.save
+
+          allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+          patch '/candidato/dashboard/update-second-vacant-job-data',
+            params: { second_vacant_job: { profession_id: profession2.id,
+                                           category: candidate_vacant_job.category,
+                                           state: candidate_vacant_job.state,
+                                           city: new_city,
+                                           remote: true,
+                                           alert: candidate_vacant_job.alert } }
+
+          expect(flash[:alert]).to eq('Erro na atualização dos dados!')
+        end
+      end
+    end
+
     describe '#update_personal_data' do
       context 'when pass valid params' do
         it 'updates personal data' do
