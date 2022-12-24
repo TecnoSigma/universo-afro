@@ -21,6 +21,18 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
 
     describe '#edit_profile' do
       it 'renders candidate edition page' do
+        candidate = FactoryBot.create(:candidate)
+        profession = FactoryBot.create(:profession)
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false, alert: false)
+
+        candidate_vacant_job = CandidateVacantJob.new(vacant_job)
+        candidate_vacant_job.profession = profession
+        candidate_vacant_job.candidate = candidate
+        candidate_vacant_job.save
+
+        allow_any_instance_of(ActionDispatch::Request)
+            .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
         get '/candidato/dashboard/editar-perfil'
 
         expect(response).to render_template(:edit_profile)
@@ -61,7 +73,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
           expect(flash[:notice]).to eq('Dados atualizados com sucesso!')
         end
 
-        it 'redirects to candidate dashboard' do
+        it 'redirects to candidate profile dashboard' do
           candidate = FactoryBot.create(:candidate)
 
           new_password = SecureRandom.hex
@@ -72,7 +84,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
           patch '/candidato/dashboard/update-access-data',
             params: { candidate: { password: new_password, confirm_password: new_password } }
 
-          expect(response).to redirect_to(candidato_dashboard_path)
+          expect(response).to redirect_to(candidato_dashboard_editar_perfil_path)
         end
       end
 
@@ -208,7 +220,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
           expect(result3).to eq(profession2.id)
         end
 
-        it 'redirects to candidate dashboard' do
+        it 'redirects to candidate profile dashboard' do
           candidate = FactoryBot.create(:candidate)
           profession1 = FactoryBot.create(:profession)
           profession2 = FactoryBot.create(:profession)
@@ -234,7 +246,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
                                           alert: candidate_vacant_job.alert } }
 
 
-          expect(response).to redirect_to(candidato_dashboard_path)
+          expect(response).to redirect_to(candidato_dashboard_editar_perfil_path)
         end
 
         it 'shows show message' do
@@ -396,7 +408,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
           expect(result3).to eq(profession2.id)
         end
 
-        it 'redirects to candidate dashboard' do
+        it 'redirects to candidate profile dashboard' do
           candidate = FactoryBot.create(:candidate)
           profession1 = FactoryBot.create(:profession)
           profession2 = FactoryBot.create(:profession)
@@ -422,7 +434,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
                                            alert: candidate_vacant_job.alert } }
 
 
-          expect(response).to redirect_to(candidato_dashboard_path)
+          expect(response).to redirect_to(candidato_dashboard_editar_perfil_path)
         end
 
         it 'shows show message' do
@@ -588,7 +600,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
           expect(flash[:notice]).to eq('Dados atualizados com sucesso!')
         end
 
-        it 'redirects to candidate dashboard' do
+        it 'redirects to candidate profile dashboard' do
           candidate = FactoryBot.create(:candidate)
 
           last_name = 'Souza'
@@ -603,7 +615,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
                                    city: candidate.city,
                                    ethnicity_self_declaration: candidate.ethnicity_self_declaration } }
 
-          expect(response).to redirect_to(candidato_dashboard_path)
+          expect(response).to redirect_to(candidato_dashboard_editar_perfil_path)
         end
       end
 
@@ -680,14 +692,14 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
           expect(result).to eq(true)
         end
 
-        it 'redirects to candidate dashboard page' do
+        it 'redirects to candidate profile dashboard' do
           user = Candidate.last
 
           new_avatar = fixture_file_upload('spec/fixtures/avatar.png', 'image/png')
 
           patch '/candidato/dashboard/update-avatar', params: { candidate: { avatar: new_avatar } }
 
-          expect(response).to redirect_to(candidato_dashboard_path)
+          expect(response).to redirect_to(candidato_dashboard_editar_perfil_path)
         end
 
         it 'shows success message' do

@@ -17,7 +17,7 @@ module Dashboards
                     state: candidate_params['state'], city: candidate_params['city'],
                     ethnicity_self_declaration: candidate_params['ethnicity_self_declaration'])
 
-      redirect_to candidato_dashboard_path, notice: I18n.t('messages.successes.update_data')
+      redirect_to candidato_dashboard_editar_perfil_path, notice: I18n.t('messages.successes.update_data')
     rescue StandardError => e
       treat_error(e)
     end
@@ -28,7 +28,7 @@ module Dashboards
 
       @user.update!(password: candidate_params['password'])
 
-      redirect_to candidato_dashboard_path, notice: I18n.t('messages.successes.update_data')
+      redirect_to candidato_dashboard_editar_perfil_path, notice: I18n.t('messages.successes.update_data')
     rescue PasswordConfirmationError, StrongPasswordError, StandardError => e
       treat_error(e)
     end
@@ -43,7 +43,7 @@ module Dashboards
       @user.validate!
       @user.save
 
-      redirect_to candidato_dashboard_path, notice: I18n.t('messages.successes.update_data')
+      redirect_to candidato_dashboard_editar_perfil_path, notice: I18n.t('messages.successes.update_data')
     rescue StandardError => e
       treat_error(e)
     end
@@ -55,7 +55,7 @@ module Dashboards
         .update!(profession: profession, category: vacant_job_params['category'], state: vacant_job_params['state'],
                  city: vacant_job_params['city'], alert: alert, remote: remote)
 
-      redirect_to candidato_dashboard_path, notice: I18n.t('messages.successes.update_data')
+      redirect_to candidato_dashboard_editar_perfil_path, notice: I18n.t('messages.successes.update_data')
     rescue StandardError => e
       treat_error(e)
     end
