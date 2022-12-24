@@ -21,6 +21,16 @@ RSpec.describe CompanyVacantJob, type: :model do
       expect(company_vacant_job).to be_invalid
       expect(company_vacant_job.errors.messages[:filled_quantity]).to include('Preenchimento de campo obrigatório!')
     end
+
+    it 'no validates when no pass details' do
+      vacant_job = FactoryBot.attributes_for(:vacant_job)
+
+      company_vacant_job = CompanyVacantJob.new(vacant_job)
+      company_vacant_job.details = nil
+
+      expect(company_vacant_job).to be_invalid
+      expect(company_vacant_job.errors.messages[:details]).to include('Preenchimento de campo obrigatório!')
+    end
   end
 
   describe 'validates numericality' do
@@ -72,5 +82,21 @@ RSpec.describe CompanyVacantJob, type: :model do
 
       expect(result).to eq(expected_result)
     end
+  end
+
+  it 'creates vacant jbo ID when a nwew company vacant job is created' do
+    profession = FactoryBot.create(:profession)
+    company = FactoryBot.create(:company, status: 'activated')
+    vacant_job_attributes = FactoryBot.attributes_for(:vacant_job,
+                                                      :company_vacant_job,
+                                                      company_id: company.id,
+                                                      profession: profession,
+                                                      vacant_job_id: nil)
+
+    vacant_job = CompanyVacantJob.create(vacant_job_attributes)
+
+    result = vacant_job.vacant_job_id
+
+    expect(result).to be_present
   end
 end

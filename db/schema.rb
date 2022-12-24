@@ -128,6 +128,8 @@ ActiveRecord::Schema.define(version: 2022_11_14_112330) do
     t.boolean "alert"
     t.boolean "remote"
     t.integer "status", default: 1
+    t.string "vacant_job_id"
+    t.text "details"
     t.integer "availabled_quantity", default: 0
     t.integer "filled_quantity", default: 0
     t.bigint "profession_id"

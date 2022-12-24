@@ -18,6 +18,7 @@ FactoryBot.define do
 
     trait :company_vacant_job do
       type { 'CompanyVacantJob' }
+      details { Faker::Lorem.sentence(word_count: 50) }
     end
   end
 end

@@ -151,12 +151,15 @@ RSpec.describe Candidate, type: :model do
       candidate_vacant_job1 = FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession1)
       candidate_vacant_job2 = FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession2)
 
-      company_vacant_job1 = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company1.id, profession: profession1)
-      company_vacant_job2 = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company2.id, profession: profession2)
+      company_vacant_job_attributes1 = FactoryBot.attributes_for(:vacant_job, :company_vacant_job, company_id: company1.id, profession: profession1, vacant_job_id: nil)
+      company_vacant_job_attributes2 = FactoryBot.attributes_for(:vacant_job, :company_vacant_job, company_id: company2.id, profession: profession2, vacant_job_id: nil)
+
+      company_vacant_job1 = CompanyVacantJob.create(company_vacant_job_attributes1)
+      company_vacant_job2 = CompanyVacantJob.create(company_vacant_job_attributes2)
 
       result = candidate.available_vacant_jobs
 
-      expected_result = [VacantJob.find_by_id(company_vacant_job1.id), VacantJob.find_by_id(company_vacant_job2.id)]
+      expected_result = [VacantJob.find_by_id(company_vacant_job2.id), VacantJob.find_by_id(company_vacant_job1.id)]
 
       expect(result).to eq(expected_result)
     end
