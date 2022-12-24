@@ -35,11 +35,10 @@ module AvatarValidator
   end
 
   def add_default_avatar
-    return if self.avatar.attached?
-    return if self.is_a?(Company)
+    return if avatar.attached?
+    return if is_a?(Company)
 
-    self
-      .avatar
+    avatar
       .attach(io: avatar_default_file, filename: Avatar::AVATAR_DEFAULT_NAME, content_type: 'image/png')
   end
 
@@ -54,6 +53,6 @@ module AvatarValidator
   private
 
   def avatar_default_file
-    File.open(Rails.root.join('app','assets', 'images', Avatar::AVATAR_DEFAULT_NAME))
+    File.open(Rails.root.join('app', 'assets', 'images', Avatar::AVATAR_DEFAULT_NAME))
   end
 end
