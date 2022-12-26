@@ -12,6 +12,10 @@ module Dashboards
     def update_first_vacant_job_data; end
     def update_second_vacant_job_data; end
 
+    def vacant_job_details
+      @vacant_job = VacantJob.find_by(vacant_job_id: params['vacant_job_id'])
+    end
+
     def update_personal_data
       @user.update!(first_name: candidate_params['first_name'], last_name: candidate_params['last_name'],
                     state: candidate_params['state'], city: candidate_params['city'],

@@ -38,6 +38,29 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
         expect(response).to render_template(:edit_profile)
       end
     end
+
+    describe '#vacant_job_details' do
+      it 'renders company vacant job details page' do
+        candidate = FactoryBot.create(:candidate)
+        details = 'any text'
+        company = FactoryBot.create(:company)
+        profession = FactoryBot.create(:profession)
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false)
+
+        company_vacant_job = CompanyVacantJob.new(vacant_job)
+        company_vacant_job.profession = profession
+        company_vacant_job.company = company
+        company_vacant_job.details = details
+        company_vacant_job.save
+
+        allow_any_instance_of(ActionDispatch::Request)
+          .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
+
+        get "/candidato/dashboard/vaga/#{company_vacant_job.vacant_job_id}"
+
+        expect(response).to render_template(:vacant_job_details)
+      end
+    end
   end
 
   describe 'PATCH actions' do
