@@ -1,4 +1,6 @@
 pt-BR:
+  true: 'Sim'
+  false: 'Não'
   notifications:
     validations:
       check_email:
@@ -10,6 +12,7 @@ pt-BR:
   messages:
     errors:
       invalid_format: 'Formato inválido!'
+      exceeded_vacant_job_limit: 'Limite de vagas escolhidas excedido!'
       required_field: 'Preenchimento de campo obrigatório!'
       invalid_password: 'Senha inválida! Digite uma senha mais forte.'
       invalid_profile: 'O perfil escolhido pelo usuário é inválido!'
@@ -203,3 +206,14 @@ Brasileiro de Geografia e Estatística (IBGE).'
         wish_receive_vacancy_alert_chk: 'Deseja receber alertas da vaga por email?'
         update_first_vacant_job_data_btn: 'Atualizar dados da 1ª vaga'
         update_second_vacant_job_data_btn: 'Atualizar dados da 2ª vaga'
+      vacant_job_details:
+        title:
+          one: 'Vaga de %{vacant_job_name}'
+          other: 'Vagas de %{vacant_job_name}'
+        details: 'Detalhes'
+        availabled_quantity: 'Vagas disponíveis'
+        filled_quantity: 'Vagas preenchidas'
+        remote: 'Trabalho remoto'
+        state: 'Estado'
+        city: 'Cidade'
+        apply_btn: 'Candidatar-se à vaga'

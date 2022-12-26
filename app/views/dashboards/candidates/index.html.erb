@@ -36,8 +36,10 @@
                   <%= vacant_job.filled_quantity %>
                   <%= t('.registered_candidates', count: vacant_job.filled_quantity) %>
                 </span>
-                <br><br>
-                <small><%= t('.know_more') %></small>
+                <br>
+                <small>
+                  <%= link_to t('.know_more'), vacant_job_details_path(vacant_job.vacant_job_id) %>
+                </small>
                 <br>
               </div>
             </div>

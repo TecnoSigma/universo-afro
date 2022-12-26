@@ -1,18 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe CandidateVacantJob, type: :model do
-  it 'validates inheritance of CandidateVacationJob and VacationJob' do
-    expect(described_class).to be < VacantJob
-  end
-
-  describe 'vailidates relationships' do
-    it 'validates relationship N:1 between Vacant Job and Candidate' do
-      vacant_job = described_class.new
-
-      expect(vacant_job).to respond_to(:candidate)
-    end
-  end
-
+RSpec.describe VacantJobPresenter do
   describe '.exceeded_quantity?' do
     it 'returns \'true\' when vacant jobs quantity is equal two' do
       candidate = FactoryBot.create(:candidate)
@@ -34,6 +22,8 @@ RSpec.describe CandidateVacantJob, type: :model do
       candidate_vacant_job2.save
 
       vacant_jobs = Candidate.find_by(id: candidate.id).candidate_vacant_jobs
+
+      allow(CandidateVacantJob).to receive(:exceeded_quantity?) { true }
 
       result = described_class.exceeded_quantity?(vacant_jobs)
 
@@ -69,6 +59,8 @@ RSpec.describe CandidateVacantJob, type: :model do
 
       vacant_jobs = Candidate.find_by(id: candidate.id).candidate_vacant_jobs
 
+      allow(CandidateVacantJob).to receive(:exceeded_quantity?) { true }
+
       result = described_class.exceeded_quantity?(vacant_jobs)
 
       expect(result).to eq(true)
@@ -86,6 +78,8 @@ RSpec.describe CandidateVacantJob, type: :model do
       candidate_vacant_job.save
 
       vacant_jobs = Candidate.find_by(id: candidate.id).candidate_vacant_jobs
+
+      allow(CandidateVacantJob).to receive(:exceeded_quantity?) { false }
 
       result = described_class.exceeded_quantity?(vacant_jobs)
 

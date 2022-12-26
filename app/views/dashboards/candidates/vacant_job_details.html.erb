@@ -1,0 +1,59 @@
+<br><br>
+<div class="container-fluid">
+  <%= render '/partials/messages' %>
+  <div class="row">
+    <div class="col-sm-10 offeset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <div class="card">
+        <div class="card-body">
+          <hr>
+          <div class="text-center">
+              <%= image_tag @vacant_job.company.avatar, class: 'avatar profile' %>
+            <br><br>
+            <b><%= @vacant_job.company.name %></b>
+            <br><br>
+          </div>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <h3 class="card-header">
+          <%= t('.title',
+                vacant_job_name: @vacant_job.profession.name,
+                count: @vacant_job.availabled_quantity) %>
+        </h3>
+        <div class="card-body">
+          <% if VacantJobPresenter.exceeded_quantity?(@user.candidate_vacant_jobs) %>
+          <div class="alert alert-danger" role="alert">
+            <%= t('messages.errors.exceeded_vacant_job_limit') %>
+          </div>
+        <% end %>
+          <hr>
+          <label><strong><%= t('.details') %></strong></label>
+          <p><%= @vacant_job.details %></p>
+          <br>
+          <label><strong><%= t('.availabled_quantity') %></strong></label>
+          <p><%= @vacant_job.availabled_quantity %></p>
+          <br>
+          <label><strong><%= t('.filled_quantity') %></strong></label>
+          <p><%= @vacant_job.filled_quantity %></p>
+          <br>
+          <label><strong><%= t('.remote') %></strong></label>
+          <p><%= t("#{@vacant_job.remote.to_s}") %></p>
+          <br>
+          <label><strong><%= t('.state') %></strong></label>
+          <p><%= @vacant_job.state %></p>
+          <br>
+          <label><strong><%= t('.city') %></strong></label>
+          <p><%= @vacant_job.city %></p>
+          <br>
+          <% unless VacantJobPresenter.exceeded_quantity?(@user.candidate_vacant_jobs) %>
+          <%= button_to t('.apply_btn'),
+                        candidates_dashboard_apply_path, params: { vacant_job_id: @vacant_job.vacant_job_id },
+                        class: 'btn btn-dark' %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
