@@ -2,6 +2,7 @@
 
 # class responsible by manage candidate vacancies
 class CandidateVacantJob < VacantJob
+  has_one :candidature
   belongs_to :candidate
 
   MAXIMUN_QUANTITY = 2.freeze

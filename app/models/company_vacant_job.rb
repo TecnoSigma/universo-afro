@@ -11,6 +11,7 @@ class CompanyVacantJob < VacantJob
             :filled_quantity,
             numericality: { greater_than: -1, message: I18n.t('messages.errors.invalid_format') }
 
+  has_many :candidatures
   belongs_to :company
 
   before_validation(on: :create) { generate_vacant_job_id! }

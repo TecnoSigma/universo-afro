@@ -65,6 +65,12 @@ RSpec.describe CompanyVacantJob, type: :model do
 
       expect(vacant_job).to respond_to(:company)
     end
+
+    it 'validates relationship 1:N between Company Vacant Job and Candidature' do
+      vacant_job = described_class.new
+
+      expect(vacant_job).to respond_to(:candidatures)
+    end
   end
 
   describe 'validates scopes' do

@@ -11,6 +11,12 @@ RSpec.describe CandidateVacantJob, type: :model do
 
       expect(vacant_job).to respond_to(:candidate)
     end
+
+    it 'validates relationship N:1 between Candidate Vacant Job and Candidature' do
+      vacant_job = described_class.new
+
+      expect(vacant_job).to respond_to(:candidature)
+    end
   end
 
   describe '.exceeded_quantity?' do
