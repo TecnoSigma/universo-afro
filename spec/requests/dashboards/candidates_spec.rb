@@ -87,7 +87,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-          post '/candidato/dashboard/apply', params: { vacant_job_id: company_vacant_job.vacant_job_id }
+          post '/candidato/dashboard/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
 
           result = Candidature
                      .where(company_vacant_jobs: [company_vacant_job], candidate_vacant_job: candidate_vacant_job)
@@ -116,9 +116,10 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
 
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
-          post '/candidato/dashboard/apply', params: { vacant_job_id: company_vacant_job.vacant_job_id }
 
-          expect(response).to redirect_to("candidato/dashboard/vaga/#{company_vacant_job.vacant_job_id}")
+          post '/candidato/dashboard/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
+
+          expect(response).to redirect_to(candidato_dashboard_path)
         end
 
         it 'shows success message' do
@@ -142,7 +143,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-          post '/candidato/dashboard/apply', params: { vacant_job_id: company_vacant_job.vacant_job_id }
+          post '/candidato/dashboard/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
 
           expect(flash[:notice]).to eq('Candidatura efetuada com sucesso!')
         end

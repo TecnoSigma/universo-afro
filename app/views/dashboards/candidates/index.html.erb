@@ -19,10 +19,24 @@
       <br>
       <div class="card">
         <h3 class="card-header">
+          <%= t('.my_candidatures') %>
+        </h3>
+        <div class="card-body">
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <h3 class="card-header">
           <%= t('.most_recent_vacant_jobs') %>
         </h3>
         <div class="card-body">
           <hr>
+          <% if CandidaturePresenter.exceeded_quantity?(@user) %>
+            <div class="alert alert-danger" role="alert">
+              <%= t('messages.errors.exceeded_vacant_job_limit') %>
+            </div>
+          <% end %>
           <% @user.available_vacant_jobs.each do |vacant_job| %>
             <div class="row">
               <div class="col-sm-4 offset-sm-1 col-md-4 col-lg-2">

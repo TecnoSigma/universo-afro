@@ -18,17 +18,15 @@
       <br>
       <div class="card">
         <h3 class="card-header">
-          <%= t('.title',
-                vacant_job_name: @vacant_job.profession.name,
-                count: @vacant_job.availabled_quantity) %>
+          <%= t('.title', vacant_job_name: @vacant_job.profession.name, count: @vacant_job.availabled_quantity) %>
         </h3>
         <div class="card-body">
-          <% if VacantJobPresenter.exceeded_quantity?(@user.candidate_vacant_jobs) %>
-          <div class="alert alert-danger" role="alert">
-            <%= t('messages.errors.exceeded_vacant_job_limit') %>
-          </div>
-        <% end %>
           <hr>
+          <% if CandidaturePresenter.exceeded_quantity?(@user) %>
+            <div class="alert alert-danger" role="alert">
+              <%= t('messages.errors.exceeded_vacant_job_limit') %>
+            </div>
+          <% end %>
           <label><strong><%= t('.details') %></strong></label>
           <p><%= @vacant_job.details %></p>
           <br>
@@ -47,11 +45,11 @@
           <label><strong><%= t('.city') %></strong></label>
           <p><%= @vacant_job.city %></p>
           <br>
-          <% unless VacantJobPresenter.exceeded_quantity?(@user.candidate_vacant_jobs) %>
-          <%= button_to t('.apply_btn'),
-                        { controller: 'dashboards/candidates', action: 'apply', vacant_job_id: @vacant_job.vacant_job_id },
-                        method: :post,
-                        class: 'btn btn-dark' %>
+          <% unless CandidaturePresenter.exceeded_quantity?(@user) %>
+            <%= form_with scope: :vacant_job, method: :post, url: '/candidato/dashboard/apply' do |form| %>
+              <%= form.hidden_field :id, value: @vacant_job.vacant_job_id %>
+              <%= form.submit t('.apply_btn'), class: 'btn btn-dark' %>
+            <% end %>
           <% end %>
         </div>
       </div>

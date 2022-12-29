@@ -21,7 +21,7 @@ module Dashboards
       candidature.validate!
       candidature.save!
 
-      redirect_to "candidato/dashboard/vaga/#{params['vacant_job_id']}",
+      redirect_to candidato_dashboard_path,
                   notice: I18n.t('messages.successes.candidature_at_vacant_job')
     rescue StandardError => e
       Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
@@ -118,7 +118,7 @@ module Dashboards
     end
 
     def company_vacant_job
-      CompanyVacantJob.find_by(vacant_job_id: params['vacant_job_id'])
+      CompanyVacantJob.find_by(vacant_job_id: params['vacant_job']['id'])
     end
   end
 end
