@@ -1,4 +1,6 @@
+# frozen_string_literal: true
+
 class Candidature < ApplicationRecord
-  has_many :company_vacant_jobs
-  has_one :candidate_vacant_job
+  belongs_to :company_vacant_job
+  belongs_to :candidate_vacant_job
 end

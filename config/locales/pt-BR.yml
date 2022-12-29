@@ -25,9 +25,11 @@ pt-BR:
       image_type: 'Tipo de imagem inválido!'
       update_data: 'Erro na atualização dos dados!'
       password_confirmation: 'Erro na confirmação de senha!'
+      candidature_at_vacant_job: 'Erro ao candidatar-se à vaga!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
       update_data: 'Dados atualizados com sucesso!'
+      candidature_at_vacant_job: 'Candidatura efetuada com sucesso!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'

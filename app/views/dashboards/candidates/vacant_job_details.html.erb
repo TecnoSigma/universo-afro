@@ -49,7 +49,8 @@
           <br>
           <% unless VacantJobPresenter.exceeded_quantity?(@user.candidate_vacant_jobs) %>
           <%= button_to t('.apply_btn'),
-                        candidates_dashboard_apply_path, params: { vacant_job_id: @vacant_job.vacant_job_id },
+                        { controller: 'dashboards/candidates', action: 'apply', vacant_job_id: @vacant_job.vacant_job_id },
+                        method: :post,
                         class: 'btn btn-dark' %>
           <% end %>
         </div>

@@ -5,7 +5,7 @@ class CandidateVacantJob < VacantJob
   has_one :candidature
   belongs_to :candidate
 
-  MAXIMUN_QUANTITY = 2.freeze
+  MAXIMUN_QUANTITY = 2
 
   def self.exceeded_quantity?(vacant_jobs)
     vacant_jobs.count >= MAXIMUN_QUANTITY

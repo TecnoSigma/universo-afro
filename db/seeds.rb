@@ -73,6 +73,6 @@ unless Rails.env.production?
   FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: Candidate.first.id, profession: profession2)
 
   # Create company vacant jobs
-  FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company1.id, profession: profession1, availabled_quantity: 3, filled_quantity: 1)
-  FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company2.id, profession: profession2, availabled_quantity: 5, filled_quantity: 2)
+  FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company1.id, profession: profession1, availabled_quantity: 3, filled_quantity: 1, vacant_job_id: SecureRandom.hex(10))
+  FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company2.id, profession: profession2, availabled_quantity: 5, filled_quantity: 2, vacant_job_id: SecureRandom.hex(10))
 end

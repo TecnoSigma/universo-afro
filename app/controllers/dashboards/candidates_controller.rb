@@ -16,6 +16,19 @@ module Dashboards
       @vacant_job = VacantJob.find_by(vacant_job_id: params['vacant_job_id'])
     end
 
+    def apply
+      candidature = Candidature.new(company_vacant_job: company_vacant_job, candidate_vacant_job: candidate_vacant_job)
+      candidature.validate!
+      candidature.save!
+
+      redirect_to "candidato/dashboard/vaga/#{params['vacant_job_id']}",
+                  notice: I18n.t('messages.successes.candidature_at_vacant_job')
+    rescue StandardError => e
+      Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
+
+      redirect_to candidato_dashboard_path, alert: I18n.t('messages.errors.candidature_at_vacant_job')
+    end
+
     def update_personal_data
       @user.update!(first_name: candidate_params['first_name'], last_name: candidate_params['last_name'],
                     state: candidate_params['state'], city: candidate_params['city'],
@@ -96,6 +109,16 @@ module Dashboards
       Rails.logger.error("Message: #{error.message} - Backtrace: #{error.backtrace}")
 
       redirect_to candidato_dashboard_path, alert: I18n.t('messages.errors.update_data')
+    end
+
+    def candidate_vacant_job
+      @user
+        .candidate_vacant_jobs
+        .detect { |vacant_job| vacant_job.profession.name == company_vacant_job.profession.name }
+    end
+
+    def company_vacant_job
+      CompanyVacantJob.find_by(vacant_job_id: params['vacant_job_id'])
     end
   end
 end
