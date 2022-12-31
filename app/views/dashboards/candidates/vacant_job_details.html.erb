@@ -6,6 +6,23 @@
       <div class="card">
         <div class="card-body">
           <hr>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active">
+                <%= link_to t('breadcrumbs.candidate.home'), candidato_dashboard_path %>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                <%= t('breadcrumbs.candidate.vacant_job', profession: @vacant_job.profession.name) %>
+              </li>
+            </ol>
+          </nav>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <hr>
           <div class="text-center">
               <%= image_tag @vacant_job.company.avatar, class: 'avatar profile' %>
             <br><br>

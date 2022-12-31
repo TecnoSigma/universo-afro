@@ -132,8 +132,8 @@ ActiveRecord::Schema.define(version: 2022_12_26_151852) do
     t.string "category"
     t.string "state"
     t.string "city"
-    t.boolean "alert"
-    t.boolean "remote"
+    t.boolean "alert", default: false
+    t.boolean "remote", default: false
     t.integer "status", default: 1
     t.string "vacant_job_id"
     t.text "details"

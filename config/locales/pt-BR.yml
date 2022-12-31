@@ -1,6 +1,11 @@
 pt-BR:
   true: 'Sim'
   false: 'Não'
+  breadcrumbs:
+    candidate:
+      home: 'Home'
+      edit_profile: 'Editar perfil'
+      vacant_job: 'Vaga de %{profession}'
   notifications:
     validations:
       check_email:
