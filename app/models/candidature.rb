@@ -8,15 +8,15 @@ class Candidature < ApplicationRecord
   MAXIMUN_QUANTITY = 2
 
   def self.exceeded_quantity?(candidate)
-    candidatures_list(candidate).compact.count >= MAXIMUN_QUANTITY
+    list(candidate).count >= MAXIMUN_QUANTITY
   end
 
-  def self.candidatures_list(candidate)
+  def self.list(candidate)
     candidate
       .candidate_vacant_jobs
       .inject([]) { |list, vacant_job| list << vacant_job.candidature }
+      .compact
   end
 
   private_constant :MAXIMUN_QUANTITY
-  private_class_method :candidatures_list
 end

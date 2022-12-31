@@ -22,7 +22,40 @@
           <%= t('.my_candidatures') %>
         </h3>
         <div class="card-body">
-          <hr>
+          <% CandidaturePresenter.candidatures_list(@user).each do |candidature| %>
+            <div class="row">
+              <div class="col-sm-4 offset-sm-1 col-md-4 col-lg-2">
+                <%= image_tag candidature.company_vacant_job.company.avatar, class: 'logotype' %>
+              </div>
+              <div class="col-sm-7 col-md-7 col-lg-7">
+                <h5><%= candidature.company_vacant_job.company.name %></h5>
+                <hr>
+                <strong><%= t('.position') %></strong>
+                <span><%= candidature.company_vacant_job.profession.name %></span>
+                <br><br>
+                <strong><%= t('.category') %></strong>
+                <span><%= candidature.company_vacant_job.category %></span>
+                <br><br>
+                <strong><%= t('.state') %></strong>
+                <span><%= candidature.company_vacant_job.company.state %></span>
+                <br><br>
+                <strong><%= t('.city') %></strong>
+                <span><%= candidature.company_vacant_job.company.city %></span>
+                <br><br>
+                <strong><%= t('.details') %></strong>
+                <span><%= candidature.company_vacant_job.details %></span>
+                <br><br>
+                <strong><%= t('.remote') %></strong>
+                <span><%= t("#{candidature.company_vacant_job.remote.to_s}") %></span>
+                <br><br>
+                <%= form_with scope: :candidature, method: :delete, url: '/candidature/dashboard/cancel' do |form| %>
+                  <%= form.hidden_field :id, value: candidature.id %>
+                  <%= form.submit t('.cancel_btn'), class: 'btn btn-dark' %>
+                <% end %>
+              </div>
+            </div>
+            <hr>
+          <% end %>
         </div>
       </div>
       <br>

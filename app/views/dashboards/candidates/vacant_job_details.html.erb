@@ -46,7 +46,7 @@
           <p><%= @vacant_job.city %></p>
           <br>
           <% unless CandidaturePresenter.exceeded_quantity?(@user) %>
-            <%= form_with scope: :vacant_job, method: :post, url: '/candidato/dashboard/apply' do |form| %>
+            <%= form_with scope: :vacant_job, method: :post, url: '/candidature/dashboard/apply' do |form| %>
               <%= form.hidden_field :id, value: @vacant_job.vacant_job_id %>
               <%= form.submit t('.apply_btn'), class: 'btn btn-dark' %>
             <% end %>

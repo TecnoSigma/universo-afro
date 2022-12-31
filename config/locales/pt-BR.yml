@@ -26,10 +26,12 @@ pt-BR:
       update_data: 'Erro na atualização dos dados!'
       password_confirmation: 'Erro na confirmação de senha!'
       candidature_at_vacant_job: 'Erro ao candidatar-se à vaga!'
+      vacant_job_cancelation: 'Erro ao cancelar assinatura!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
       update_data: 'Dados atualizados com sucesso!'
       candidature_at_vacant_job: 'Candidatura efetuada com sucesso!'
+      vacant_job_cancelation: 'Candidatura cancelada com sucesso!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'
@@ -180,6 +182,13 @@ Brasileiro de Geografia e Estatística (IBGE).'
           zero: ' candidato inscrito'
           one: ' candidato inscrito'
           other: ' candidatos inscritos'
+        position: 'Cargo: '
+        category: 'Categoria: '
+        state: 'Estado: '
+        city: 'Cidade: '
+        details: 'Detalhe da vaga: '
+        remote: 'Trabalho remoto: '
+        cancel_btn: 'Cancelar candidatura'
       edit_avatar:
         update_btn: 'Atualizar foto'
       edit_personal_data:
