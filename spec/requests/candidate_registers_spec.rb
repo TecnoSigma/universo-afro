@@ -96,10 +96,12 @@ RSpec.describe CandidateRegistersController, type: :request do
           result1 = Candidate.find_by(first_name: candidate_params[:first_name])
           result2 = CandidateVacantJob.find_by(profession_id: profession1.id)
           result3 = CandidateVacantJob.find_by(profession_id: profession2.id)
+          result4 = result1.status
 
           expect(result1).to be_present
           expect(result2).to be_present
           expect(result3).to be_present
+          expect(result4).to eq('activated')
           expect(result1.candidate_vacant_jobs).to include(result2)
           expect(result1.candidate_vacant_jobs).to include(result3)
         end

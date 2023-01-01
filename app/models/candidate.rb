@@ -22,6 +22,7 @@ class Candidate < ApplicationRecord
   enum status: Statuses::CANDIDATE
 
   before_validation(on: :create) { generate_afro_id! }
+  before_validation(on: :create) { update_status! }
 
   def fullname
     "#{first_name} #{last_name}"
@@ -43,5 +44,9 @@ class Candidate < ApplicationRecord
 
   def generate_afro_id!
     self.afro_id = SecureRandom.hex(10)
+  end
+
+  def update_status!
+    self.status = 'activated'
   end
 end
