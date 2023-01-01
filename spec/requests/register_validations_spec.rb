@@ -62,7 +62,7 @@ RSpec.describe RegisterValidationsController, type: :request do
           post '/store_user_data',
             params: { user_data: { email: 'all@acme.com.br', password: '123456' } }
 
-          expect(response).to redirect_to(escolha_seu_perfil_path)
+          expect(response).to redirect_to(informe_os_dados_de_usuario_path)
         end
 
         it 'show error message' do

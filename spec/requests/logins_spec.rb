@@ -44,27 +44,112 @@ RSpec.describe LoginsController, type: :request do
             end
           end
 
-          context 'when the #{profile} isn\'t activated' do
-            it "redirects to #{profile} dashboard" do
+          context 'and pass invalid params' do
+            it "redirects to login dashboard" do
               if profile == 'professional'
                 profession = FactoryBot.create(:profession)
 
-                profile_data = FactoryBot.create(profile.to_sym, :deactivated, profession: profession)
+                profile_data = FactoryBot.create(profile.to_sym, :activated, profession: profession)
               else
-                profile_data = FactoryBot.create(profile.to_sym, :deactivated)
+                profile_data = FactoryBot.create(profile.to_sym, :activated)
               end
+
+              allow_any_instance_of(ActionDispatch::Request).to receive(:session) { { profile: profile } }
 
               post '/validate_access',
                    params: { user: { profile: profile, email: 'invalid_email', password: profile_data.password } }
 
               expect(response).to redirect_to(login_path)
             end
+
+            it 'shows error message' do
+              if profile == 'professional'
+                profession = FactoryBot.create(:profession)
+
+                profile_data = FactoryBot.create(profile.to_sym, :activated, profession: profession)
+              else
+                profile_data = FactoryBot.create(profile.to_sym, :activated)
+              end
+
+              allow_any_instance_of(ActionDispatch::Request).to receive(:session) { { profile: profile } }
+
+              post '/validate_access',
+                   params: { user: { profile: profile, email: 'invalid_email', password: profile_data.password } }
+
+              expect(flash[:alert]).to eq('Usuário não encontrado!')
+            end
+          end
+        end
+
+        context "when the #{profile} isn\'t activated" do
+          it 'redirects to login dashboard' do
+            if profile == 'professional'
+              profession = FactoryBot.create(:profession)
+
+              profile_data = FactoryBot.create(profile.to_sym, :deactivated, profession: profession)
+            else
+              profile_data = FactoryBot.create(profile.to_sym, :deactivated)
+              profile_data.update(status: 'deactivated')
+            end
+
+            post '/validate_access',
+              params: { user: { profile: profile, email: profile_data.email, password: profile_data.password } }
+
+            expect(response).to redirect_to(login_path)
+          end
+
+          it 'shows error message' do
+            if profile == 'professional'
+              profession = FactoryBot.create(:profession)
+
+              profile_data = FactoryBot.create(profile.to_sym, :deactivated, profession: profession)
+            else
+              profile_data = FactoryBot.create(profile.to_sym, :deactivated)
+              profile_data.update(status: 'deactivated')
+            end
+
+            post '/validate_access',
+              params: { user: { profile: profile, email: profile_data.email, password: profile_data.password } }
+
+            expect(flash[:alert]).to eq('Acesso não autorizado!')
+          end
+        end
+
+        context "when the #{profile} no exist" do
+          it 'redirects to login dashboard' do
+            if profile == 'professional'
+              profession = FactoryBot.create(:profession)
+
+              profile_data = FactoryBot.create(profile.to_sym, :activated, profession: profession)
+            else
+              profile_data = FactoryBot.create(profile.to_sym, :activated)
+            end
+
+            post '/validate_access',
+                 params: { user: { profile: profile, email: 'invalid_email', password: profile_data.password } }
+
+            expect(response).to redirect_to(login_path)
+          end
+
+          it 'shows error message' do
+            if profile == 'professional'
+              profession = FactoryBot.create(:profession)
+
+              profile_data = FactoryBot.create(profile.to_sym, :activated, profession: profession)
+            else
+              profile_data = FactoryBot.create(profile.to_sym, :activated)
+            end
+
+            post '/validate_access',
+                 params: { user: { profile: profile, email: 'invalid_email', password: profile_data.password } }
+
+            expect(flash[:alert]).to eq('Usuário não encontrado!')
           end
         end
       end
     end
 
-    describe '#send_password' do
+    describe '#send_password_notification' do
       context 'when pass invalid profile' do
         it 'no sends user password notification' do
           expect(Notifications::SendPassword).not_to receive(:new)
@@ -171,10 +256,12 @@ RSpec.describe LoginsController, type: :request do
               if profile == 'professional'
                 profession = FactoryBot.create(:profession)
 
-                profile_data = FactoryBot.create(profile.to_sym, status.to_sym, profession: profession)
+                profile_data = FactoryBot.create(profile.to_sym, profession: profession)
               else
-                profile_data = FactoryBot.create(profile.to_sym, status.to_sym)
+                profile_data = FactoryBot.create(profile.to_sym)
               end
+
+              profile_data.update(status: status)
 
               expect(Notifications::SendPassword).not_to receive(:new)
 
@@ -191,6 +278,8 @@ RSpec.describe LoginsController, type: :request do
                 profile_data = FactoryBot.create(profile.to_sym, status.to_sym)
               end
 
+              profile_data.update(status: status)
+
               post '/send_password_notification',
                    params: { user: { profile: profile, email: profile_data.email } }
 
@@ -205,6 +294,8 @@ RSpec.describe LoginsController, type: :request do
               else
                 profile_data = FactoryBot.create(profile.to_sym, status.to_sym)
               end
+
+              profile_data.update(status: status)
 
               post '/send_password_notification',
                    params: { user: { profile: profile, email: profile_data.email } }

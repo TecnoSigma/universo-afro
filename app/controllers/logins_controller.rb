@@ -22,12 +22,21 @@ class LoginsController < ApplicationController
 
     redirect_to "/#{translated_profile}/dashboard"
   rescue FindUserError, AuthorizedUserError => e
-    Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
+    Rails.logger.error("Message: #{error_access_message(e)} - Backtrace: #{e.backtrace}")
 
-    redirect_to login_path
+    redirect_to login_path, alert: error_access_message(e)
   end
 
   private
+
+  def error_access_message(error)
+    @error_access_message ||= case error
+                              when FindUserError then 'Usuário não encontrado!'
+                              when AuthorizedUserError then 'Acesso não autorizado!'
+                              else
+                                error.massage
+                              end
+  end
 
   def create_session!
     session[:profile] = user_params[:profile]
