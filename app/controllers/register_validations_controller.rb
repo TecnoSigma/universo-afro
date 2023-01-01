@@ -33,7 +33,7 @@ class RegisterValidationsController < ApplicationController
   rescue PasswordValidationError => e
     flash[:alert] = e.message
 
-    redirect_to escolha_seu_perfil_path
+    redirect_to informe_os_dados_de_usuario_path, alert: e.message
   end
 
   def resend_verification_code

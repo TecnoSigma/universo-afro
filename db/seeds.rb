@@ -37,6 +37,8 @@ Tasks::PlacesGenerator.call!
 # City.create(name: 'Mauá', state: State.first)
 # City.create(name: 'Belo Horizonte', state: State.last)
 
+Tasks::ProfessionsGenerator.call!
+
 if Rails.env.production?
   # Create Professions
   Tasks::ProfessionsGenerator.call!
