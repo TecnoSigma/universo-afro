@@ -2,7 +2,7 @@
 
 # class responsible by rescue authorized user errors
 class AuthorizedUserError < StandardError
-  def initialize(message = I18n.t('messages.errors.user_not_authorized'))
+  def initialize(message = I18n.t('messages.errors.access_not_authorized'))
     super
   end
 end

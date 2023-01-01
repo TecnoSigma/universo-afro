@@ -32,6 +32,8 @@ pt-BR:
       password_confirmation: 'Erro na confirmação de senha!'
       candidature_at_vacant_job: 'Erro ao candidatar-se à vaga!'
       vacant_job_cancelation: 'Erro ao cancelar assinatura!'
+      user_not_found: 'Usuário não encontrado!'
+      access_not_authorized: 'Acesso não autorizado!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
       update_data: 'Dados atualizados com sucesso!'

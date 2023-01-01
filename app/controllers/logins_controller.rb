@@ -31,11 +31,10 @@ class LoginsController < ApplicationController
 
   def error_access_message(error)
     @error_access_message ||= case error
-                              when FindUserError then 'Usuário não encontrado!'
-                              when AuthorizedUserError then 'Acesso não autorizado!'
-                              else
-                                error.massage
+                              when FindUserError then I18n.t('messages.errors.user_not_found')
+                              when AuthorizedUserError then I18n.t('messages.errors.access_not_authorized')
                               end
+    error.message
   end
 
   def create_session!
