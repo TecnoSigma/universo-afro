@@ -1,11 +1,17 @@
 <% if flash[:notice] %>
-  <div class="alert alert-success centered-message" role="alert">
-    <%= flash[:notice] %>
+  <div class="card alert alert-success alert-dismissible">
+    <div class="text-center" role="alert">
+      <span><%= flash[:notice] %></span>
+    </div>
   </div>
+  <br>
 <% end %>
 
 <% if flash[:alert] %>
-  <div class="alert alert-danger centered-message" role="alert">
-    <%= flash[:alert] %>
+  <div class="card alert alert-danger alert-dismissible">
+    <div class="text-center" role="alert">
+      <span><%= flash[:alert] %></span>
+    </div>
   </div>
+  <br>
 <% end %>
