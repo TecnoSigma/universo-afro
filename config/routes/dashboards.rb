@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+get 'logout', to: 'dashboards#logout'
+
 get   'candidato/dashboard',                               to: 'dashboards/candidates#index'
 get   'candidato/dashboard/editar-perfil',                 to: 'dashboards/candidates#edit_profile'
 get   'candidato/dashboard/vaga/:vacant_job_id',           to: 'dashboards/candidates#vacant_job_details',

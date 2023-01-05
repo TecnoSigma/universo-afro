@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe LoginsController, type: :request do
   describe 'GET actions' do
-    describe '#index' do
+    describe '#login' do
       it 'renders login page' do
         get '/login'
 

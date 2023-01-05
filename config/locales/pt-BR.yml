@@ -52,6 +52,8 @@ pt-BR:
     application:
       title: 'Universo Afro'
   partials:
+    logout:
+      logout: 'Sair'
     inform_company_data:
       nickname: 'Nome Fantasia'
       name: 'Razão Social'

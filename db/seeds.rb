@@ -68,6 +68,7 @@ unless Rails.env.production?
   # Create companies
   company1 = FactoryBot.create(:company, status: 'activated')
   company2 = FactoryBot.create(:company, status: 'activated')
+  company3 = FactoryBot.create(:company, status: 'activated', email: 'tecnooxossi@gmail.com')
 
   # Create candidate vacant jobs
   FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession1)
