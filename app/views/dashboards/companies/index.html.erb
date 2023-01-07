@@ -26,7 +26,7 @@
             <br><br>
             <b><%= @company.nickname %></b>
             <br><br>
-            <%= link_to t('.settings_lnk'), candidato_dashboard_editar_perfil_path %>
+            <%= link_to t('.settings_lnk'), candidato_dashboard_editar_perfil_path, class: 'link' %>
           </div>
           <hr>
         </div>
@@ -35,6 +35,45 @@
       <div class="card">
         <h3 class="card-header">
           <%= t('.vacant_jobs') %>
+        </h3>
+        <div class="card-body">
+          <% @company.company_vacant_jobs.sort.each do |vacant_job| %>
+            <button class="company-vacant-jobs-accordion"><%= vacant_job.profession.name %></button>
+            <div class="panel">
+              <br>
+              <strong><%= t('.category') %></strong>
+              <span><%= vacant_job.category %></span>
+              <br><br>
+              <strong><%= t('.availabled_quantity') %></strong>
+              <span><%= vacant_job.availabled_quantity %></span>
+              <br><br>
+              <strong><%= t('.filled_quantity') %></strong>
+              <span><%= vacant_job.filled_quantity %></span>
+              <br><br>
+              <strong><%= t('.details') %></strong>
+              <span><%= vacant_job.details %></span>
+              <br><br>
+              <strong><%= t('.remote') %></strong>
+              <span><%= t("#{vacant_job.remote.to_s}") %></span>
+              <br><br>
+              <strong><%= t('.state') %></strong>
+              <span><%= vacant_job.company.state %></span>
+              <br><br>
+              <strong><%= t('.city') %></strong>
+              <span><%= vacant_job.company.city %></span>
+              <br><br>
+              <strong><%= t('.status') %></strong>
+              <span><%= vacant_job.status %></span>
+              <hr>
+            </div>
+            <hr>
+          <% end %>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <h3 class="card-header">
+          <%= t('.candidates') %>
         </h3>
         <div class="card-body">
         </div>

@@ -1,6 +1,13 @@
 pt-BR:
   true: 'Sim'
   false: 'Não'
+  statuses:
+    pendent: 'Pendente'
+    activated: 'Ativado'
+    deactivated: 'Desativado'
+    cancelled: 'Cancelado'
+    opened: 'Aberto'
+    closed: 'Fechado'
   breadcrumbs:
     candidate:
       home: 'Home'
@@ -180,6 +187,19 @@ Brasileiro de Geografia e Estatística (IBGE).'
       wish_receive_vacancy_alert_chk: 'Deseja receber alertas da vaga por email?'
       finish_candidate_register_btn: 'Finalizar registro do candidato'
   dashboards:
+    companies:
+      index:
+        settings_lnk: 'Configurações'
+        vacant_jobs: 'Vagas Cadastradas'
+        candidates: 'Candidatos'
+        category: 'Categoria: '
+        availabled_quantity: 'Vagas disponiveis: '
+        filled_quantity: 'Vagas preenchidas: '
+        details: 'Detalhes: '
+        remote: 'Trabalho remoto: '
+        state: 'Estado: '
+        city: 'Cidade: '
+        status: 'Status: '
     candidates:
       index:
         edit_profile_lnk: 'Editar perfil'

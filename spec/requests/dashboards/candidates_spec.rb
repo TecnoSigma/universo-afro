@@ -7,7 +7,7 @@ RSpec.describe Dashboards::CandidatesController, type: :request do
     user = FactoryBot.create(:candidate)
 
     allow_any_instance_of(ActionDispatch::Request)
-      .to receive(:session) { { profile: 'any_profile', user_email: user.email, afro_id: user.afro_id } }
+      .to receive(:session) { { profile: 'candidate', user_email: user.email, afro_id: user.afro_id } }
   end
 
   describe 'GET actions' do
