@@ -37,7 +37,7 @@
           <%= t('.vacant_jobs') %>
         </h3>
         <div class="card-body">
-          <%= link_to t('.add_new_vacant_job_btn'), empresa_dashboard_nova_vaga_path, class: 'btn btn-dark' %>
+          <%= link_to t('.add_new_vacant_job_btn'), empresa_dashboard_vaga_nova_vaga_path, class: 'btn btn-dark' %>
           <hr>
           <% @company.company_vacant_jobs.sort_by_profession.each do |vacant_job| %>
             <button class="company-vacant-jobs-accordion"><%= vacant_job.profession.name %></button>

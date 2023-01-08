@@ -15,9 +15,11 @@ patch 'candidato/dashboard/update-second-vacant-job-data', to: 'dashboards/candi
 post  'candidature/dashboard/apply',   to: 'dashboards/candidatures#apply'
 delete 'candidature/dashboard/cancel', to: 'dashboards/candidatures#cancel'
 
-get 'empresa/dashboard',                       to: 'dashboards/companies#index'
-get 'empresa/dashboard/nova-vaga',             to: 'dashboards/companies#new'
-get 'empresa/dashboard/editar/:vacant_job_id', to: 'dashboards/companies#edit', as: 'edit_company_vacant_job'
-post 'empresa/dashboard/create',               to: 'dashboards/companies#create'
+get 'empresa/dashboard', to: 'dashboards/companies#index'
+
+get 'empresa/dashboard/vaga/nova-vaga',             to: 'dashboards/companies/vacant_jobs#new'
+get 'empresa/dashboard/vaga/editar/:vacant_job_id', to: 'dashboards/companies/vacant_jobs#edit',
+                                                    as: 'edit_company_vacant_job'
+post 'empresa/dashboard/vaga/create',               to: 'dashboards/companies/vacant_jobs#create'
 
 get 'profissional/dashboard', to: 'dashboards/professionals#index'
