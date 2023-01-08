@@ -5,11 +5,13 @@ module Dashboards
   class CompaniesController < DashboardsController
     before_action :check_profile_session
     before_action :find_company
+    before_action :find_vacant_job, only: [:edit]
 
     def index; end
     def new; end
+    def edit; end
 
-    def create_vacant_job
+    def create
       vacant_job = CompanyVacantJob.new(params_vacant_job)
       vacant_job.validate!
       vacant_job.save!
@@ -31,6 +33,10 @@ module Dashboards
       params[:vacant_job]
         .permit(:category, :availabled_quantity, :details, :remote, :state, :city)
         .merge({ 'profession' => profession, 'company' => @company })
+    end
+
+    def find_vacant_job
+      @vacant_job = CompanyVacantJob.find_by_vacant_job_id(params['vacant_job_id'])
     end
   end
 end

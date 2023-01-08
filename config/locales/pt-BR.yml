@@ -20,7 +20,10 @@ pt-BR:
       home: 'Home'
       edit_profile: 'Editar perfil'
       vacant_job: 'Vaga de %{profession}'
+    company:
+      home: 'Home'
       new_vacant_job: 'Nova vaga'
+      edit_vacant_job: 'Editar vaga'
   notifications:
     validations:
       check_email:
@@ -211,6 +214,7 @@ Brasileiro de Geografia e Estatística (IBGE).'
         city: 'Cidade: '
         status: 'Status: '
         add_new_vacant_job_btn: 'Adicionar nova vaga'
+        edit_vacant_job_btn: 'Editar vaga'
       new:
         title: 'Nova vaga'
         profession: 'Profissão'
@@ -222,6 +226,17 @@ Brasileiro de Geografia e Estatística (IBGE).'
         city: 'Cidade'
         status: 'Status'
         create_new_vacant_job_btn: 'Criar nova vaga'
+      edit:
+        title: 'Vaga de %{profession}'
+        profession: 'Profissão'
+        category: 'Categoria'
+        availabled_quantity: 'Quantidade de vagas'
+        details: 'Detalhes da vaga'
+        remote: 'Trabalho remoto'
+        state: 'Estado'
+        city: 'Cidade'
+        status: 'Status'
+        update_vacant_job_btn: 'Atualizar vaga'
     candidates:
       index:
         edit_profile_lnk: 'Editar perfil'

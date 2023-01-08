@@ -26,16 +26,35 @@ RSpec.describe Dashboards::CompaniesController, type: :request do
         expect(response).to render_template(:new)
       end
     end
+
+    describe '#edit' do
+      it 'renders company vacant job page' do
+        details = 'any text'
+        profession = FactoryBot.create(:profession)
+        company = FactoryBot.create(:company, status: 'activated')
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false)
+
+        company_vacant_job = CompanyVacantJob.new(vacant_job)
+        company_vacant_job.profession = profession
+        company_vacant_job.company = company
+        company_vacant_job.details = details
+        company_vacant_job.save
+
+        get "/empresa/dashboard/editar/#{company_vacant_job.vacant_job_id}"
+
+        expect(response).to render_template(:edit)
+      end
+    end
   end
 
   describe 'POST actions' do
-    describe '#create_vacant_job' do
+    describe '#create' do
       context 'when pass valid params' do
         it 'creates a new comoany vacant job' do
           profession = FactoryBot.create(:profession)
           category = 'Meio período'
 
-          post '/empresa/dashboard/create-vacant-job',
+          post '/empresa/dashboard/create',
             params: { vacant_job: { profession: profession.name,
                                     category: category,
                                     availabled_quantity: '3',
@@ -53,7 +72,7 @@ RSpec.describe Dashboards::CompaniesController, type: :request do
           profession = FactoryBot.create(:profession)
           category = 'Meio período'
 
-          post '/empresa/dashboard/create-vacant-job',
+          post '/empresa/dashboard/create',
             params: { vacant_job: { profession: profession.name,
                                     category: category,
                                     availabled_quantity: '3',
@@ -69,7 +88,7 @@ RSpec.describe Dashboards::CompaniesController, type: :request do
           profession = FactoryBot.create(:profession)
           category = 'Meio período'
 
-          post '/empresa/dashboard/create-vacant-job',
+          post '/empresa/dashboard/create',
             params: { vacant_job: { profession: profession.name,
                                     category: category,
                                     availabled_quantity: '3',
@@ -87,7 +106,7 @@ RSpec.describe Dashboards::CompaniesController, type: :request do
           profession = FactoryBot.create(:profession)
           state = 'São Paulo'
 
-          post '/empresa/dashboard/create-vacant-job',
+          post '/empresa/dashboard/create',
             params: { vacant_job: { profession: profession.name,
                                     category: nil,
                                     availabled_quantity: '3',
@@ -104,7 +123,7 @@ RSpec.describe Dashboards::CompaniesController, type: :request do
         it 'redirects to new vacant job dashboard' do
           profession = FactoryBot.create(:profession)
 
-          post '/empresa/dashboard/create-vacant-job',
+          post '/empresa/dashboard/create',
             params: { vacant_job: { profession: profession.name,
                                     category: nil,
                                     availabled_quantity: '3',
@@ -119,7 +138,7 @@ RSpec.describe Dashboards::CompaniesController, type: :request do
         it 'shows error message' do
           profession = FactoryBot.create(:profession)
 
-          post '/empresa/dashboard/create-vacant-job',
+          post '/empresa/dashboard/create',
             params: { vacant_job: { profession: profession.name,
                                     category: nil,
                                     availabled_quantity: '3',

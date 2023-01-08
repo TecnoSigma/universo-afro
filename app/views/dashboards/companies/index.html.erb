@@ -10,7 +10,7 @@
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
               <li class="breadcrumb-item active" aria-current="page">
-                <%= t('breadcrumbs.candidate.home') %>
+                <%= t('breadcrumbs.company.home') %>
               </li>
             </ol>
           </nav>
@@ -66,6 +66,8 @@
               <br><br>
               <strong><%= t('.status') %></strong>
               <span><%= t("statuses.#{vacant_job.status}") %></span>
+              <br><br>
+              <%= link_to t('.edit_vacant_job_btn'), edit_company_vacant_job_path(vacant_job.vacant_job_id), class: 'btn btn-dark' %>
               <hr>
             </div>
             <hr>

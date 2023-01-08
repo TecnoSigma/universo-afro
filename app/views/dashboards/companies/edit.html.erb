@@ -13,7 +13,7 @@
                 <%= link_to t('breadcrumbs.company.home'), empresa_dashboard_path %>
               </li>
               <li class="breadcrumb-item active" aria-current="page">
-                <%= t('breadcrumbs.company.new_vacant_job') %>
+                <%= t('breadcrumbs.company.edit_vacant_job') %>
               </li>
             </ol>
           </nav>
@@ -23,14 +23,14 @@
       <br>
       <div class="card">
         <h3 class="card-header">
-          <%= t('.title') %>
+          <%= t('.title', profession: @vacant_job.profession.name) %>
         </h3>
         <div class="card-body">
           <%= form_with scope: 'vacant_job', url: '/empresa/dashboard/create-vacant-job' do |form| %>
             <div class="mb-3">
               <label class="form-label"><%= t('.profession') %></label>
               <%= form.select 'profession',
-                              options_for_select(Profession.all.pluck(:name)),
+                              options_for_select(Profession.all.pluck(:name), @vacant_job.profession.name),
                               {},
                               class: 'form-select',
                               required: true %>
@@ -38,7 +38,7 @@
             <div class="mb-3">
               <label class="form-label"><%= t('.category') %></label>
               <%= form.select 'category',
-                              options_for_select(VacantJob::CATEGORIES),
+                              options_for_select(VacantJob::CATEGORIES, @vacant_job.category),
                               {},
                               class: 'form-select',
                               required: true %>
@@ -54,14 +54,14 @@
             <div class="mb-3">
               <label class="form-label"><%= t('.remote') %></label>
               <%= form.select 'remote',
-                              options_for_select(boolean_values),
+                options_for_select(boolean_values, t("#{@vacant_job.remote.to_s}")),
                               { include_blank: false },
                               class: 'form-select' %>
             </div>
             <div class="mb-3">
               <label class="form-label"><%= t('.state') %></label>
               <%= form.select 'state',
-                              options_for_select(State.all.pluck(:name)),
+                              options_for_select(State.all.pluck(:name), @vacant_job.state),
                               {},
                               class: 'form-select',
                               required: true,
@@ -70,13 +70,12 @@
             <div class="mb-3">
               <label class="form-label"><%= t('.city') %></label>
               <%= form.select 'city',
-                              options_for_select([]),
-                              {},
-                              class: 'form-select',
-                              required: true %>
+                              options_for_select([@vacant_job.city]),
+                              { include_blank: false },
+                              class: 'form-select' %>
             </div>
             <br>
-            <%= form.submit t('.create_new_vacant_job_btn'), class: 'btn btn-dark' %>
+            <%= form.submit t('.update_vacant_job_btn'), class: 'btn btn-dark' %>
           <% end %>
         </div>
       </div>
