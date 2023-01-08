@@ -20,6 +20,8 @@ class CompanyVacantJob < VacantJob
     select { |vacant_job| vacant_job.profession.name == profession }.sort_by(&:created_at).reverse
   }
 
+  scope :sort_by_profession, -> { sort_by { |vacant_job| vacant_job.profession.name } }
+
   def generate_vacant_job_id!
     self.vacant_job_id = SecureRandom.hex(10)
   end

@@ -1,0 +1,86 @@
+<br><br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-10 offeset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <%= render '/partials/logout' %>
+      <%= render '/partials/messages' %>
+      <div class="card">
+        <div class="card-body">
+          <hr>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item" aria-current="page">
+                <%= t('breadcrumbs.candidate.home') %>
+              </li>
+              <li class="breadcrumb-item active" aria-current="page">
+                <%= t('breadcrumbs.candidate.new_vacant_job') %>
+              </li>
+            </ol>
+          </nav>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <h3 class="card-header">
+          <%= t('.title') %>
+        </h3>
+        <div class="card-body">
+          <%= form_with scope: 'vacant_job', url: '/empresa/dashboard/create-vacant-job' do |form| %>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.profession') %></label>
+              <%= form.select 'profession',
+                              options_for_select(Profession.all.pluck(:name)),
+                              {},
+                              class: 'form-select',
+                              required: true %>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.category') %></label>
+              <%= form.select 'category',
+                              options_for_select(VacantJob::CATEGORIES),
+                              {},
+                              class: 'form-select',
+                              required: true %>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.availabled_quantity') %></label>
+              <%= form.number_field 'availabled_quantity', class: 'form-control', required: true %>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.details') %></label>
+              <%= form.text_area 'details', class: 'form-control', required: true, rows: textarea_size %>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.remote') %></label>
+              <%= form.select 'remote',
+                              options_for_select(boolean_values),
+                              { include_blank: false },
+                              class: 'form-select' %>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.state') %></label>
+              <%= form.select 'state',
+                              options_for_select(State.all.pluck(:name)),
+                              {},
+                              class: 'form-select',
+                              required: true,
+                              onchange: "listCities($(this).val(), document.getElementById('vacant_job_city'))" %>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.city') %></label>
+              <%= form.select 'city',
+                              options_for_select([]),
+                              {},
+                              class: 'form-select',
+                              required: true %>
+            </div>
+            <br>
+            <%= form.submit t('.create_new_vacant_job_btn'), class: 'btn btn-dark' %>
+          <% end %>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

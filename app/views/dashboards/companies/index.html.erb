@@ -37,7 +37,9 @@
           <%= t('.vacant_jobs') %>
         </h3>
         <div class="card-body">
-          <% @company.company_vacant_jobs.sort.each do |vacant_job| %>
+          <%= link_to t('.add_new_vacant_job_btn'), empresa_dashboard_nova_vaga_path, class: 'btn btn-dark' %>
+          <hr>
+          <% @company.company_vacant_jobs.sort_by_profession.each do |vacant_job| %>
             <button class="company-vacant-jobs-accordion"><%= vacant_job.profession.name %></button>
             <div class="panel">
               <br>
@@ -57,13 +59,13 @@
               <span><%= t("#{vacant_job.remote.to_s}") %></span>
               <br><br>
               <strong><%= t('.state') %></strong>
-              <span><%= vacant_job.company.state %></span>
+              <span><%= vacant_job.state %></span>
               <br><br>
               <strong><%= t('.city') %></strong>
-              <span><%= vacant_job.company.city %></span>
+              <span><%= vacant_job.city %></span>
               <br><br>
               <strong><%= t('.status') %></strong>
-              <span><%= vacant_job.status %></span>
+              <span><%= t("statuses.#{vacant_job.status}") %></span>
               <hr>
             </div>
             <hr>

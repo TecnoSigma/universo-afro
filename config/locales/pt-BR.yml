@@ -1,18 +1,26 @@
 pt-BR:
   true: 'Sim'
   false: 'Não'
+  booleans:
+    no:
+      - 'Não'
+      - 0
+    yes:
+      - 'Sim'
+      - 1
   statuses:
     pendent: 'Pendente'
     activated: 'Ativado'
     deactivated: 'Desativado'
     cancelled: 'Cancelado'
-    opened: 'Aberto'
-    closed: 'Fechado'
+    opened: 'Aberta'
+    closed: 'Fechada'
   breadcrumbs:
     candidate:
       home: 'Home'
       edit_profile: 'Editar perfil'
       vacant_job: 'Vaga de %{profession}'
+      new_vacant_job: 'Nova vaga'
   notifications:
     validations:
       check_email:
@@ -41,11 +49,13 @@ pt-BR:
       vacant_job_cancelation: 'Erro ao cancelar assinatura!'
       user_not_found: 'Usuário não encontrado!'
       access_not_authorized: 'Acesso não autorizado!'
+      vacant_job_creation: 'Erro na criação de nova vaga!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
       update_data: 'Dados atualizados com sucesso!'
       candidature_at_vacant_job: 'Candidatura efetuada com sucesso!'
       vacant_job_cancelation: 'Candidatura cancelada com sucesso!'
+      vacant_job_creation: 'Vaga criada com sucesso!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'
@@ -190,7 +200,7 @@ Brasileiro de Geografia e Estatística (IBGE).'
     companies:
       index:
         settings_lnk: 'Configurações'
-        vacant_jobs: 'Vagas Cadastradas'
+        vacant_jobs: 'Vagas'
         candidates: 'Candidatos'
         category: 'Categoria: '
         availabled_quantity: 'Vagas disponiveis: '
@@ -200,6 +210,18 @@ Brasileiro de Geografia e Estatística (IBGE).'
         state: 'Estado: '
         city: 'Cidade: '
         status: 'Status: '
+        add_new_vacant_job_btn: 'Adicionar nova vaga'
+      new:
+        title: 'Nova vaga'
+        profession: 'Profissão'
+        category: 'Categoria'
+        availabled_quantity: 'Quantidade de vagas'
+        details: 'Detalhes da vaga'
+        remote: 'Trabalho remoto'
+        state: 'Estado'
+        city: 'Cidade'
+        status: 'Status'
+        create_new_vacant_job_btn: 'Criar nova vaga'
     candidates:
       index:
         edit_profile_lnk: 'Editar perfil'

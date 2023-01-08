@@ -84,7 +84,26 @@ RSpec.describe CompanyVacantJob, type: :model do
 
       result = described_class.by_profession(profession_name)
 
-      expected_result = [CompanyVacantJob .find_by_category(company_vacant_job.category)]
+      expected_result = [CompanyVacantJob.find_by_category(company_vacant_job.category)]
+
+      expect(result).to eq(expected_result)
+    end
+
+    it 'sorts company vacant jobs by profession' do
+      profession_name1 = 'Zoólogo'
+      profession_name2 = 'Advogado'
+
+      profession1 = FactoryBot.create(:profession, name: profession_name1)
+      profession2 = FactoryBot.create(:profession, name: profession_name2)
+
+      company = FactoryBot.create(:company, status: 'activated')
+
+      company_vacant_job1 = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id, profession: profession1)
+      company_vacant_job2 = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id, profession: profession2)
+
+      result = described_class.sort_by_profession
+
+      expected_result = [CompanyVacantJob.last, CompanyVacantJob.first]
 
       expect(result).to eq(expected_result)
     end
