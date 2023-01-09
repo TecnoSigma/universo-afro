@@ -39,6 +39,118 @@ RSpec.describe Dashboards::Companies::VacantJobsController, type: :request do
     end
   end
 
+  describe 'DELETE actions' do
+    context 'when pass valid params' do
+      it 'cancels company vacant job' do
+        details = 'any text'
+        profession = FactoryBot.create(:profession)
+        company = FactoryBot.create(:company, status: 'activated')
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false)
+
+        company_vacant_job = CompanyVacantJob.new(vacant_job)
+        company_vacant_job.profession = profession
+        company_vacant_job.company = company
+        company_vacant_job.details = details
+        company_vacant_job.save
+
+        delete "/empresa/dashboard/vaga/cancel/#{company_vacant_job.vacant_job_id}"
+
+        result = CompanyVacantJob.find_by_details(details)
+
+        expect(result).to be_nil
+      end
+
+      it 'redirects to company dashboard' do
+        details = 'any text'
+        profession = FactoryBot.create(:profession)
+        company = FactoryBot.create(:company, status: 'activated')
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false)
+
+        company_vacant_job = CompanyVacantJob.new(vacant_job)
+        company_vacant_job.profession = profession
+        company_vacant_job.company = company
+        company_vacant_job.details = details
+        company_vacant_job.save
+
+        delete "/empresa/dashboard/vaga/cancel/#{company_vacant_job.vacant_job_id}"
+
+        expect(response).to redirect_to(empresa_dashboard_path)
+      end
+
+      it 'shows success message' do
+        details = 'any text'
+        profession = FactoryBot.create(:profession)
+        company = FactoryBot.create(:company, status: 'activated')
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false)
+
+        company_vacant_job = CompanyVacantJob.new(vacant_job)
+        company_vacant_job.profession = profession
+        company_vacant_job.company = company
+        company_vacant_job.details = details
+        company_vacant_job.save
+
+        delete "/empresa/dashboard/vaga/cancel/#{company_vacant_job.vacant_job_id}"
+
+        expect(flash[:notice]).to eq('Vaga cancelada com sucesso!')
+      end
+    end
+
+    context 'when pass invalid params' do
+      it 'no cancels company vacant job' do
+        details = 'any text'
+        profession = FactoryBot.create(:profession)
+        company = FactoryBot.create(:company, status: 'activated')
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false)
+
+        company_vacant_job = CompanyVacantJob.new(vacant_job)
+        company_vacant_job.profession = profession
+        company_vacant_job.company = company
+        company_vacant_job.details = details
+        company_vacant_job.save
+
+        delete '/empresa/dashboard/vaga/cancel/invalid_id'
+
+        result = CompanyVacantJob.find_by_details(details)
+
+        expect(result).not_to be_nil
+      end
+
+      it 'redirects to company dashboard' do
+        details = 'any text'
+        profession = FactoryBot.create(:profession)
+        company = FactoryBot.create(:company, status: 'activated')
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false)
+
+        company_vacant_job = CompanyVacantJob.new(vacant_job)
+        company_vacant_job.profession = profession
+        company_vacant_job.company = company
+        company_vacant_job.details = details
+        company_vacant_job.save
+
+        delete '/empresa/dashboard/vaga/cancel/invalid_id'
+
+        expect(response).to redirect_to(empresa_dashboard_path)
+      end
+
+      it 'shows error message' do
+        details = 'any text'
+        profession = FactoryBot.create(:profession)
+        company = FactoryBot.create(:company, status: 'activated')
+        vacant_job = FactoryBot.attributes_for(:vacant_job, remote: false)
+
+        company_vacant_job = CompanyVacantJob.new(vacant_job)
+        company_vacant_job.profession = profession
+        company_vacant_job.company = company
+        company_vacant_job.details = details
+        company_vacant_job.save
+
+        delete '/empresa/dashboard/vaga/cancel/invalid_id'
+
+        expect(flash[:alert]).to eq('Erro ao cancelar vaga!')
+      end
+    end
+  end
+
   describe 'PATCH actions' do
     describe '#update' do
       context 'when pass valid params' do

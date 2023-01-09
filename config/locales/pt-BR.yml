@@ -54,6 +54,7 @@ pt-BR:
       access_not_authorized: 'Acesso não autorizado!'
       vacant_job_creation: 'Erro na criação de nova vaga!'
       vacant_job_update: 'Erro na atualização da vaga!'
+      vacant_job_cancelation: 'Erro ao cancelar vaga!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
       update_data: 'Dados atualizados com sucesso!'
@@ -61,6 +62,7 @@ pt-BR:
       vacant_job_cancelation: 'Candidatura cancelada com sucesso!'
       vacant_job_creation: 'Vaga criada com sucesso!'
       vacant_job_update: 'Vaga atualizada com sucesso!'
+      vacant_job_cancelation: 'Vaga cancelada com sucesso!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'
@@ -217,6 +219,7 @@ Brasileiro de Geografia e Estatística (IBGE).'
         status: 'Status: '
         add_new_vacant_job_btn: 'Adicionar nova vaga'
         edit_vacant_job_btn: 'Editar vaga'
+        cancel_vacant_job_btn: 'Cancelar vaga'
       vacant_jobs:
         new:
           title: 'Nova vaga'

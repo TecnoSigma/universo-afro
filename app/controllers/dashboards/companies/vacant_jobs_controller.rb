@@ -6,7 +6,7 @@ module Dashboards
     class VacantJobsController < DashboardsController
       before_action :check_profile_session
       before_action :find_company
-      before_action :find_vacant_job, only: [:edit, :update]
+      before_action :find_vacant_job, only: [:edit, :update, :cancel]
 
       def new; end
       def edit; end
@@ -31,6 +31,16 @@ module Dashboards
         Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
 
         redirect_to empresa_dashboard_path, alert: t('messages.errors.vacant_job_update')
+      end
+
+      def cancel
+        @vacant_job.delete
+
+        redirect_to empresa_dashboard_path, notice: t('messages.successes.vacant_job_cancelation')
+      rescue StandardError => e
+        Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
+
+        redirect_to empresa_dashboard_path, alert: t('messages.errors.vacant_job_cancelation')
       end
 
       private

@@ -67,7 +67,13 @@
               <strong><%= t('.status') %></strong>
               <span><%= t("statuses.#{vacant_job.status}") %></span>
               <br><br>
-              <%= link_to t('.edit_vacant_job_btn'), edit_company_vacant_job_path(vacant_job.vacant_job_id), class: 'btn btn-dark' %>
+              <%= link_to t('.edit_vacant_job_btn'),
+                          edit_company_vacant_job_path(vacant_job.vacant_job_id),
+                          class: 'btn btn-dark' %>
+              <%= link_to t('.cancel_vacant_job_btn'),
+                          "/empresa/dashboard/vaga/cancel/#{vacant_job.vacant_job_id}",
+                          method: :delete,
+                          class: 'btn btn-danger' %>
               <hr>
             </div>
             <hr>
