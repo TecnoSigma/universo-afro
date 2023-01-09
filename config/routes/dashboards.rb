@@ -21,5 +21,6 @@ get 'empresa/dashboard/vaga/nova-vaga',             to: 'dashboards/companies/va
 get 'empresa/dashboard/vaga/editar/:vacant_job_id', to: 'dashboards/companies/vacant_jobs#edit',
                                                     as: 'edit_company_vacant_job'
 post 'empresa/dashboard/vaga/create',               to: 'dashboards/companies/vacant_jobs#create'
+patch 'empresa/dashboard/vaga/update',              to: 'dashboards/companies/vacant_jobs#update'
 
 get 'profissional/dashboard', to: 'dashboards/professionals#index'

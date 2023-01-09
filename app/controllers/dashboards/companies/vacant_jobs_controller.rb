@@ -6,7 +6,7 @@ module Dashboards
     class VacantJobsController < DashboardsController
       before_action :check_profile_session
       before_action :find_company
-      before_action :find_vacant_job, only: [:edit]
+      before_action :find_vacant_job, only: [:edit, :update]
 
       def new; end
       def edit; end
@@ -23,6 +23,16 @@ module Dashboards
         redirect_to empresa_dashboard_vaga_nova_vaga_path, alert: t('messages.errors.vacant_job_creation')
       end
 
+      def update
+        @vacant_job.update!(params_vacant_job)
+
+        redirect_to empresa_dashboard_path, notice: t('messages.successes.vacant_job_update')
+      rescue StandardError => e
+        Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
+
+        redirect_to empresa_dashboard_path, alert: t('messages.errors.vacant_job_update')
+      end
+
       private
 
       def profession
@@ -31,12 +41,13 @@ module Dashboards
 
       def params_vacant_job
         params[:vacant_job]
-          .permit(:category, :availabled_quantity, :details, :remote, :state, :city)
+          .permit(:category, :availabled_quantity, :details, :remote, :state, :city, :vacant_job_id)
           .merge({ 'profession' => profession, 'company' => @company })
       end
 
       def find_vacant_job
-        @vacant_job = CompanyVacantJob.find_by_vacant_job_id(params['vacant_job_id'])
+        @vacant_job = CompanyVacantJob
+          .find_by_vacant_job_id(params['vacant_job_id'] || params['vacant_job']['vacant_job_id'])
       end
     end
   end

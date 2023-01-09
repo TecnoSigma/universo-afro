@@ -39,6 +39,148 @@ RSpec.describe Dashboards::Companies::VacantJobsController, type: :request do
     end
   end
 
+  describe 'PATCH actions' do
+    describe '#update' do
+      context 'when pass valid params' do
+        it 'updates company vacant job data' do
+          category = 'Meio Período'
+          remote = '0'
+          profession_name1 = 'Advogado'
+          profession_name2 = 'Açogueiro'
+          profession1 = FactoryBot.create(:profession, name: profession_name1)
+          profession2 = FactoryBot.create(:profession, name: profession_name2)
+
+          company = FactoryBot.create(:company, status: 'activated')
+
+          company_vacant_job = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id,
+                                                 profession: profession1, category: category, remote: true)
+          company_vacant_job.vacant_job_id = SecureRandom.hex(10)
+          company_vacant_job.save
+
+          patch '/empresa/dashboard/vaga/update',
+            params: { vacant_job: { profession: profession2.name, remote: remote, vacant_job_id: company_vacant_job.vacant_job_id } }
+
+          result1 = CompanyVacantJob.find_by_category(category).profession
+          result2 = CompanyVacantJob.find_by_category(category).remote
+
+          expect(result1).to eq(profession2)
+          expect(result2).to eq(false)
+        end
+
+        it 'redirects to company dashboard' do
+          category = 'Meio Período'
+          remote = '0'
+          profession_name1 = 'Advogado'
+          profession_name2 = 'Açogueiro'
+          profession1 = FactoryBot.create(:profession, name: profession_name1)
+          profession2 = FactoryBot.create(:profession, name: profession_name2)
+
+          company = FactoryBot.create(:company, status: 'activated')
+
+          company_vacant_job = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id,
+                                                 profession: profession1, category: category, remote: true)
+          company_vacant_job.vacant_job_id = SecureRandom.hex(10)
+          company_vacant_job.save
+
+          patch '/empresa/dashboard/vaga/update',
+            params: { vacant_job: { profession: profession2.name, remote: remote, vacant_job_id: company_vacant_job.vacant_job_id } }
+
+          expect(response).to redirect_to(empresa_dashboard_path)
+        end
+
+        it 'shows success message' do
+          category = 'Meio Período'
+          remote = '0'
+          profession_name1 = 'Advogado'
+          profession_name2 = 'Açogueiro'
+          profession1 = FactoryBot.create(:profession, name: profession_name1)
+          profession2 = FactoryBot.create(:profession, name: profession_name2)
+
+          company = FactoryBot.create(:company, status: 'activated')
+
+          company_vacant_job = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id,
+                                                 profession: profession1, category: category, remote: true)
+          company_vacant_job.vacant_job_id = SecureRandom.hex(10)
+          company_vacant_job.save
+
+          patch '/empresa/dashboard/vaga/update',
+            params: { vacant_job: { profession: profession2.name, remote: remote, vacant_job_id: company_vacant_job.vacant_job_id } }
+
+          expect(flash[:notice]).to eq('Vaga atualizada com sucesso!')
+        end
+      end
+
+      context 'when pass invalid params' do
+        it 'no updates company vacant job data' do
+          category = 'Meio período'
+          remote = '0'
+          profession_name1 = 'Advogado'
+          profession_name2 = 'Açogueiro'
+          profession1 = FactoryBot.create(:profession, name: profession_name1)
+          profession2 = FactoryBot.create(:profession, name: profession_name2)
+
+          company = FactoryBot.create(:company, status: 'activated')
+
+          company_vacant_job = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id,
+                                                 profession: profession1, category: category, remote: true)
+          company_vacant_job.vacant_job_id = SecureRandom.hex(10)
+          company_vacant_job.save
+
+          patch '/empresa/dashboard/vaga/update',
+            params: { vacant_job: { profession: profession2.name, remote: remote, vacant_job_id: nil } }
+
+          result1 = CompanyVacantJob.find_by_category(category).profession
+          result2 = CompanyVacantJob.find_by_category(category).remote
+
+          expect(result1).not_to eq(profession2)
+          expect(result2).not_to eq(remote)
+        end
+
+        it 'redirects to company dashboard' do
+          category = 'Meio Período'
+          remote = nil
+          profession_name1 = 'Advogado'
+          profession_name2 = 'Açogueiro'
+          profession1 = FactoryBot.create(:profession, name: profession_name1)
+          profession2 = FactoryBot.create(:profession, name: profession_name2)
+
+          company = FactoryBot.create(:company, status: 'activated')
+
+          company_vacant_job = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id,
+                                                 profession: profession1, category: category, remote: true)
+          company_vacant_job.vacant_job_id = SecureRandom.hex(10)
+          company_vacant_job.save
+
+          patch '/empresa/dashboard/vaga/update',
+            params: { vacant_job: { profession: profession2.name, remote: remote, vacant_job_id: nil } }
+
+          expect(response).to redirect_to(empresa_dashboard_path)
+        end
+
+        it 'shows error message' do
+          category = 'Meio Período'
+          remote = nil
+          profession_name1 = 'Advogado'
+          profession_name2 = 'Açogueiro'
+          profession1 = FactoryBot.create(:profession, name: profession_name1)
+          profession2 = FactoryBot.create(:profession, name: profession_name2)
+
+          company = FactoryBot.create(:company, status: 'activated')
+
+          company_vacant_job = FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company.id,
+                                                 profession: profession1, category: category, remote: true)
+          company_vacant_job.vacant_job_id = SecureRandom.hex(10)
+          company_vacant_job.save
+
+          patch '/empresa/dashboard/vaga/update',
+            params: { vacant_job: { profession: profession2.name, remote: remote, vacant_job_id: nil } }
+
+          expect(flash[:alert]).to eq('Erro na atualização da vaga!')
+        end
+      end
+    end
+  end
+
   describe 'POST actions' do
     describe '#create' do
       context 'when pass valid params' do

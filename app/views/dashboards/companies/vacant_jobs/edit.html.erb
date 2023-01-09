@@ -26,7 +26,7 @@
           <%= t('.title', profession: @vacant_job.profession.name) %>
         </h3>
         <div class="card-body">
-          <%= form_with scope: 'vacant_job', url: '/empresa/dashboard/create-vacant-job' do |form| %>
+          <%= form_with scope: 'vacant_job', url: '/empresa/dashboard/vaga/update', method: :patch do |form| %>
             <div class="mb-3">
               <label class="form-label"><%= t('.profession') %></label>
               <%= form.select 'profession',
@@ -75,6 +75,8 @@
                               class: 'form-select' %>
             </div>
             <br>
+
+            <%= form.hidden_field 'vacant_job_id', value: @vacant_job.vacant_job_id %>
             <%= form.submit t('.update_vacant_job_btn'), class: 'btn btn-dark' %>
           <% end %>
         </div>
