@@ -313,7 +313,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
 
             delete '/candidature/dashboard/cancel', params: { candidature: { id: candidature.id } }
 
-            expect(flash[:alert]).to eq('Erro ao cancelar assinatura!')
+            expect(flash[:alert]).to eq('Erro ao cancelar candidatura!')
           end
 
           it 'redirects to candidate dashboard' do

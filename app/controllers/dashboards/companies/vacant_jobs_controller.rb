@@ -6,7 +6,7 @@ module Dashboards
     class VacantJobsController < DashboardsController
       before_action :check_profile_session
       before_action :find_company
-      before_action :find_vacant_job, only: [:edit, :update, :cancel]
+      before_action :find_vacant_job, only: %i[edit update cancel]
 
       def new; end
       def edit; end
@@ -57,7 +57,7 @@ module Dashboards
 
       def find_vacant_job
         @vacant_job = CompanyVacantJob
-          .find_by_vacant_job_id(params['vacant_job_id'] || params['vacant_job']['vacant_job_id'])
+                      .find_by_vacant_job_id(params['vacant_job_id'] || params['vacant_job']['vacant_job_id'])
       end
     end
   end

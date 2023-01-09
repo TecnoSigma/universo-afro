@@ -11,11 +11,11 @@ module Dashboards
       candidature.delete
 
       redirect_to candidato_dashboard_path,
-                  notice: I18n.t('messages.successes.vacant_job_cancelation')
+                  notice: I18n.t('messages.successes.candidature_cancelation')
     rescue StandardError => e
       Rails.logger.error("Message: #{e.message} - Backtrace: #{e.backtrace}")
 
-      redirect_to candidato_dashboard_path, alert: I18n.t('messages.errors.vacant_job_cancelation')
+      redirect_to candidato_dashboard_path, alert: I18n.t('messages.errors.candidature_cancelation')
     end
 
     def apply
