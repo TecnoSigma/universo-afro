@@ -11,7 +11,7 @@ module Dashboards
         @candidate = Candidate.find_by_resource(params['candidate_name'])
 
         raise FindCandidateError unless @candidate
-      rescue FindCandidateError => error
+      rescue FindCandidateError
         redirect_to empresa_dashboard_path, alert: t('messages.errors.candidate_not_found')
       end
     end
