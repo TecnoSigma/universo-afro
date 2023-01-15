@@ -1,0 +1,55 @@
+<br><br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-10 offeset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <%= render '/partials/logout' %>
+      <%= render '/partials/messages' %>
+      <div class="card">
+        <div class="card-body">
+          <hr>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active" aria-current="page">
+                <%= link_to t('breadcrumbs.company.home'), empresa_dashboard_path %>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                <%= @candidate.fullname %>
+              </li>
+            </ol>
+          </nav>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <div class="card">
+        <div class="card-body">
+          <hr>
+          <div class="text-center">
+            <%= image_tag @candidate.avatar, class: 'avatar profile' %>
+            <br>
+            <br>
+            <h2><%= @candidate.fullname %><br>
+          </div>
+          <hr>
+          <strong><%= t('.email') %></strong>
+          <br>
+          <span><%= @candidate.email %></span>
+          <br><br>
+          <strong><%= t('.state') %></strong>
+          <br>
+          <span><%= @candidate.state %></span>
+          <br><br>
+          <strong><%= t('.city') %></strong>
+          <br>
+          <span><%= @candidate.city %></span>
+          <br><br>
+          <strong><%= t('.ethnicity_self_declaration') %></strong>
+          <br>
+          <span><%= t("#{@candidate.ethnicity_self_declaration.to_s}") %></span>
+          <br><br>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>

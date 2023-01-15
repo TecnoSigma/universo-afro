@@ -30,5 +30,8 @@ module UniversoAfro
       #{config.root}/app/presenters
       #{config.root}/app/services
     ]
+
+    # Extensions
+    require 'extensions/string'
   end
 end

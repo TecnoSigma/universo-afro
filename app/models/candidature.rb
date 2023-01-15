@@ -2,13 +2,14 @@
 
 # class responsible by manager candidatures
 class Candidature < ApplicationRecord
+  has_one :candidate, through: :candidate_vacant_job
   belongs_to :company_vacant_job
   belongs_to :candidate_vacant_job
 
-  MAXIMUN_QUANTITY = 2
+  MAXIMUM_QUANTITY = 2
 
   def self.exceeded_quantity?(candidate)
-    list(candidate).count >= MAXIMUN_QUANTITY
+    list(candidate).count >= MAXIMUM_QUANTITY
   end
 
   def self.list(candidate)
@@ -18,5 +19,5 @@ class Candidature < ApplicationRecord
       .compact
   end
 
-  private_constant :MAXIMUN_QUANTITY
+  private_constant :MAXIMUM_QUANTITY
 end

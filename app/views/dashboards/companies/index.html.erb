@@ -44,29 +44,50 @@
             <div class="panel">
               <br>
               <strong><%= t('.category') %></strong>
+              <br>
               <span><%= vacant_job.category %></span>
               <br><br>
               <strong><%= t('.availabled_quantity') %></strong>
+              <br>
               <span><%= vacant_job.availabled_quantity %></span>
               <br><br>
-              <strong><%= t('.filled_quantity') %></strong>
-              <span><%= vacant_job.filled_quantity %></span>
-              <br><br>
               <strong><%= t('.details') %></strong>
+              <br>
               <span><%= vacant_job.details %></span>
               <br><br>
               <strong><%= t('.remote') %></strong>
+              <br>
               <span><%= t("#{vacant_job.remote.to_s}") %></span>
               <br><br>
               <strong><%= t('.state') %></strong>
+              <br>
               <span><%= vacant_job.state %></span>
               <br><br>
               <strong><%= t('.city') %></strong>
+              <br>
               <span><%= vacant_job.city %></span>
               <br><br>
               <strong><%= t('.status') %></strong>
+              <br>
               <span><%= t("statuses.#{vacant_job.status}") %></span>
               <br><br>
+              <strong><%= t('.filled_quantity') %></strong>
+              <br>
+              <span><%= vacant_job.filled_quantity %></span>
+              <br><br>
+              <strong><%= t('.candidates') %></strong>
+              <br>
+              <ul>
+                <% vacant_job.candidatures.each do |candidature| %>
+                  <li>
+                    <%= link_to candidature.candidate_vacant_job.candidate.fullname,
+                        candidate_profile_path(candidature.candidate.fullname.to_resource),
+                        target: 'blank' %>
+                  </li>
+                <% end %>
+              </ul>
+
+              <hr>
               <%= link_to t('.edit_vacant_job_btn'),
                           edit_company_vacant_job_path(vacant_job.vacant_job_id),
                           class: 'btn btn-dark' %>
@@ -78,14 +99,6 @@
             </div>
             <hr>
           <% end %>
-        </div>
-      </div>
-      <br>
-      <div class="card">
-        <h3 class="card-header">
-          <%= t('.candidates') %>
-        </h3>
-        <div class="card-body">
         </div>
       </div>
       <br>

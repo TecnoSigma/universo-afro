@@ -71,11 +71,43 @@ unless Rails.env.production?
   company3 = FactoryBot.create(:company, status: 'activated', email: 'tecnooxossi@gmail.com')
 
   # Create candidate vacant jobs
-  FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession1)
-  FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: candidate.id, profession: profession2)
-  FactoryBot.create(:vacant_job, :candidate_vacant_job, candidate_id: Candidate.first.id, profession: profession2)
+  vacant_job1 = FactoryBot.attributes_for(:vacant_job, details: 'Any text 1', remote: false, alert: false)
+  vacant_job2 = FactoryBot.attributes_for(:vacant_job, details: 'Any text 2', remote: false, alert: false)
+  vacant_job3 = FactoryBot.attributes_for(:vacant_job, details: 'Any text 3', remote: false, alert: false)
+
+  candidate_vacant_job1 = CandidateVacantJob.new(vacant_job1)
+  candidate_vacant_job1.profession = profession1
+  candidate_vacant_job1.candidate = candidate
+  candidate_vacant_job1.save!
+
+  candidate_vacant_job2 = CandidateVacantJob.new(vacant_job2)
+  candidate_vacant_job2.profession = profession2
+  candidate_vacant_job2.candidate = candidate
+  candidate_vacant_job2.save!
+
+  candidate_vacant_job3 = CandidateVacantJob.new(vacant_job3)
+  candidate_vacant_job3.profession = profession2
+  candidate_vacant_job3.candidate = Candidate.first
+  candidate_vacant_job3.save!
 
   # Create company vacant jobs
-  FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company1.id, profession: profession1, availabled_quantity: 3, filled_quantity: 1, vacant_job_id: SecureRandom.hex(10))
-  FactoryBot.create(:vacant_job, :company_vacant_job, company_id: company2.id, profession: profession2, availabled_quantity: 5, filled_quantity: 2, vacant_job_id: SecureRandom.hex(10))
+  vacant_job4 = FactoryBot.attributes_for(:vacant_job, details: 'Any text 4', remote: false, alert: false)
+  vacant_job5 = FactoryBot.attributes_for(:vacant_job, details: 'Any text 5', remote: false, alert: false)
+
+  company_vacant_job1 = CompanyVacantJob.new(vacant_job4)
+  company_vacant_job1.profession = profession1
+  company_vacant_job1.company = company1
+  company_vacant_job1.save!
+
+  company_vacant_job2 = CompanyVacantJob.new(vacant_job5)
+  company_vacant_job2.profession = profession2
+  company_vacant_job2.company = company2
+  company_vacant_job2.save!
+
+  # Create candidatures
+  Candidature.create(company_vacant_job: company_vacant_job1, candidate_vacant_job: candidate_vacant_job1)
+  Candidature.create(company_vacant_job: company_vacant_job2, candidate_vacant_job: candidate_vacant_job2)
+  Candidature.create(company_vacant_job: company_vacant_job2, candidate_vacant_job: candidate_vacant_job3)
 end
+
+

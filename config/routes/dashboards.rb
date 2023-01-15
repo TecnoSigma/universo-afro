@@ -17,6 +17,9 @@ delete 'candidature/dashboard/cancel', to: 'dashboards/candidatures#cancel'
 
 get 'empresa/dashboard', to: 'dashboards/companies#index'
 
+get 'empresa/dashboard/perfil-do-candidato/:candidate_name', to: 'dashboards/companies/candidates#profile',
+                                                             as: 'candidate_profile'
+
 get 'empresa/dashboard/vaga/nova-vaga',                to: 'dashboards/companies/vacant_jobs#new'
 get 'empresa/dashboard/vaga/editar/:vacant_job_id',    to: 'dashboards/companies/vacant_jobs#edit',
                                                        as: 'edit_company_vacant_job'

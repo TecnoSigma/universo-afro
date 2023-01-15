@@ -116,6 +116,29 @@ RSpec.describe Candidate, type: :model do
     end
   end
 
+  describe '.find_by_resource' do
+    it 'shows candidate by resource when pass valid resource' do
+      first_name = 'João'
+      last_name = 'Silva'
+
+      resource = 'joao-silva'
+
+      candidate = FactoryBot.create(:candidate, first_name: first_name, last_name: last_name)
+
+      result = Candidate.find_by_resource(resource)
+
+      expect(result).to eq(candidate)
+    end
+
+    it 'returns empty value when pass invalid resource' do
+      resource = 'joao-silva'
+
+      result = Candidate.find_by_resource(resource)
+
+      expect(result).to be_nil
+    end
+  end
+
   describe '#fullname' do
     it 'returns candidate fullname' do
       first_name = 'João'

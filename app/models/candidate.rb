@@ -24,6 +24,10 @@ class Candidate < ApplicationRecord
   before_validation(on: :create) { generate_afro_id! }
   before_validation(on: :create) { update_status! }
 
+  def self.find_by_resource(resource)
+    all.detect { |candidate| candidate if candidate.fullname.to_resource == resource }
+  end
+
   def fullname
     "#{first_name} #{last_name}"
   end

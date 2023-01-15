@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Candidature, type: :model do
-  describe 'vailidates relationships' do
+  describe 'validates relationships' do
     it 'validates relationship N:1 between Candidature and Company Vacant Job' do
       candidature = described_class.new
 
@@ -12,6 +12,12 @@ RSpec.describe Candidature, type: :model do
       candidature = described_class.new
 
       expect(candidature).to respond_to(:candidate_vacant_job)
+    end
+
+    it 'validates relationship 1:1 between Candidature and Candidate through Candidate Vacant Job' do
+      candidature = described_class.new
+
+      expect(candidature).to respond_to(:candidate)
     end
   end
 
