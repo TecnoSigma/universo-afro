@@ -50,6 +50,27 @@
         </div>
       </div>
       <br>
+      <div class="card">
+        <h3 class="card-header">
+          <%= t('.conference_schedule') %>
+        </h3>
+        <div class="card-body">
+          <%= form_with scope: 'conference', method: :post, url: '/empresa/dashboard/conference/schedule' do |form| %>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.date') %></label>
+              <%= form.text_field 'date', class: 'form-control', required: true, placeholder: 'dd/mm/aaaa' %>
+            </div>
+            <div class="mb-3">
+              <label class="form-label"><%= t('.horary') %></label>
+              <%= form.text_field 'horary', class: 'form-control', required: true, placeholder: '00:00' %>
+              <small><%= t('.horary_format') %></small>
+            </div>
+            <%= form.hidden_field 'candidate_afro_id', value: @candidate.afro_id %>
+            <br>
+            <%= form.submit t('.schedule_btn'), class: 'btn btn-dark' %>
+          <% end %>
+        </div>
+      </div>
     </div>
   </div>
 </div>

@@ -28,4 +28,6 @@ patch 'empresa/dashboard/vaga/update',                 to: 'dashboards/companies
 delete 'empresa/dashboard/vaga/cancel/:vacant_job_id', to: 'dashboards/companies/vacant_jobs#cancel',
                                                        as: 'cancel_company_vacant_job'
 
+post 'empresa/dashboard/conference/schedule', to: 'dashboards/companies/conferences#schedule'
+
 get 'profissional/dashboard', to: 'dashboards/professionals#index'

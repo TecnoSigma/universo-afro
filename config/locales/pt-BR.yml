@@ -64,6 +64,8 @@ pt-BR:
       vacant_job_creation: 'Vaga criada com sucesso!'
       vacant_job_update: 'Vaga atualizada com sucesso!'
       vacant_job_cancelation: 'Vaga cancelada com sucesso!'
+    informations:
+      without_conference_notifications: 'Nenhuma notificação até o momento!'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'
@@ -251,10 +253,16 @@ Brasileiro de Geografia e Estatística (IBGE).'
           state: 'Estado'
           city: 'Cidade'
           ethnicity_self_declaration: 'Autodeclara-se pessoa preta'
+          conference_schedule: 'Marcação de entrevista'
+          date: 'Data'
+          horary: 'Horário'
+          schedule_btn: 'Marcar entrevista'
+          horary_format: 'Utilize o formato 24 horas. Exemplo: 14:00'
     candidates:
       index:
+        conference: 'Minhas entrevistas'
         edit_profile_lnk: 'Editar perfil'
-        my_candidatures: 'Minha candidaturas'
+        my_candidatures: 'Minhas candidaturas'
         most_recent_vacant_jobs: 'Vagas mais recentes'
         vacant_jobs: 'vagas'
         know_more: 'Saiba mais'

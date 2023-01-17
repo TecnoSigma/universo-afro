@@ -1,5 +1,8 @@
 $(document).ready(function() {
         enableAccordion("company-vacant-jobs-accordion");
+
+        $('#conference_date').mask('00/00/0000', { plaeholder: '__/__/____'});
+        $('#conference_horary').mask('00:00', { plaeholder: '__:__'});
 });
 
 function enableAccordion(accordionClass) {
