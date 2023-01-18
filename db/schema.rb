@@ -90,8 +90,7 @@ ActiveRecord::Schema.define(version: 2023_01_16_034055) do
   end
 
   create_table "conferences", force: :cascade do |t|
-    t.integer "horary"
-    t.integer "date"
+    t.datetime "date_time"
     t.string "afro_id"
     t.integer "status", default: 1
     t.bigint "candidate_id"

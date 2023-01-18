@@ -2,18 +2,11 @@ require 'rails_helper'
 
 RSpec.describe Conference, type: :model do
   describe 'validates presence' do
-    it 'no validates when no pass date' do
-      conference = FactoryBot.build(:conference, date: nil)
+    it 'no validates when no pass date/time' do
+      conference = FactoryBot.build(:conference, date_time: nil)
 
       expect(conference).to be_invalid
-      expect(conference.errors.messages[:date]).to include('Preenchimento de campo obrigatório!')
-    end
-
-    it 'no validates when no pass horary' do
-      conference = FactoryBot.build(:conference, horary: nil)
-
-      expect(conference).to be_invalid
-      expect(conference.errors.messages[:horary]).to include('Preenchimento de campo obrigatório!')
+      expect(conference.errors.messages[:date_time]).to include('Preenchimento de campo obrigatório!')
     end
   end
 

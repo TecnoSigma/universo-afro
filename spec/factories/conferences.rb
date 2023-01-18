@@ -1,7 +1,6 @@
 FactoryBot.define do
   factory :conference do
-    date { '12/12/2023' }
-    horary { '08:00' }
+    date_time { '12/12/2050 14:00'.to_datetime }
     afro_id { SecureRandom.hex(10) }
 
     trait :pendent do
