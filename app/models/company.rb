@@ -3,6 +3,7 @@
 # class responsible by manage companies
 class Company < ApplicationRecord
   include AvatarValidator
+  include AfroIdGenerator
 
   validates :name,
             :nickname,
@@ -25,12 +26,4 @@ class Company < ApplicationRecord
   has_many :conferences
 
   enum status: Statuses::COMPANY
-
-  before_validation(on: :create) { generate_afro_id! }
-
-  private
-
-  def generate_afro_id!
-    self.afro_id = SecureRandom.hex(10)
-  end
 end

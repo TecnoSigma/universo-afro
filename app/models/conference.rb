@@ -1,4 +1,9 @@
+# frozen_string_literal: true
+
+# class responsible by manage conferences
 class Conference < ApplicationRecord
+  include AfroIdGenerator
+
   validates :date,
             :horary,
             presence: { message: I18n.t('messages.errors.required_field') }
@@ -7,12 +12,4 @@ class Conference < ApplicationRecord
   belongs_to :company
 
   enum status: Statuses::CONFERENCE
-
-  before_validation(on: :create) { generate_afro_id! }
-
-  private
-
-  def generate_afro_id!
-    self.afro_id = SecureRandom.hex(10)
-  end
 end

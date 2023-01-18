@@ -3,6 +3,7 @@
 # Class responsible by manage candidates
 class Candidate < ApplicationRecord
   include AvatarValidator
+  include AfroIdGenerator
 
   validates :first_name,
             :last_name,
@@ -22,7 +23,6 @@ class Candidate < ApplicationRecord
 
   enum status: Statuses::CANDIDATE
 
-  before_validation(on: :create) { generate_afro_id! }
   before_validation(on: :create) { update_status! }
 
   def self.find_by_resource(resource)
@@ -45,10 +45,6 @@ class Candidate < ApplicationRecord
     candidate_vacant_jobs
       .map(&:profession)
       .pluck(:name)
-  end
-
-  def generate_afro_id!
-    self.afro_id = SecureRandom.hex(10)
   end
 
   def update_status!
