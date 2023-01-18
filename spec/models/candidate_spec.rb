@@ -83,7 +83,7 @@ RSpec.describe Candidate, type: :model do
     end.to raise_error(ArgumentError, "'invalid_status' is not a valid status")
   end
 
-  it 'generates afro ID when a nem candidate is created' do
+  it 'generates afro ID when a new candidate is created' do
     candidate = FactoryBot.build(:candidate, afro_id: nil)
     candidate.save!
 
@@ -113,6 +113,12 @@ RSpec.describe Candidate, type: :model do
       candidate = described_class.new
 
       expect(candidate).to respond_to(:candidate_vacant_jobs)
+    end
+
+    it 'validates relationship 1:N between Candidate and Conference' do
+      candidate = described_class.new
+
+      expect(candidate).to respond_to(:conferences)
     end
   end
 

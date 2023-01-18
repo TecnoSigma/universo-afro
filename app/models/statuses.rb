@@ -7,4 +7,5 @@ class Statuses
   PROFESSIONAL = { pendent: 1, activated: 2, deactivated: 3, cancelled: 4 }.freeze
   COMPANY = { pendent: 1, activated: 2, deactivated: 3, cancelled: 4 }.freeze
   VACANT_JOB = { opened: 1, closed: 2, cancelled: 3 }.freeze
+  CONFERENCE = { pendent: 1, accepted: 2, refused: 3, cancelled: 4 }.freeze
 end

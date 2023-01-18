@@ -40,4 +40,14 @@ RSpec.describe Statuses do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe 'validades conference statuses' do
+    it 'returns hash containing statuses' do
+      result = described_class::CONFERENCE
+
+      expected_result = { pendent: 1, accepted: 2, refused: 3, cancelled: 4 }
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end

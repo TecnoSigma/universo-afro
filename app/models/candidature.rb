@@ -2,9 +2,9 @@
 
 # class responsible by manager candidatures
 class Candidature < ApplicationRecord
-  has_one :candidate, through: :candidate_vacant_job
   belongs_to :company_vacant_job
   belongs_to :candidate_vacant_job
+  has_one :candidate, through: :candidate_vacant_job
 
   MAXIMUM_QUANTITY = 2
 

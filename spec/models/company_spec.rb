@@ -134,5 +134,11 @@ RSpec.describe Company, type: :model do
 
       expect(company). to respond_to(:company_vacant_jobs)
     end
+
+    it 'validates relationship 1:N between Candidate and Conference' do
+      company = described_class.new
+
+      expect(company).to respond_to(:conferences)
+    end
   end
 end

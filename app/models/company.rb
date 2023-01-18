@@ -22,6 +22,7 @@ class Company < ApplicationRecord
             uniqueness: { message: I18n.t('messages.errors.already_used') }
 
   has_many :company_vacant_jobs
+  has_many :conferences
 
   enum status: Statuses::COMPANY
 
