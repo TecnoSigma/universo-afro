@@ -11,4 +11,14 @@ class Conference < ApplicationRecord
   belongs_to :company
 
   enum status: Statuses::CONFERENCE
+
+  before_validation(on: :create) { generate_date_time! }
+
+  attr_accessor :date, :horary
+
+  private
+
+  def generate_date_time!
+    self.date_time = "#{date} #{horary}".to_datetime
+  end
 end
