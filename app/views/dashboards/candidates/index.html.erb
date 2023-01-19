@@ -49,7 +49,7 @@
                 <h5><%= conference.company.name %></h5>
                 <br>
                 <strong><%= t('.date_time') %></strong>
-                <span><%= conference.date_time %></span>
+                <span><%= convert_date_to_string(conference.date_time) %></span>
                 <br><br>
                 <%= link_to t('.accept_lnk'), login_path, class: 'btn btn-success' %>
                 <%= link_to t('.refuse_lnk'), login_path, class: 'btn btn-danger' %>

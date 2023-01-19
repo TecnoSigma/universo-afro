@@ -30,4 +30,18 @@ RSpec.describe ApplicationHelper do
       expect(result).to eq(expected_result)
     end
   end
+
+  describe '#convert_date_to_string' do
+    it 'returns date_time converted in string' do
+      date = '12/12/2024'
+      horary = '20:00'
+      date_time = "#{date} #{horary}".to_datetime
+
+      result = helper.convert_date_to_string(date_time)
+
+      expected_result = "#{date} - #{horary}"
+
+      expect(result).to eq(expected_result)
+    end
+  end
 end
