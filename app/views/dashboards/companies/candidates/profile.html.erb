@@ -55,7 +55,7 @@
           <%= t('.conference_schedule') %>
         </h3>
         <div class="card-body">
-          <%= form_with scope: 'conference', method: :post, url: '/empresa/dashboard/conference/schedule' do |form| %>
+          <%= form_with scope: 'conference', method: :post, url: '/dashboard/conference/create' do |form| %>
             <div class="mb-3">
               <label class="form-label"><%= t('.date') %></label>
               <%= form.text_field 'date', class: 'form-control', required: true, placeholder: 'dd/mm/aaaa' %>

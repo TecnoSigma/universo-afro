@@ -5,6 +5,8 @@ class Conference < ApplicationRecord
   include AfroIdGenerator
 
   validates :date_time,
+            :date,
+            :horary,
             presence: { message: I18n.t('messages.errors.required_field') }
 
   belongs_to :candidate

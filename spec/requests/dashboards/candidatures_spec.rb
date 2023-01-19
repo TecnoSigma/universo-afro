@@ -34,7 +34,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-          post '/candidature/dashboard/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
+          post '/dashboard/candidature/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
 
           result = Candidature
                      .where(company_vacant_jobs: [company_vacant_job], candidate_vacant_job: candidate_vacant_job)
@@ -64,7 +64,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-          post '/candidature/dashboard/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
+          post '/dashboard/candidature/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
 
           expect(response).to redirect_to(candidato_dashboard_path)
         end
@@ -90,7 +90,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-          post '/candidature/dashboard/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
+          post '/dashboard/candidature/apply', params: { vacant_job: { id: company_vacant_job.vacant_job_id } }
 
           expect(flash[:notice]).to eq('Candidatura efetuada com sucesso!')
         end
@@ -111,7 +111,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-          post '/candidature/dashboard/apply', params: { vacant_job_id: nil }
+          post '/dashboard/candidature/apply', params: { vacant_job_id: nil }
 
           result = Candidature.where(candidate_vacant_job: candidate_vacant_job).first
 
@@ -132,7 +132,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-          post '/candidature/dashboard/apply', params: { vacant_job_id: nil }
+          post '/dashboard/candidature/apply', params: { vacant_job_id: nil }
 
           expect(response).to redirect_to(candidato_dashboard_path)
         end
@@ -151,7 +151,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
           allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-          post '/candidature/dashboard/apply', params: { vacant_job_id: nil }
+          post '/dashboard/candidature/apply', params: { vacant_job_id: nil }
 
           expect(flash[:alert]).to eq('Erro ao candidatar-se à vaga!')
         end
@@ -185,7 +185,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
             allow_any_instance_of(ActionDispatch::Request)
               .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-            delete '/candidature/dashboard/cancel', params: { candidature: { id: candidature.id } }
+            delete '/dashboard/candidature/cancel', params: { candidature: { id: candidature.id } }
 
             result = Candidature
               .where(company_vacant_jobs: [company_vacant_job], candidate_vacant_job: candidate_vacant_job)
@@ -217,7 +217,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
             allow_any_instance_of(ActionDispatch::Request)
               .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-            delete '/candidature/dashboard/cancel', params: { candidature: { id: candidature.id } }
+            delete '/dashboard/candidature/cancel', params: { candidature: { id: candidature.id } }
 
             expect(response).to redirect_to(candidato_dashboard_path)
           end
@@ -245,7 +245,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
             allow_any_instance_of(ActionDispatch::Request)
               .to receive(:session) { { profile: 'candidate', afro_id: candidate.afro_id } }
 
-            delete '/candidature/dashboard/cancel', params: { candidature: { id: candidature.id } }
+            delete '/dashboard/candidature/cancel', params: { candidature: { id: candidature.id } }
 
             expect(flash[:notice]).to eq('Candidatura cancelada com sucesso!')
           end
@@ -277,7 +277,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
 
             allow(Candidature).to receive(:find_by) { raise StandardError }
 
-            delete '/candidature/dashboard/cancel', params: { candidature: { id: candidature.id } }
+            delete '/dashboard/candidature/cancel', params: { candidature: { id: candidature.id } }
 
             result = Candidature
               .where(company_vacant_jobs: [company_vacant_job], candidate_vacant_job: candidate_vacant_job)
@@ -311,7 +311,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
 
             allow(Candidature).to receive(:find_by) { raise StandardError }
 
-            delete '/candidature/dashboard/cancel', params: { candidature: { id: candidature.id } }
+            delete '/dashboard/candidature/cancel', params: { candidature: { id: candidature.id } }
 
             expect(flash[:alert]).to eq('Erro ao cancelar candidatura!')
           end
@@ -341,7 +341,7 @@ RSpec.describe Dashboards::CandidaturesController, type: :request do
 
             allow(Candidature).to receive(:find_by) { raise StandardError }
 
-            delete '/candidature/dashboard/cancel', params: { candidature: { id: candidature.id } }
+            delete '/dashboard/candidature/cancel', params: { candidature: { id: candidature.id } }
 
             expect(response).to redirect_to(candidato_dashboard_path)
           end

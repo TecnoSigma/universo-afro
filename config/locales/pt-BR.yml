@@ -56,6 +56,7 @@ pt-BR:
       vacant_job_creation: 'Erro na criação de nova vaga!'
       vacant_job_update: 'Erro na atualização da vaga!'
       vacant_job_cancelation: 'Erro ao cancelar vaga!'
+      conference_creation: 'Erro ao criar entrevista!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
       update_data: 'Dados atualizados com sucesso!'
@@ -64,6 +65,7 @@ pt-BR:
       vacant_job_creation: 'Vaga criada com sucesso!'
       vacant_job_update: 'Vaga atualizada com sucesso!'
       vacant_job_cancelation: 'Vaga cancelada com sucesso!'
+      conference_creation: 'Entrevista criada com sucesso!'
     informations:
       without_conference_notifications: 'Nenhuma notificação até o momento!'
   profile: 'Perfil: '
@@ -276,7 +278,14 @@ Brasileiro de Geografia e Estatística (IBGE).'
         city: 'Cidade: '
         details: 'Detalhe da vaga: '
         remote: 'Trabalho remoto: '
+        date_time: 'Data/Horário: '
         cancel_btn: 'Cancelar candidatura'
+        accept_lnk: 'Aceitar'
+        new_date_time_btn: 'Propor nova data/horário'
+        refuse_lnk: 'Recusar'
+        date: 'Data'
+        horary: 'Horário'
+        horary_format: 'Utilize o formato 24 horas. Exemplo: 14:00'
       edit_avatar:
         update_btn: 'Atualizar foto'
       edit_personal_data:

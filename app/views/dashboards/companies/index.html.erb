@@ -82,7 +82,8 @@
                   <li>
                     <%= link_to candidature.candidate_vacant_job.candidate.fullname,
                         candidate_profile_path(candidature.candidate.fullname.to_resource),
-                        target: 'blank' %>
+                        target: 'blank',
+                        class: 'link' %>
                   </li>
                 <% end %>
               </ul>
