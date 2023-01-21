@@ -9,6 +9,14 @@ class Conference < ApplicationRecord
             :horary,
             presence: { message: I18n.t('messages.errors.required_field') }
 
+  validates :reason,
+            presence: { message: I18n.t('messages.errors.required_field') },
+            if: :refused?
+
+  validates :reason,
+            presence: { message: I18n.t('messages.errors.required_field') },
+            if: :cancelled?
+
   belongs_to :candidate
   belongs_to :company
 
@@ -19,6 +27,14 @@ class Conference < ApplicationRecord
   attr_accessor :date, :horary
 
   private
+
+  def refused?
+    status == Statuses::CONFERENCE.key(3).to_s
+  end
+
+  def cancelled?
+    status == Statuses::CONFERENCE.key(4).to_s
+  end
 
   def generate_date_time!
     self.date_time = "#{date} #{horary}".to_datetime
