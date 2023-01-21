@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2023_01_16_034055) do
     t.datetime "date_time"
     t.string "afro_id"
     t.string "reason"
+    t.text "description"
     t.integer "status", default: 1
     t.bigint "candidate_id"
     t.bigint "company_id"

@@ -19,6 +19,31 @@ RSpec.describe Conference, type: :model do
       expect(conference).to be_invalid
       expect(conference.errors.messages[:horary]).to include('Preenchimento de campo obrigatório!')
     end
+
+    it 'no validates when no pass reason to conference woth status of cancelled' do
+      candidate = FactoryBot.create(:candidate)
+      company = FactoryBot.create(:company)
+      conference = FactoryBot.build(:conference,
+                                    company: company,
+                                    candidate: candidate,
+                                    reason: nil,
+                                    status: Statuses::CONFERENCE[:cancelled])
+
+      expect(conference).to be_invalid
+      expect(conference.errors.messages[:reason]).to include('Preenchimento de campo obrigatório!')
+    end
+
+    it 'no validates when no pass reason to conference woth status of refused' do
+      candidate = FactoryBot.create(:candidate)
+      company = FactoryBot.create(:company)
+      conference = FactoryBot.build(:conference,                                                                                                          company: company,
+                                    candidate: candidate,
+                                    reason: nil,
+                                    status: Statuses::CONFERENCE[:refused])
+
+      expect(conference).to be_invalid
+      expect(conference.errors.messages[:reason]).to include('Preenchimento de campo obrigatório!')
+    end
   end
 
   it 'generates afro ID when a new conference is created' do

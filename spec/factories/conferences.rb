@@ -3,6 +3,7 @@ FactoryBot.define do
     date { '12/12/2050' }
     horary { '14:00' }
     afro_id { SecureRandom.hex(10) }
+    reason { Faker::Lorem.sentence }
 
     trait :pendent do
       status { Statuses::CONFERENCE[:pendent] }
