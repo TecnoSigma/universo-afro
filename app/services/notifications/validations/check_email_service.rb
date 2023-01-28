@@ -3,14 +3,14 @@
 module Notifications
   module Validations
     # Class reponsible by send notifications to check email
-    class CheckEmail
+    class CheckEmailService
       include Notifications::Configurations
 
-      attr_reader :email, :verification_code, :subject, :body
+      attr_reader :name, :email, :subject, :body
 
-      def initialize(email:, verification_code:)
+      def initialize(name:, email:, verification_code:)
         @email = email
-        @verification_code = verification_code
+        @name = name
         @subject = I18n.t('notifications.validations.check_email.subject')
         @body = I18n.t('notifications.validations.check_email.body', verification_code: verification_code)
       end

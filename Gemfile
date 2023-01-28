@@ -25,6 +25,7 @@ gem 'nokogiri'
 gem 'recaptcha'
 gem 'repost'
 gem 'rest-client'
+gem 'sendgrid-ruby'
 gem 'strong_password', '~> 0.0.9'
 
 group :development, :test do

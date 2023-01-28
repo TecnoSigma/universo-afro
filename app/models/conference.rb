@@ -4,7 +4,7 @@
 class Conference < ApplicationRecord
   include AfroIdGenerator
 
-  validates :date_time,
+  validates :start_at,
             :date,
             :horary,
             presence: { message: I18n.t('messages.errors.required_field') }
@@ -26,6 +26,10 @@ class Conference < ApplicationRecord
 
   attr_accessor :date, :horary
 
+  DURATION = 1.hour
+
+  private_constant :DURATION
+
   private
 
   def refused?
@@ -37,6 +41,9 @@ class Conference < ApplicationRecord
   end
 
   def generate_date_time!
-    self.date_time = "#{date} #{horary}".to_datetime
+    converted_date_time = "#{date} #{horary}".to_datetime
+
+    self.start_at = converted_date_time
+    self.finish_at = converted_date_time + DURATION
   end
 end

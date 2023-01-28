@@ -32,6 +32,12 @@ pt-BR:
     send_password:
       subject: 'Envio de senha - Universo Afro'
       body: "<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/></head><body><div style='width: 300px; padding: 20px; border: 1px solid #ccc; background-color: #f2f2f2; text-align: justified'><p>Olá,</p><p>Abaixo segue sua senha de acesso:</p><br><div style='text-align: center'><h1 color: #747474'>%{password}</h1><br><br><p><b>Equipe Universo Afro<br><a href='universoafro.com.br' target='blank'>universoafro.com.br</b></p></div></div></body></html>"
+    send_conference_invite:
+      body: "<!DOCTYPE html><html><head><meta http-equiv='Content-Type' content='text/html; charset=utf-8'/></head><body><div style='width: 300px; padding: 20px; border: 1px solid #ccc; background-color: #f2f2f2; text-align: justified'><p>Olá,</p><p>A entrevista foi marcada para e data/horário abaixo:</p><br><div style='text-align: center'><h1 color: #747474'>%{datetime}</h1><br><br><p><small><strong>Observação: Caso queira adicionar esse evento na sua agenda, baixe o arquivo em anexo</strong></small></p><br><br><p><b>Equipe Universo Afro<br><a href='universoafro.com.br' target='blank'>universoafro.com.br</b></p></div></div></body></html>"
+      recruiter:
+        subject: 'Convite para entrevista de %{candidate_name}'
+      candidate:
+        subject: 'Entrevista com a empresa %{company_name}'
   messages:
     errors:
       invalid_format: 'Formato inválido!'
@@ -68,6 +74,8 @@ pt-BR:
       conference_creation: 'Entrevista criada com sucesso!'
     informations:
       without_conference_notifications: 'Nenhuma notificação até o momento!'
+  calendar:
+    summary: 'Entrevista com a empresa %{company_name}'
   profile: 'Perfil: '
   profiles:
     candidate: 'Candidato'

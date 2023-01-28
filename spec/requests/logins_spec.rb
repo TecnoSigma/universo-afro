@@ -152,7 +152,7 @@ RSpec.describe LoginsController, type: :request do
     describe '#send_password_notification' do
       context 'when pass invalid profile' do
         it 'no sends user password notification' do
-          expect(Notifications::SendPassword).not_to receive(:new)
+          expect(Notifications::SendPasswordService).not_to receive(:new)
 
           post '/send_password_notification',
                params: { user: { profile: 'invalid_profile', email: 'any_email' } }
@@ -184,9 +184,9 @@ RSpec.describe LoginsController, type: :request do
               profile_data = FactoryBot.create(profile.to_sym, :activated)
             end
 
-            allow(Notifications::SendPassword).to receive_message_chain(:new, :deliver!) { true }
+            allow(Notifications::SendPasswordService).to receive_message_chain(:new, :deliver!) { true }
 
-            expect(Notifications::SendPassword).to receive_message_chain(:new, :deliver!)
+            expect(Notifications::SendPasswordService).to receive_message_chain(:new, :deliver!)
 
             post '/send_password_notification',
                  params: { user: { profile: profile, email: profile_data.email } }
@@ -201,7 +201,7 @@ RSpec.describe LoginsController, type: :request do
               profile_data = FactoryBot.create(profile.to_sym, :activated)
             end
 
-            allow(Notifications::SendPassword).to receive_message_chain(:new, :deliver!) { true }
+            allow(Notifications::SendPasswordService).to receive_message_chain(:new, :deliver!) { true }
 
             post '/send_password_notification',
                  params: { user: { profile: profile, email: profile_data.email } }
@@ -218,7 +218,7 @@ RSpec.describe LoginsController, type: :request do
               profile_data = FactoryBot.create(profile.to_sym, :activated)
             end
 
-            allow(Notifications::SendPassword).to receive_message_chain(:new, :deliver!) { true }
+            allow(Notifications::SendPasswordService).to receive_message_chain(:new, :deliver!) { true }
 
             post '/send_password_notification',
                  params: { user: { profile: profile, email: profile_data.email } }
@@ -229,7 +229,7 @@ RSpec.describe LoginsController, type: :request do
 
         context "when pass invalid email of activated #{profile}" do
           it 'no sends user password notification' do
-            expect(Notifications::SendPassword).not_to receive(:new)
+            expect(Notifications::SendPasswordService).not_to receive(:new)
 
             post '/send_password_notification',
                  params: { user: { profile: profile, email: 'invalid_email' } }
@@ -263,7 +263,7 @@ RSpec.describe LoginsController, type: :request do
 
               profile_data.update(status: status)
 
-              expect(Notifications::SendPassword).not_to receive(:new)
+              expect(Notifications::SendPasswordService).not_to receive(:new)
 
               post '/send_password_notification',
                    params: { user: { profile: profile, email: profile_data.email } }

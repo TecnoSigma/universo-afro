@@ -90,7 +90,8 @@ ActiveRecord::Schema.define(version: 2023_01_16_034055) do
   end
 
   create_table "conferences", force: :cascade do |t|
-    t.datetime "date_time"
+    t.datetime "start_at"
+    t.datetime "finish_at"
     t.string "afro_id"
     t.string "reason"
     t.text "description"

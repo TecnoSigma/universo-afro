@@ -61,7 +61,7 @@ RSpec.describe Conference, type: :model do
     expect(result).to be_present
   end
 
-  it 'generates date/time when a new conference is created' do
+  it 'generates date/time of conference start when a new conference is created' do
     date = '12/12/2050'
     horary = '14:00'
 
@@ -70,7 +70,7 @@ RSpec.describe Conference, type: :model do
     company = FactoryBot.create(:company)
     candidate = FactoryBot.create(:candidate)
 
-    conference = FactoryBot.build(:conference, date_time: nil)
+    conference = FactoryBot.build(:conference, start_at: nil)
     conference.candidate = candidate
     conference.company = company
     conference.date = date
@@ -78,9 +78,33 @@ RSpec.describe Conference, type: :model do
 
     conference.save!
 
-    result = conference.date_time
+    result = conference.start_at
 
     expect(result).to eq(date_time)
+  end
+
+  it 'generates date/time of conference finish when a new conference is created' do
+    date = '12/12/2050'
+    horary = '14:00'
+
+    date_time = "#{date} #{horary}".to_datetime
+
+    company = FactoryBot.create(:company)
+    candidate = FactoryBot.create(:candidate)
+
+    conference = FactoryBot.build(:conference, start_at: nil)
+    conference.candidate = candidate
+    conference.company = company
+    conference.date = date
+    conference.horary = horary
+
+    conference.save!
+
+    expected_result = conference.start_at + 1.hour
+
+    result = conference.finish_at
+
+    expect(result).to eq(expected_result)
   end
 
   describe 'validates relationships' do

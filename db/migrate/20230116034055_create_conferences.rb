@@ -1,7 +1,8 @@
 class CreateConferences < ActiveRecord::Migration[6.1]
   def change
     create_table :conferences do |t|
-      t.datetime :date_time
+      t.datetime :start_at
+      t.datetime :finish_at
       t.string :afro_id
       t.string :reason
       t.text :description
