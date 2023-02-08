@@ -71,6 +71,10 @@ class Calendar
       event.ip_class    = IP_CLASS
     end
 
+    generate_ical_file!(calendar)
+  end
+
+  def generate_ical_file!(calendar)
     calendar.publish
 
     calendar.to_ical
