@@ -37,8 +37,6 @@ class ConferenceScheduleService
     end
   end
 
-  record :process_transition
-
   attr_reader :conference_afro_id, :filepath
 
   def initialize(conference_afro_id:)
@@ -87,6 +85,9 @@ class ConferenceScheduleService
       date: conference.start_at.strftime('%d/%m/%Y'),
       horary: conference.start_at.strftime('%H:%M')
     )
+  rescue StandardError
+    binding.pry
+    false
   end
 
   def candidate_name
