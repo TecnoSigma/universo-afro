@@ -86,7 +86,6 @@ class ConferenceScheduleService
       horary: conference.start_at.strftime('%H:%M')
     )
   rescue StandardError
-    binding.pry
     false
   end
 
