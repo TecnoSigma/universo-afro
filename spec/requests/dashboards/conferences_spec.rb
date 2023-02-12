@@ -42,8 +42,6 @@ RSpec.describe Dashboards::ConferencesController, type: :request do
           company = FactoryBot.create(:company)
           conference = FactoryBot.create(:conference, :pendent, company: company, candidate: candidate, reason: nil)
 
-          binding.pry
-
           patch "/dashboard/conference/refuse/#{conference.afro_id}"
 
           expect(flash[:notice]).to eq('Entrevista recusada!')

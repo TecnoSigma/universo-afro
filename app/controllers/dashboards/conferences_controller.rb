@@ -65,7 +65,7 @@ module Dashboards
       { date: converted_date(conference.start_at),
         horary: converted_horary(conference.start_at),
         reason: I18n.t('messages.informations.refused_by_candidate'),
-        status: Statuses::CONFERENCE.key(3).to_s }
+        status: :refused }
     end
   end
 end

@@ -32,14 +32,6 @@ class Conference < ApplicationRecord
 
   private
 
-  def refused?
-    status == Statuses::CONFERENCE.key(3).to_s
-  end
-
-  def cancelled?
-    status == Statuses::CONFERENCE.key(4).to_s
-  end
-
   def generate_date_time!
     converted_date_time = "#{date} #{horary}".to_datetime
 
