@@ -31,4 +31,12 @@ class ApplicationController < ActionController::Base
   def convert_to_bool(param)
     ActiveModel::Type::Boolean.new.cast(param)
   end
+
+  def converted_date(datetime)
+    datetime.strftime('%d/%m/%Y')
+  end
+
+  def converted_horary(datetime)
+    datetime.strftime('%H:%M')
+  end
 end

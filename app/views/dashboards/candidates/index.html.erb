@@ -49,10 +49,10 @@
                 <h5><%= conference.company.name %></h5>
                 <br>
                 <strong><%= t('.date_time') %></strong>
-                <span><%= convert_date_to_string(conference.date_time) %></span>
+                <span><%= convert_date_to_string(conference.start_at) %></span>
                 <br><br>
-                <%= link_to t('.accept_lnk'), login_path, class: 'btn btn-success' %>
-                <%= link_to t('.refuse_lnk'), login_path, class: 'btn btn-danger' %>
+                <%= link_to t('.accept_lnk'), accept_conference_path(conference.afro_id), method: :patch, class: 'btn btn-success' %>
+                <%= link_to t('.refuse_lnk'), refuse_conference_path(conference.afro_id), method: :patch, class: 'btn btn-danger' %>
                 <hr>
                 <%= form_with scope: :conference, method: :post, url: '/dashboard/candidature/cancel' do |form| %>
                   <div class="mb-3">

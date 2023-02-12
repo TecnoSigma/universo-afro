@@ -63,6 +63,8 @@ pt-BR:
       vacant_job_update: 'Erro na atualização da vaga!'
       vacant_job_cancelation: 'Erro ao cancelar vaga!'
       conference_creation: 'Erro ao criar entrevista!'
+      acceptance_conference: 'Falha em aceitar entrevista!'
+      refusal_conference: 'Falha em recusar entrevista!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
       update_data: 'Dados atualizados com sucesso!'
@@ -72,8 +74,11 @@ pt-BR:
       vacant_job_update: 'Vaga atualizada com sucesso!'
       vacant_job_cancelation: 'Vaga cancelada com sucesso!'
       conference_creation: 'Entrevista criada com sucesso!'
+      accepted_conference: 'Entrevista aceita!'
+      refused_conference: 'Entrevista recusada!'
     informations:
       without_conference_notifications: 'Nenhuma notificação até o momento!'
+      refused_by_candidate: 'Recusado pelo candidato'
   calendar:
     summary: 'Entrevista com a empresa %{company_name}'
   profile: 'Perfil: '

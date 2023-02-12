@@ -12,9 +12,11 @@ patch 'candidato/dashboard/update-access-data',            to: 'dashboards/candi
 patch 'candidato/dashboard/update-first-vacant-job-data',  to: 'dashboards/candidates#update_first_vacant_job_data'
 patch 'candidato/dashboard/update-second-vacant-job-data', to: 'dashboards/candidates#update_second_vacant_job_data'
 
-post 'dashboard/conference/create', to: 'dashboards/conferences#create'
+post  'dashboard/conference/create',                     to: 'dashboards/conferences#create'
+patch 'dashboard/conference/accept/:conference_afro_id', to: 'dashboards/conferences#accept', as: 'accept_conference'
+patch 'dashboard/conference/refuse/:conference_afro_id', to: 'dashboards/conferences#refuse', as: 'refuse_conference'
 
-post 'dashboard/candidature/apply', to: 'dashboards/candidatures#apply'
+post   'dashboard/candidature/apply',  to: 'dashboards/candidatures#apply'
 delete 'dashboard/candidature/cancel', to: 'dashboards/candidatures#cancel'
 
 get 'empresa/dashboard', to: 'dashboards/companies#index'
@@ -22,11 +24,11 @@ get 'empresa/dashboard', to: 'dashboards/companies#index'
 get 'empresa/dashboard/perfil-do-candidato/:candidate_name', to: 'dashboards/companies/candidates#profile',
                                                              as: 'candidate_profile'
 
-get 'empresa/dashboard/vaga/nova-vaga',                to: 'dashboards/companies/vacant_jobs#new'
-get 'empresa/dashboard/vaga/editar/:vacant_job_id',    to: 'dashboards/companies/vacant_jobs#edit',
+get    'empresa/dashboard/vaga/nova-vaga',             to: 'dashboards/companies/vacant_jobs#new'
+get    'empresa/dashboard/vaga/editar/:vacant_job_id', to: 'dashboards/companies/vacant_jobs#edit',
                                                        as: 'edit_company_vacant_job'
-post 'empresa/dashboard/vaga/create',                  to: 'dashboards/companies/vacant_jobs#create'
-patch 'empresa/dashboard/vaga/update',                 to: 'dashboards/companies/vacant_jobs#update'
+post   'empresa/dashboard/vaga/create',                to: 'dashboards/companies/vacant_jobs#create'
+patch  'empresa/dashboard/vaga/update',                to: 'dashboards/companies/vacant_jobs#update'
 delete 'empresa/dashboard/vaga/cancel/:vacant_job_id', to: 'dashboards/companies/vacant_jobs#cancel',
                                                        as: 'cancel_company_vacant_job'
 
