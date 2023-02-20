@@ -54,20 +54,6 @@
                 <%= link_to t('.accept_lnk'), accept_conference_path(conference.afro_id), method: :patch, class: 'btn btn-success' %>
                 <%= link_to t('.refuse_lnk'), refuse_conference_path(conference.afro_id), method: :patch, class: 'btn btn-danger' %>
                 <hr>
-                <%= form_with scope: :conference, method: :post, url: '/dashboard/candidature/cancel' do |form| %>
-                  <div class="mb-3">
-                    <label class="form-label"><%= t('.date') %></label>
-                    <%= form.text_field 'date', class: 'form-control', required: true, placeholder: 'dd/mm/aaaa' %>
-                  </div>
-                  <div class="mb-3">
-                    <label class="form-label"><%= t('.horary') %></label>
-                    <%= form.text_field 'horary', class: 'form-control', required: true, placeholder: '00:00' %>
-                    <small><%= t('.horary_format') %></small>
-                  </div>
-                  <br>
-                  <%= form.submit t('.new_date_time_btn'), class: 'btn btn-dark' %>
-                <% end %>
-                <br>
               </div>
             </div>
             <% end %>

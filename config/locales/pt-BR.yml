@@ -296,9 +296,6 @@ Brasileiro de Geografia e Estatística (IBGE).'
         accept_lnk: 'Aceitar'
         new_date_time_btn: 'Propor nova data/horário'
         refuse_lnk: 'Recusar'
-        date: 'Data'
-        horary: 'Horário'
-        horary_format: 'Utilize o formato 24 horas. Exemplo: 14:00'
       edit_avatar:
         update_btn: 'Atualizar foto'
       edit_personal_data:
