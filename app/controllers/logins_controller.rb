@@ -47,9 +47,8 @@ class LoginsController < ApplicationController
   end
 
   def sent_password?(password)
-    Notifications::SendPasswordService
-      .new(email: notifications_params[:email], password: password)
-      .deliver!
+    Notifications::SendPasswordJob
+      .perform_now(email: notifications_params[:email], password: password)
   end
 
   def user

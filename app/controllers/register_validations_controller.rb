@@ -72,11 +72,10 @@ class RegisterValidationsController < ApplicationController
   def send_email_verification_notification!(verification_code: session[:verification_code])
     return unless session[:user_data]
 
-    Notifications::Validations::CheckEmailService
-      .new(name: session[:user_data][:name] || session[:user_data][:first_name],
-           email: recipient_email,
-           verification_code: verification_code)
-      .deliver!
+    Notifications::CheckEmailJob
+      .perform_now(name: session[:user_data][:name] || session[:user_data][:first_name],
+                   email: recipient_email,
+                   verification_code: verification_code)
   end
 
   def recipient_email

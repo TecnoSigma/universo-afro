@@ -47,8 +47,7 @@ RSpec.describe RegisterValidationsController, type: :request do
     describe '#store_user_data' do
       context 'when password is valid' do
         it 'redirects to email confirmation page' do
-          allow(Notifications::Validations::CheckEmailService)
-            .to receive_message_chain(:new, :deliver!) { true }
+          allow(Notifications::CheckEmailJob).to receive(:perform_now) { true }
 
           post '/store_user_data',
             params: { user_data: { email: 'all@acme.com.br', password: '#*$*JJ#(23292' } }
@@ -159,8 +158,7 @@ RSpec.describe RegisterValidationsController, type: :request do
       it 'redirects to email confirmation page when notification is resent' do
         allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { user_data: { any_data: 'anything' } } }
-        allow(Notifications::Validations::CheckEmailService)
-          .to receive_message_chain(:new, :deliver!) { true }
+        allow(Notifications::CheckEmailJob).to receive(:perform_now) { true }
 
         post '/resend_verification_code'
 
@@ -170,8 +168,7 @@ RSpec.describe RegisterValidationsController, type: :request do
       it 'no redirects to email confirmation page when notification isn\'t resent' do
         allow_any_instance_of(ActionDispatch::Request)
             .to receive(:session) { { user_data: { any_data: 'anything' } } }
-        allow(Notifications::Validations::CheckEmailService)
-          .to receive_message_chain(:new, :deliver!) { false }
+        allow(Notifications::CheckEmailJob).to receive(:perform_now) { false }
 
         post '/resend_verification_code'
 

@@ -11,7 +11,7 @@ RSpec.describe ConferenceScheduleService do
       allow(Calendar)
         .to receive_message_chain(:new, :mount!) { { status: 201,
                                                      file_path: '/universo-afro/app/storage/calendars/1189898fda583b5a5e9d76efc33355710d83e495.ics' } }
-      allow(Notifications::SendConferenceInviteService).to receive_message_chain(:new, :deliver!) { true }
+      allow(Notifications::SendConferenceInviteJob).to receive(:perform_now) { true }
       allow(FileUtils).to receive(:rm_f) { nil }
       allow(File).to receive(:exist?) { false }
 
@@ -42,7 +42,7 @@ RSpec.describe ConferenceScheduleService do
       allow(Calendar)
         .to receive_message_chain(:new, :mount!) { { status: 201,
                                                      file_path: '/universo-afro/app/storage/calendars/1189898fda583b5a5e9d76efc33355710d83e495.ics' } }
-      allow(Notifications::SendConferenceInviteService).to receive_message_chain(:new, :deliver!) { false }
+      allow(Notifications::SendConferenceInviteJob).to receive(:perform_now) { false }
 
       conference_schedule_service = ConferenceScheduleService.new(conference_afro_id: conference.afro_id)
 
@@ -57,7 +57,7 @@ RSpec.describe ConferenceScheduleService do
       allow(Calendar)
         .to receive_message_chain(:new, :mount!) { { status: 201,
                                                      file_path: '/universo-afro/app/storage/calendars/1189898fda583b5a5e9d76efc33355710d83e495.ics' } }
-      allow(Notifications::SendConferenceInviteService).to receive_message_chain(:new, :deliver!) { false }
+      allow(Notifications::SendConferenceInviteJob).to receive(:perform_now) { false }
 
       conference_schedule_service = ConferenceScheduleService.new(conference_afro_id: conference.afro_id)
 
@@ -72,7 +72,7 @@ RSpec.describe ConferenceScheduleService do
       allow(Calendar)
         .to receive_message_chain(:new, :mount!) { { status: 201,
                                                      file_path: '/universo-afro/app/storage/calendars/1189898fda583b5a5e9d76efc33355710d83e495.ics' } }
-      allow(Notifications::SendConferenceInviteService).to receive_message_chain(:new, :deliver!) { true }
+      allow(Notifications::SendConferenceInviteJob).to receive(:perform_now) { true }
       allow(FileUtils).to receive(:rm_f) { nil }
       allow(File).to receive(:exist?) { true }
 

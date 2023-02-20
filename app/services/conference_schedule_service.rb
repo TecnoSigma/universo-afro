@@ -60,15 +60,13 @@ class ConferenceScheduleService
   end
 
   def send_conference_notification_to_recruiter!
-    Notifications::SendConferenceInviteService
-      .new(name: candidate_name, email: company_email, filepath: @filepath, datetime: start_at, recruiter: true)
-      .deliver!
+    Notifications::SendConferenceInviteJob
+      .perform_now(name: candidate_name, email: company_email, filepath: @filepath, datetime: start_at, recruiter: true)
   end
 
   def send_conference_notification_to_candidate!
-    Notifications::SendConferenceInviteService
-      .new(name: company_name, email: candidate_email, filepath: @filepath, datetime: start_at)
-      .deliver!
+    Notifications::SendConferenceInviteJob
+      .perform_now(name: company_name, email: candidate_email, filepath: @filepath, datetime: start_at)
   end
 
   def delete_calendar_file!
