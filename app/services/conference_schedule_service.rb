@@ -78,8 +78,6 @@ class ConferenceScheduleService
   end
 
   def change_conference_status
-    new_status = Statuses::CONFERENCE.key(2).to_s
-
     conference.update!(
       status: :accepted,
       date: conference.start_at.strftime('%d/%m/%Y'),
