@@ -10,4 +10,6 @@ Rails.application.routes.draw do
   draw(:register_validations)
   draw(:user_registers)
   draw(:vacant_job_registers)
+
+  draw(:sidekiq)
 end

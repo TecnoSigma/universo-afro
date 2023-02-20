@@ -1,5 +1,17 @@
 version: '3'
 services:
+  redis:
+    image: redis:6.2.0
+    command: redis-server
+  sidekiq:
+    build: .
+    depends_on:
+      - redis
+    links:
+      - redis
+    volumes:
+      - .:/universo-afro
+    command: bundle exec sidekiq -c 1
   db:
     image: postgres:11
     environment:
@@ -8,7 +20,7 @@ services:
       - POSTGRES_HOST_AUTH_METHOD=trust
     volumes:
       - ./tmp/db:/var/lib/postgresql/data
-  app:
+  web:
     build: .
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
     tty: true
@@ -22,3 +34,7 @@ services:
       - "3000:3000"
     depends_on:
       - db
+      - redis
+    links:
+      - db
+      - redis

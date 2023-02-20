@@ -23,9 +23,12 @@ gem 'jquery-mask-plugin'
 gem 'jquery-rails'
 gem 'nokogiri'
 gem 'recaptcha'
+gem 'redis'
+gem 'redis-namespace'
 gem 'repost'
 gem 'rest-client'
 gem 'sendgrid-ruby'
+gem 'sidekiq'
 gem 'strong_password', '~> 0.0.9'
 
 group :development, :test do
