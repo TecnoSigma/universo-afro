@@ -19,7 +19,11 @@ patch 'dashboard/conference/refuse/:conference_afro_id', to: 'dashboards/confere
 post   'dashboard/candidature/apply',  to: 'dashboards/candidatures#apply'
 delete 'dashboard/candidature/cancel', to: 'dashboards/candidatures#cancel'
 
-get 'empresa/dashboard', to: 'dashboards/companies#index'
+get 'empresa/dashboard',                        to: 'dashboards/companies#index'
+get 'empresa/dashboard/editar-perfil',          to: 'dashboards/companies#edit_profile'
+patch 'empresa/dashboard/update-avatar',        to: 'dashboards/companies#update_avatar'
+patch 'empresa/dashboard/update-personal-data', to: 'dashboards/companies#update_personal_data'
+patch 'empresa/dashboard/update-access-data',   to: 'dashboards/companies#update_access_data'
 
 get 'empresa/dashboard/perfil-do-candidato/:candidate_name', to: 'dashboards/companies/candidates#profile',
                                                              as: 'candidate_profile'

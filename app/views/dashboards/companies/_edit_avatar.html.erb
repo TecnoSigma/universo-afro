@@ -1,0 +1,20 @@
+<div class="card">
+  <div class="card-body">
+    <hr>
+    <div class="text-center">
+      <%= image_tag @company.avatar, class: 'avatar profile' %>
+      <br><br>
+      <%= form_with scope: 'company', method: :patch, url: '/empresa/dashboard/update-avatar' do |form| %>
+        <div class="mb-3">
+          <br>
+          <%= form.file_field 'avatar',
+                              class: 'form-control',
+                              accept: Avatar::CONTENT_TYPES %>
+        </div>
+        <br>
+        <%= form.submit t('.update_btn'), class: 'btn btn-dark' %>
+      <% end %>
+    </div>
+    <hr>
+  </div>
+</div>

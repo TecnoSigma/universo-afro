@@ -1,0 +1,21 @@
+<div class="card">
+  <h5 class="card-header">
+    <%= t('.access_data') %>
+  </h5>
+  <div class="card-body">
+    <p class="card-text">
+      <%= form_with scope: 'company', method: :patch, url: '/empresa/dashboard/update-access-data' do |form| %>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.password') %></label>
+          <%= form.password_field 'password', class: 'form-control', required: true, value: @company.password %>
+        </div>
+        <div class="mb-3">
+          <label class="form-label"><%= t('.confirm_password') %></label>
+          <%= form.password_field 'confirm_password', class: 'form-control', required: true %>
+        </div>
+        <br>
+        <%= form.submit t('.update_btn'), class: 'btn btn-dark' %>
+      <% end %>
+    </p>
+  </div>
+</div>

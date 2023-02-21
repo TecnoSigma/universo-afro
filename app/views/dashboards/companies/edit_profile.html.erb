@@ -1,0 +1,31 @@
+<br><br>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-10 offeset-sm-1 col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+      <%= render '/partials/logout' %>
+      <%= render '/partials/messages' %>
+      <div class="card">
+        <div class="card-body">
+          <hr>
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item active">
+                <%= link_to t('breadcrumbs.company.home'), empresa_dashboard_path %>
+              </li>
+              <li class="breadcrumb-item" aria-current="page">
+                <%= t('breadcrumbs.candidate.edit_profile') %>
+              </li>
+            </ol>
+          </nav>
+          <hr>
+        </div>
+      </div>
+      <br>
+      <%= render 'edit_avatar' %>
+      <br>
+      <%= render 'edit_personal_data', locals: { candidate: @user } %>
+      <br>
+      <%= render 'edit_access_data', locals: { candidate: @user } %>
+    </div>
+  </div>
+</div>

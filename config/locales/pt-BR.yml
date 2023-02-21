@@ -262,6 +262,27 @@ Brasileiro de Geografia e Estatística (IBGE).'
           city: 'Cidade'
           status: 'Status'
           update_vacant_job_btn: 'Atualizar vaga'
+      edit_avatar:
+        update_btn: 'Atualizar foto'
+      edit_personal_data:
+        personal_data: 'Dados pessoais'
+        name: 'Nome'
+        nickname: 'Apelido'
+        cnpj: 'CNPJ'
+        email: 'Email'
+        address: 'Endereço'
+        number: 'Número'
+        complement: 'Complemento'
+        district: 'Bairro'
+        postal_code: 'CEP'
+        state: 'Estado'
+        city: 'Cidade'
+        update_btn: 'Atualizar'
+      edit_access_data:
+        access_data: 'Dados de acesso'
+        password: 'Senha'
+        confirm_password: 'Confirmar senha'
+        update_btn: 'Atualizar'
       candidates:
         profile:
           email: 'Email'

@@ -1,0 +1,64 @@
+<div class="card">
+  <h5 class="card-header">
+    <%= t('.personal_data') %>
+  </h5>
+  <div class="card-body">
+    <p class="card-text">
+    <%= form_with scope: 'company', method: :patch, url: '/empresa/dashboard/update-personal-data' do |form| %>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.name') %></label>
+        <%= form.text_field 'name', class: 'form-control', required: true, value: @company.name %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.nickname') %></label>
+        <%= form.text_field 'nickname', class: 'form-control', required: true, value: @company.nickname %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.cnpj') %></label>
+        <%= form.text_field 'cnpj', class: 'form-control', required: true, value: @company.cnpj %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.email') %></label>
+        <%= form.text_field 'email', class: 'form-control', required: true, value: @company.email %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.address') %></label>
+        <%= form.text_field 'address', class: 'form-control', required: true, value: @company.address %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.number') %></label>
+        <%= form.text_field 'number', class: 'form-control', required: true, value: @company.number %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.complement') %></label>
+        <%= form.text_field 'complement', class: 'form-control', required: true, value: @company.complement %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.district') %></label>
+        <%= form.text_field 'district', class: 'form-control', required: true, value: @company.district %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.postal_code') %></label>
+        <%= form.text_field 'postal_code', class: 'form-control', required: true, value: @company.postal_code %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.state') %></label>
+        <%= form.select 'state',
+                        options_for_select(State.all.pluck(:name), @company.state),
+                        {},
+                        class: 'form-select',
+                        required: true,
+                        onchange: "listCities($(this).val(), document.getElementById('company_city'))" %>
+      </div>
+      <div class="mb-3">
+        <label class="form-label"><%= t('.city') %></label>
+        <%= form.select 'city',
+                        options_for_select([@company.city]),
+                        { include_blank: false },
+                        class: 'form-select' %>
+      </div>
+      <br>
+      <%= form.submit t('.update_btn'), class: 'btn btn-dark' %>
+    <% end %>
+  </div>
+</div>
