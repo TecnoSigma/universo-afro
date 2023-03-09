@@ -24,6 +24,8 @@ pt-BR:
       home: 'Home'
       new_vacant_job: 'Nova vaga'
       edit_vacant_job: 'Editar vaga'
+  billing:
+    description: 'Pagamento de assinatura periódica'
   notifications:
     validations:
       check_email:
@@ -65,6 +67,7 @@ pt-BR:
       conference_creation: 'Erro ao criar entrevista!'
       acceptance_conference: 'Falha em aceitar entrevista!'
       refusal_conference: 'Falha em recusar entrevista!'
+      plan_creation: 'Falha ao criar plano!'
     successes:
       sent_password: 'Senha enviada com sucesso!'
       update_data: 'Dados atualizados com sucesso!'

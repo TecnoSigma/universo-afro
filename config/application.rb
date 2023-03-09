@@ -15,8 +15,11 @@ module UniversoAfro
 
     config.active_job.queue_adapter = :sidekiq
 
+    config.autoloader = :classic
+
     config.autoload_paths += %W[
       #{config.root}/lib
+      #{config.root}/app/builders
       #{config.root}/app/exceptions
       #{config.root}/app/presenters
       #{config.root}/app/services

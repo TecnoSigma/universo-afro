@@ -112,7 +112,10 @@ ActiveRecord::Schema.define(version: 2023_02_27_103824) do
 
   create_table "plans", force: :cascade do |t|
     t.string "name"
-    t.string "status"
+    t.string "reference"
+    t.float "price"
+    t.string "code"
+    t.integer "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

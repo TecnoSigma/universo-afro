@@ -11,7 +11,7 @@ services:
       - redis
     volumes:
       - .:/universo-afro
-    command: bundle exec sidekiq -c 1 -q notification
+    command: bundle exec sidekiq -c 1 -q notification -q financial
   db:
     image: postgres:11
     environment:

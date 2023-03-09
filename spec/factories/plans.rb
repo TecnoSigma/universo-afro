@@ -1,21 +1,19 @@
 FactoryBot.define do
   factory :plan do
-    name { Faker::Lorem.word  }
-
-    trait :pendent do
-      status { Statuses::PLAN[:pendent] }
-    end
+    name { Faker::Lorem.word }
+    reference { Faker::Lorem.word }
+    price { Faker::Number.decimal(l_digits: 2) }
 
     trait :activated do
-      status { Statuses::PLAN[:activated] }
+      status { :activated }
     end
 
     trait :deactivated do
-      status { Statuses::PLAN[:deactivated] }
+      status { :deactivated }
     end
 
     trait :cancelled do
-      status { Statuses::PLAN[:cancelled] }
+      status { :expected }
     end
   end
 end
