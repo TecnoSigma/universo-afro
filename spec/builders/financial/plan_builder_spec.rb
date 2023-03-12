@@ -11,7 +11,12 @@ RSpec.describe Financial::PlanBuilder do
 
       result = described_class.new(name: name, reference: reference, price: price).mount
 
-      expected_result = "{\"reference\":\"#{reference}\",\"preApproval\":{\"name\":\"#{name}\",\"charge\":\"AUTO\",\"period\":\"MONTHLY\",\"amountPerPayment\":\"#{price}\"}}"
+      expected_result = { preApproval: {
+                            amountPerPayment: '10.9',
+                            charge: 'AUTO',
+                            name: 'Plano Básico',
+                            period: 'MONTHLY' },
+                          reference: 'basic'}
 
       expect(result).to eq(expected_result)
     end

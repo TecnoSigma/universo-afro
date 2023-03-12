@@ -16,7 +16,7 @@ module Financial
         preApproval: { name: name,
                        charge: ::Plan::CHARGE,
                        period: ::Plan::PERIOD,
-                       amountPerPayment: price.to_s } }.to_json
+                       amountPerPayment: price.to_s } }
     end
   end
 end

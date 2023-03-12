@@ -19,6 +19,7 @@ module UniversoAfro
 
     config.autoload_paths += %W[
       #{config.root}/lib
+      #{config.root}/app/adapters
       #{config.root}/app/builders
       #{config.root}/app/exceptions
       #{config.root}/app/presenters
