@@ -1,0 +1,44 @@
+@startuml
+  !include https://raw.githubusercontent.com/adrianvlupu/C4-PlantUML/latest/C4_Component.puml
+!define SPRITESURL https://raw.githubusercontent.com/plantuml-stdlib/gilbarbara-plantuml-sprites/v1.1/sprites
+!define FONTAWESOME https://raw.githubusercontent.com/tupadr3/plantuml-icon-font-sprites/master/font-awesome-5
+
+  !include FONTAWESOME/users.puml
+
+  hide stereotype
+
+  scale 2.0
+
+  title "\n**Projeto Universo Afro**\n"
+
+  Boundary(personas, " ") {
+    Person(candidate, "Candidate", $sprite="users")
+    Person(company, "Company", " ")
+    Person(school, "School", " ")
+  }
+
+  Boundary(core, " ") {
+    System(site, "Site", " ")
+    System(checkout, "Checkout", " ")
+
+    Boundary(databases, "Databases") {
+
+    }
+    Boundary(opportunities, "Opportunities") {
+
+    }
+    Boundary(qualifications, "Qualifications") {
+
+    }
+  }
+
+  Rel(site, checkout, " ")
+  Rel(checkout, qualifications, " ")
+  Rel(checkout, opportunities, " ")
+  Rel(candidate, databases, " ")
+  Rel(candidate, opportunities, " ")
+  Rel(candidate, qualifications, " ")
+  Rel(company, opportunities, " ")
+  Rel(school, qualifications, " ")
+@enduml
+

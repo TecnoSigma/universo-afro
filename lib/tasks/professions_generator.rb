@@ -1,16 +1,11 @@
 # frozen_string_literal: true
 
-require 'nokogiri'
-require 'open-uri'
+require 'csv'
 
 module Tasks
   # Tasks responsible by create professions
   class ProfessionsGenerator
     class << self
-      ALPHABET = %w[a b c d e f g h i j k l m n o p q r s t u v w x y z].freeze
-
-      private_constant :ALPHABET
-
       def call!
         clear_tables!
         generate_profession!
@@ -27,42 +22,18 @@ module Tasks
       end
 
       def generate_profession!
-        professions = []
+        CSV.foreach(Rails.root.join('storage', 'professions.csv')) do |profession|
+          Profession.create!(name: profession.first)
 
-        ALPHABET.each do |letter|
-          professions << get_professions(letter)
-
-          puts "--- Professions with #{letter} collected!"
+          puts "-- #{profession.first} created!"
         end
-
-        create_professions(professions)
 
         puts "-- #{Profession.count} professions created!"
 
         true
       end
-
-      def create_professions(professions_list)
-        professions_list.flatten.uniq.sort.each do |profession|
-          Profession.create!(name: profession)
-
-          puts "--- Profession of #{profession} created!"
-        end
-      end
-
-      def get_professions(letter)
-        doc = Nokogiri::HTML(URI.open("https://www.catho.com.br/profissoes/cargo/#{letter}/"))
-
-        JSON
-          .parse(doc.children.children.children.children.last)['props']['pageProps']['professions']
-          .pluck('name')
-      rescue OpenURI::HTTPError
-        []
-      end
     end
 
-    private_class_method :clear_tables!,
-                         :generate_profession!,
-                         :get_professions
+    private_class_method :clear_tables!
   end
 end
