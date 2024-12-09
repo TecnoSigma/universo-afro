@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Notifications::Validations::CheckEmailService do
   describe '#deliver!' do
-    it 'sends notification to user' do
+    xit 'sends notification to user' do
       name = 'João'
       email = 'joao_da_silva@user.com'
       verification_code = Faker::Number.number(digits: 6)

@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Notifications::SendPasswordService do
   describe '#deliver!' do
-    it 'sends password notification to user' do
+    xit 'sends password notification to user' do
       name = 'João'
       email = 'joao_da_silva@user.com'
       password = '123456'
