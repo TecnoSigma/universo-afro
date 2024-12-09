@@ -1,4 +1,4 @@
-FROM ruby:3.0.4
+FROM ruby:3.3
 RUN apt install curl
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
 RUN apt-get update -qq && apt-get install -y nodejs && apt-get install -y build-essential && apt-get install -y libpq-dev
