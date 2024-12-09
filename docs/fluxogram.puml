@@ -1,0 +1,56 @@
+@startuml
+title "Universo Afro\n(Empresa)"
+start
+:Acessa site;
+if (Possui casdastro?) then (sim)
+        :Acessa tela de login;
+        if (Sabe os dados de acesso?) then (sim)
+                :Informa dados de acesso;
+                if (Dados de acesso corretos?) then (sim)
+                        :Acessa dashboard;
+                        stop
+                else (não)
+                        :Exibe mensagem de erro;
+                        stop
+                endif
+        else (não)
+                :Solicita recuperação de senha;
+                if (Email correto?) then (sim)
+                        :Envia email com link de recuperação;
+                        :Acessa link de recuperação;
+                        if (Link correto?) then (sim)
+                                :Redireciona para tela de redefinição de senha;
+                                stop
+                        else (não)
+                                :Exibe mensagem de erro;
+                                stop
+                        endif
+                else (não)
+                        :Exibe mensagem de erro;
+                        stop
+                endif
+        endif
+else (não)
+        :Cria cadastro;
+        if (Cadastro criado com sucesso?) then (sim)
+                :Acessa dashboard;
+                fork
+                        :Dados cadastrais;
+                        :A;
+                fork again
+                        :Dados de cobrança;
+                        :B;
+                fork again
+                        :Controle de vagas;
+                        :C;
+                fork again
+                        :Controle de  candidatos;
+                        :D;
+                end merge;
+                stop
+        else (não)
+                :Exibe mensagem de erro;
+                stop
+        endif
+endif
+@enduml
