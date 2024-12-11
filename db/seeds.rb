@@ -29,6 +29,22 @@ Credit.create(url: 'https://www.flaticon.com/free-icons/user',
               title: 'user icons',
               description: 'User icons created by Freepik - Flaticon')
 
+Credit.create(url: 'https://www.flaticon.com/br/icones-gratis/do-utilizador',
+              title: 'user',
+              description: 'User icons created by Freepik - Flaticon')
+
+Credit.create(url: 'https://www.flaticon.com/br/icones-gratis/companhia',
+              title: 'company',
+              description: 'User icons created by Freepik - Flaticon')
+
+Credit.create(url: 'https://www.flaticon.com/br/icones-gratis/contrato',
+              title: 'contract',
+              description: 'User icons created by Freepik - Flaticon')
+
+Credit.create(url: 'https://www.flaticon.com/br/icones-gratis/clipe-de-papel',
+              title: 'paperclip',
+              description: 'User icons created by Freepik - Flaticon')
+
 # Create States and Cities
 Tasks::PlacesGenerator.call!
 # State.create(name: 'São Paulo', external_id: 1)
